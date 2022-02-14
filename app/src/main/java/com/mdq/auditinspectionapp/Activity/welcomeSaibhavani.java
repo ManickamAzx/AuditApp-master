@@ -1,0 +1,64 @@
+package com.mdq.auditinspectionapp.Activity;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
+
+import android.content.Intent;
+import android.os.Build;
+import android.os.Bundle;
+import android.view.View;
+import android.view.WindowManager;
+
+import com.mdq.auditinspectionapp.R;
+import com.mdq.auditinspectionapp.databinding.ActivityWelcomeSaibhavaniBinding;
+
+public class welcomeSaibhavani extends AppCompatActivity {
+
+    CardView cardProduct;
+    ActivityWelcomeSaibhavaniBinding aw;
+    int dpid=0;
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        aw=ActivityWelcomeSaibhavaniBinding.inflate(getLayoutInflater());
+        setContentView(aw.getRoot());
+        cardProduct=findViewById(R.id.CardProduct);
+        //making status bar color as transparent
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+            getWindow().clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        }
+        else {
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        }
+        Intent intent=getIntent();
+        String name=intent.getStringExtra("name");
+        dpid=intent.getIntExtra("dpid",0);
+        aw.welcomeText.setText("welcome "+name);
+
+        aw.inspections.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(welcomeSaibhavani.this, TransactionProductUpdate.class);
+                intent.putExtra("name",name);
+                intent.putExtra("dpid",dpid);
+                startActivity(intent);
+            }
+        });
+        cardProduct.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(welcomeSaibhavani.this, TransactionProductUpdate.class);
+                intent.putExtra("name",name);
+                startActivity(intent);
+            }
+        });
+        aw.LogOut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(welcomeSaibhavani.this, LoginActivity.class));
+                finishAffinity();
+            }
+        });
+    }
+}

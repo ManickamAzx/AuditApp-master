@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.mdq.auditinspectionapp">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <application
+        android:allowBackup="true"
+        android:hardwareAccelerated="true"
+        android:icon="@drawable/ic_audit_inspection"
+        android:label="@string/app_name"
+        android:roundIcon="@drawable/ic_audit_inspection"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.AuditInspectionApp"
+        android:usesCleartextTraffic="true">
+        <activity
+            android:name=".Activity.NoDataActivity"
+            android:exported="true" />
+        <activity
+            android:name=".Activity.FinalReportScreen"
+            android:exported="true" />
+        <activity
+            android:name=".Activity.FinalInspectionScreen"
+            android:exported="true" />
+        <activity
+            android:name=".Activity.FinalProductionUpdate"
+            android:exported="true"></activity>
+        <activity
+            android:name=".Activity.TransactionProductUpdate"
+            android:exported="true"></activity>
+        <activity
+            android:name=".Activity.welcomeScreen"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".Activity.welcomeSaibhavani"
+            android:exported="true" />
+        <activity
+            android:name=".Activity.LoginActivity"
+            android:exported="true" />
+
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
+    </application>
+
+</manifest>
