@@ -43,13 +43,13 @@ import java.util.Calendar;
 public class FinalProductionUpdate extends AppCompatActivity implements FinalInvoiceResponseInterface, ShipModeResponseInterface , UpdateProductionResponseInterface {
     LinearLayout back;
     ImageView datepicker;
-    TextView textView;
+    TextView textView,prev,next;
     GenerateFinalInvoiceResponseModel generateFinalInvoiceRequestModel;
     ActivityFinalProductionScreenBinding ap;
     FinalInvoiceViewModel finalInvoiceViewModel;
     GenerateFinalInvoiceResponseModel generateFinalInvoiceResponseModel;
     String piNo;
-    String from,to,orderStatus,SourceFlag;int SourceId,getId=0;
+    String from,to,orderStatus,SourceFlag;int SourceId,getId=0,totalgetid=0;
     ArrayAdapter<String> arrayAdapter;
     String[] ShipModeArray;
     int ShipId=0;
@@ -68,9 +68,14 @@ public class FinalProductionUpdate extends AppCompatActivity implements FinalInv
         back=findViewById(R.id.linearBack);
         datepicker=findViewById(R.id.date_picker);
         textView=findViewById(R.id.datetext);
+        prev=findViewById(R.id.PREV);
+        next=findViewById(R.id.NEXT);
+
 
         shipModeRequestViewModel=new ShipModeRequestViewModel(getApplicationContext(),this);
         shipModeRequestViewModel.generateShipModeRequest();
+
+        ap.names.setText("Welcome "+getPreferenceManager().getPrefUsername());
 
         ap.dispatch.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -78,6 +83,7 @@ public class FinalProductionUpdate extends AppCompatActivity implements FinalInv
                 ap.dispatch.showDropDown();
             }
         });
+
         ap.dispatch.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -113,12 +119,13 @@ public class FinalProductionUpdate extends AppCompatActivity implements FinalInv
             }
         }
 
+
         ap.PREV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 getId=getId-1;
                 FinalInvoice(generateFinalInvoiceResponseModel,2);
-//                ap.PREV.setClickable(false);
+                diable();
             }
         });
 
@@ -127,8 +134,8 @@ public class FinalProductionUpdate extends AppCompatActivity implements FinalInv
                 public void onClick(View v) {
                     getId = getId + 1;
                     FinalInvoice(generateFinalInvoiceResponseModel, 1);
-//                        ap.NEXT.setClickable(false);
-                    }
+                    diable();
+                }
             });
 
             ap.FORECASTDELDATE.setOnClickListener(new View.OnClickListener() {
@@ -154,6 +161,7 @@ public class FinalProductionUpdate extends AppCompatActivity implements FinalInv
                             String dates=year+"-"+mm+"-"+dd;
                             ap.FORECASTDELDATE.setText(dates);
                         }
+
                     },years,months,days);
                     int positiveColor = ContextCompat.getColor(FinalProductionUpdate.this, R.color.black);
                     int negativeColor = ContextCompat.getColor(FinalProductionUpdate.this, R.color.black);
@@ -161,7 +169,6 @@ public class FinalProductionUpdate extends AppCompatActivity implements FinalInv
                     datePickerDialog.show();
                     datePickerDialog.getButton(DatePickerDialog.BUTTON_POSITIVE).setTextColor(positiveColor);
                     datePickerDialog.getButton(DatePickerDialog.BUTTON_NEGATIVE).setTextColor(negativeColor);
-
                 }
             });
 
@@ -183,7 +190,6 @@ public class FinalProductionUpdate extends AppCompatActivity implements FinalInv
            finalInvoiceViewModel.generateFinalVoiceRequest();
            ap.outForeUntil.setText(to);
            ap.piNo.setText(piNo);
-
        }
 
        ap.SAVE.setOnClickListener(new View.OnClickListener() {
@@ -202,6 +208,21 @@ public class FinalProductionUpdate extends AppCompatActivity implements FinalInv
            }
        });
 
+    }
+
+    private void diable() {
+
+        if(getId==0){
+            prev.setEnabled(false);
+        }else{
+            prev.setEnabled(true);
+        }
+
+        if(getId==totalgetid-1){
+            next.setEnabled(false);
+        }else{
+            next.setEnabled(true);
+        }
     }
 
     private void setClick() {
@@ -264,6 +285,7 @@ public class FinalProductionUpdate extends AppCompatActivity implements FinalInv
         ap.PREV.setClickable(true);
         ap.NEXT.setClickable(true);
         if(generateFinalInvoiceResponseModel!=null){
+            totalgetid=generateFinalInvoiceResponseModel.getResponse().size();
             FinalInvoice(generateFinalInvoiceResponseModel,0);
             this.generateFinalInvoiceResponseModel=generateFinalInvoiceResponseModel;
         }
@@ -276,7 +298,6 @@ public class FinalProductionUpdate extends AppCompatActivity implements FinalInv
             ap.NEXT.setClickable(true);
             if (ap.NEXT.isClickable() == true) {
                 Log.i("MyButton", "Clickable is true");
-
             }
 
         }
@@ -369,16 +390,14 @@ public class FinalProductionUpdate extends AppCompatActivity implements FinalInv
                     ap.STYLENAME.setText("NO DATA");
                 }
             }else{
-
 //                startActivity(new Intent(getApplicationContext(),NoDataActivity.class));
 //                finish();
-                                logout();
+                logout();
             }
         }catch (Exception e){
 
         }
     }
-
     private void logout() {
         bachi=1;
         Dialog dialoglogout = new Dialog(this, R.style.dialog_center);

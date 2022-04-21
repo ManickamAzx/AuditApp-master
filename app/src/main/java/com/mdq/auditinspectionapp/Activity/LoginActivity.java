@@ -140,21 +140,20 @@ public class LoginActivity extends AppCompatActivity implements LoginResponseInt
                intent.putExtra("dpid",dpid);
                startActivity(intent);
                finishAffinity();
+               preferenceManager.setPrefUsername(generateLoginResponseModel.getResponse().getName());
                Toast.makeText(getApplicationContext(), "Login Successful", Toast.LENGTH_SHORT).show();
-
        }
     }
-
     @Override
     public void onFailure(ErrorBody errorBody, int statusCode) {
         activityMainBinding.Progress.setVisibility(View.GONE);
 
     }
+
     /**
      * @return
      * @brief initializing the preferenceManager from shared preference for local use in this activity
      */
-
     public PreferenceManager getPreferenceManager() {
         if (preferenceManager == null) {
             preferenceManager = PreferenceManager.getInstance();

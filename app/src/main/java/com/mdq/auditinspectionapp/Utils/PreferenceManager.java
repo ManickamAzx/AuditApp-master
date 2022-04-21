@@ -16,16 +16,15 @@ public class PreferenceManager {
     //For storing token
     private static final String PREF_TOKEN = "PREF_TOKEN";
 
-
     //For Storing account login or not
     private static final String PREF_IS_LOGGED_IN = "PREF_IS_LOGGED_IN";
 
     //For Storing user name
     private static final String PREF_NAME = "PREF_MYFINALYST";
 
-
     private static final String PREF_INVOICE = "PREF_INVOICE";
 
+    private static final String PREF_USERNAME = "PREF_USERNAME";
 
     private static PreferenceManager mInstance;
     public void initialize(Context context) {
@@ -44,7 +43,6 @@ public class PreferenceManager {
     private PreferenceManager() {
     }
 
-
     public void clearPreference() {
         //editor.clear();
         editor.remove(PREF_IS_LOGGED_IN);
@@ -61,6 +59,15 @@ public class PreferenceManager {
         return sharedPreferences.getString(PREF_TOKEN, null);
     }
 
+    public void setPrefUsername(String Token) {
+        editor.putString(PREF_USERNAME, Token);
+        editor.commit();
+    }
+
+    public String getPrefUsername() {
+        return sharedPreferences.getString(PREF_USERNAME, null);
+    }
+
      public void setPrefInvoice(GenerateFinalInvoiceRequestModel Token) {
 //        editor.(PREF_TOKEN, Token);
         editor.commit();
@@ -69,7 +76,5 @@ public class PreferenceManager {
     public String getPrefInvoice() {
         return sharedPreferences.getString(PREF_TOKEN, null);
     }
-
-
 
 }

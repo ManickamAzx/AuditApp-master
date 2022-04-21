@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.WindowManager;
 
 import com.mdq.auditinspectionapp.R;
+import com.mdq.auditinspectionapp.Utils.PreferenceManager;
 import com.mdq.auditinspectionapp.databinding.ActivityWelcomeSaibhavaniBinding;
 
 public class welcomeSaibhavani extends AppCompatActivity {
@@ -17,6 +18,8 @@ public class welcomeSaibhavani extends AppCompatActivity {
     CardView cardProduct;
     ActivityWelcomeSaibhavaniBinding aw;
     int dpid=0;
+    PreferenceManager preferenceManager;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,7 +37,7 @@ public class welcomeSaibhavani extends AppCompatActivity {
         Intent intent=getIntent();
         String name=intent.getStringExtra("name");
         dpid=intent.getIntExtra("dpid",0);
-        aw.welcomeText.setText("welcome "+name);
+        aw.welcomeText.setText("welcome "+getPreferenceManager().getPrefUsername());
 
         aw.inspections.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -60,5 +63,17 @@ public class welcomeSaibhavani extends AppCompatActivity {
                 finishAffinity();
             }
         });
+    }
+    /**
+     * @return
+     * @brief initializing the preferenceManager from shared preference for local use in this activity
+     */
+
+    public PreferenceManager getPreferenceManager() {
+        if (preferenceManager == null) {
+            preferenceManager = PreferenceManager.getInstance();
+            preferenceManager.initialize(getApplicationContext());
+        }
+        return preferenceManager;
     }
 }

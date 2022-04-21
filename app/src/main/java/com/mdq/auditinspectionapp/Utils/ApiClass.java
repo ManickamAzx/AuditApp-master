@@ -5,7 +5,8 @@ public class ApiClass {
     public ApiClass(){ }
 
 //    public static final String BASE_URL = "http://13.233.58.19/my-api/";
-    public static final String BASE_URL = "https://demo.azonix.in:10555/auditapp/";
+    public static final String BASE_URL = "https://demo.azonix.in:10555/";
+//    https://demo.azonix.in:10555/swagger/index.html
     public static final String LOGIN = "account/login";
     public static final String SOURCE = "master/get-sources";
     public static final String SEASON = "master/get-seasons";
@@ -18,6 +19,5 @@ public class ApiClass {
     public static String QCNAME= "invoice/get-qcname-list/";
     public static String UPDATEPRODUCTION= "invoice/update-productiondetails";
     public static String UPDATEINSPECTION= "invoice/update-inspectiondetails";
-
 
 }

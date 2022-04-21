@@ -113,7 +113,7 @@ public class TransactionProductUpdate extends AppCompatActivity implements Sourc
         if(dpid!=0){
             at.textProductupdate.setText("INSPECTION UPDATE");
         }
-        at.welcomeText.setText("welcome "+names);
+        at.welcomeText.setText("welcome "+getPreferenceManager().getPrefUsername());
         //making status bar color as transparent
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             getWindow().addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
@@ -121,9 +121,7 @@ public class TransactionProductUpdate extends AppCompatActivity implements Sourc
         } else {
             getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         }
-
         calingApi();
-
 
         at.SeasonAuto.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -143,7 +141,6 @@ public class TransactionProductUpdate extends AppCompatActivity implements Sourc
                 SeasonAuto.showDropDown();
             }
         });
-
         at.SourceLinear.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -151,12 +148,10 @@ public class TransactionProductUpdate extends AppCompatActivity implements Sourc
             }
         });
 
-
         SourceAuto.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                     sourceNum=position+1;
-
             }
         });
 
@@ -164,7 +159,6 @@ public class TransactionProductUpdate extends AppCompatActivity implements Sourc
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                     SeasonNum=position+1;
-
             }
         });
         BrandAuto.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -597,4 +591,6 @@ public class TransactionProductUpdate extends AppCompatActivity implements Sourc
     public void onBackPressed() {
         finishAffinity();
     }
+
+
 }
