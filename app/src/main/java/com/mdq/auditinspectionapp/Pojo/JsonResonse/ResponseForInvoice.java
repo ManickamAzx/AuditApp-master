@@ -5,28 +5,28 @@ import com.google.gson.annotations.SerializedName;
 
 public class ResponseForInvoice {
 
-    @SerializedName("invoidNo")
+    @SerializedName("invoiceNo")
     @Expose
-    public String invoidNo;
+    public String invoiceNo;
+
+    @SerializedName("invoiceDate")
+    @Expose
+    public String invoiceDate;
 
     public String getInvoidNo() {
-        return invoidNo;
+        return invoiceNo;
     }
 
-    public void setInvoidNo(String invoidNo) {
-        this.invoidNo = invoidNo;
+    public void setInvoiceNo(String invoiceNo) {
+        this.invoiceNo = invoiceNo;
     }
 
     public String getInvoidDate() {
-        return invoidDate;
+        return invoiceDate;
     }
 
-    public void setInvoidDate(String invoidDate) {
-        this.invoidDate = invoidDate;
+    public void setInvoiceDate(String invoiceDate) {
+        this.invoiceDate = invoiceDate;
     }
-
-    @SerializedName("invoidDate")
-    @Expose
-    public String invoidDate;
 
 }

@@ -9,25 +9,29 @@ public class ResponseForLogin {
     @Expose
     public String token;
 
-
     @SerializedName("tokenExpiry")
     @Expose
     public String tokenExpiry;
-
 
     @SerializedName("refreshToken")
     @Expose
     public String refreshToken;
 
-
-    @SerializedName("id")
+    @SerializedName("userId")
     @Expose
-    public String id;
+    public String userId;
 
+    @SerializedName("email")
+    @Expose
+    public String email;
 
     @SerializedName("name")
     @Expose
     public String name;
+
+    @SerializedName("departmentId")
+    @Expose
+    public String departmentId;
 
     public String getDepartmentId() {
         return departmentId;
@@ -36,11 +40,6 @@ public class ResponseForLogin {
     public void setDepartmentId(String departmentId) {
         this.departmentId = departmentId;
     }
-
-    @SerializedName("departmentId")
-    @Expose
-    public String departmentId;
-
 
     public String getToken() {
         return token;
@@ -67,11 +66,11 @@ public class ResponseForLogin {
     }
 
     public String getId() {
-        return id;
+        return userId;
     }
 
     public void setId(String id) {
-        this.id = id;
+        this.userId = id;
     }
 
     public String getName() {
@@ -89,9 +88,5 @@ public class ResponseForLogin {
     public void setEmail(String email) {
         this.email = email;
     }
-
-    @SerializedName("email")
-    @Expose
-    public String email;
 
 }

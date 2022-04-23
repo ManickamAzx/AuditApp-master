@@ -1,10 +1,12 @@
 package com.mdq.auditinspectionapp.Activity;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.app.TimePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
@@ -19,6 +21,7 @@ import android.widget.DatePicker;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.mdq.auditinspectionapp.Interfaces.ViewResponceInterface.FinalInvoiceResponseInterface;
@@ -38,7 +41,13 @@ import com.mdq.auditinspectionapp.databinding.ActivityFinalProductionScreenBindi
 import com.mdq.auditinspectionapp.enums.MessageViewType;
 import com.mdq.auditinspectionapp.enums.ViewType;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.Calendar;
+import java.util.Locale;
 
 public class FinalProductionUpdate extends AppCompatActivity implements FinalInvoiceResponseInterface, ShipModeResponseInterface , UpdateProductionResponseInterface {
     LinearLayout back;
@@ -58,6 +67,7 @@ public class FinalProductionUpdate extends AppCompatActivity implements FinalInv
     GenerateShipModeResponseModel generateShipModeResponseModel;
     int bachi=0;
     PreferenceManager preferenceManager;
+    DatePickerDialog datePickerDialog;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -70,7 +80,6 @@ public class FinalProductionUpdate extends AppCompatActivity implements FinalInv
         textView=findViewById(R.id.datetext);
         prev=findViewById(R.id.PREV);
         next=findViewById(R.id.NEXT);
-
 
         shipModeRequestViewModel=new ShipModeRequestViewModel(getApplicationContext(),this);
         shipModeRequestViewModel.generateShipModeRequest();
@@ -147,7 +156,7 @@ public class FinalProductionUpdate extends AppCompatActivity implements FinalInv
                     int months=calendar.get(Calendar.MONTH);
                     int days=calendar.get(Calendar.DAY_OF_MONTH);
 
-                    DatePickerDialog datePickerDialog=new DatePickerDialog(FinalProductionUpdate.this, new DatePickerDialog.OnDateSetListener() {
+                    datePickerDialog=new DatePickerDialog(FinalProductionUpdate.this, new DatePickerDialog.OnDateSetListener() {
                         @Override
                         public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                             month=month+1;
@@ -160,6 +169,7 @@ public class FinalProductionUpdate extends AppCompatActivity implements FinalInv
                             }
                             String dates=year+"-"+mm+"-"+dd;
                             ap.FORECASTDELDATE.setText(dates);
+                            time();
                         }
 
                     },years,months,days);
@@ -193,20 +203,70 @@ public class FinalProductionUpdate extends AppCompatActivity implements FinalInv
        }
 
        ap.SAVE.setOnClickListener(new View.OnClickListener() {
+           @RequiresApi(api = Build.VERSION_CODES.O)
            @Override
            public void onClick(View v) {
-               updateProductionRequestViewModel.custOrderNo=generateFinalInvoiceResponseModel.getResponse().get(getId).getCustOrderNo();
-               updateProductionRequestViewModel.dispatchModeId= Integer.parseInt(generateShipModeResponseModel.getResponse().get(ShipId).getModeId());
-               updateProductionRequestViewModel.foreCastDelDate=ap.FORECASTDELDATE.getText().toString();
-               updateProductionRequestViewModel.pgmCode=generateFinalInvoiceResponseModel.getResponse().get(getId).getPgmCode();
-               updateProductionRequestViewModel.remarks=ap.REMARKS.getText().toString();
-               updateProductionRequestViewModel.sourceFlag=generateFinalInvoiceResponseModel.getResponse().get(getId).getSourceFlag();
-               updateProductionRequestViewModel.sourceId=generateFinalInvoiceResponseModel.getResponse().get(getId).getSourceId();
-               updateProductionRequestViewModel.styleId= Integer.parseInt(generateFinalInvoiceResponseModel.getResponse().get(getId).getStyleId());
-               updateProductionRequestViewModel.sysOrderNo=generateFinalInvoiceResponseModel.getResponse().get(getId).getSysOrderNo();
-               updateProductionRequestViewModel.generateUpdateProductionRequest();
+               String dates = ap.FORECASTDELDATE.getText().toString();
+               if(dates.length()>10){
+
+               }else{
+                   dates=dates+"T00:00:00";
+               }
+               System.out.println("isValid - yyyy-MM-dd with 2017-18--15 = " + isValidFormat("yyyy-MM-dd", dates, Locale.ENGLISH));
+               if (!dates .isEmpty()) {
+                   if (!dates.contains("NO DATA")) {
+                           updateProductionRequestViewModel.custOrderNo = generateFinalInvoiceResponseModel.getResponse().get(getId).getCustOrderNo().trim();
+                           updateProductionRequestViewModel.dispatchModeId = Integer.parseInt(generateShipModeResponseModel.getResponse().get(ShipId).getModeId().trim());
+                           updateProductionRequestViewModel.foreCastDelDate = dates.trim();
+                           updateProductionRequestViewModel.pgmCode = generateFinalInvoiceResponseModel.getResponse().get(getId).getPgmCode().trim();
+                           updateProductionRequestViewModel.remarks = ap.REMARKS.getText().toString().trim();
+                           updateProductionRequestViewModel.sourceFlag = generateFinalInvoiceResponseModel.getResponse().get(getId).getSourceFlag().trim();
+                           updateProductionRequestViewModel.sourceId = generateFinalInvoiceResponseModel.getResponse().get(getId).getSourceId();
+                           updateProductionRequestViewModel.styleId = Integer.parseInt(generateFinalInvoiceResponseModel.getResponse().get(getId).getStyleId().trim());
+                           updateProductionRequestViewModel.sysOrderNo = generateFinalInvoiceResponseModel.getResponse().get(getId).getSysOrderNo().trim();
+                           updateProductionRequestViewModel.generateUpdateProductionRequest();
+                   }else{
+                       Toast.makeText(getApplicationContext(), "select date properly", Toast.LENGTH_SHORT).show();
+                   }
+               }
+               else{
+                   Toast.makeText(getApplicationContext(), "select date", Toast.LENGTH_SHORT).show();
+               }
            }
        });
+    }
+
+    private void time(){
+        datePickerDialog.dismiss();
+        String date= ap.FORECASTDELDATE.getText().toString();
+        Calendar calendar=Calendar.getInstance();
+        int hour=calendar.get(Calendar.HOUR);
+        int min=calendar.get(Calendar.MINUTE);
+        int sec=calendar.get(Calendar.SECOND);
+        TimePickerDialog timePickerDialog=new TimePickerDialog(FinalProductionUpdate.this,new TimePickerDialog.OnTimeSetListener() {
+            @Override
+            public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+                String hh,mm;
+                hh= String.valueOf(hourOfDay);
+                mm= String.valueOf(minute);
+                if(hh.length()==1){
+                    hh="0"+hh;
+                }
+                if(mm.length()==1){
+                    mm="0"+mm;
+                }
+                String times=hh+":"+mm+":"+sec;
+                ap.FORECASTDELDATE.setText(date+"T"+times);
+            }
+        },hour,min,false);
+
+        int positiveColor = ContextCompat.getColor(FinalProductionUpdate.this, R.color.black);
+        int negativeColor = ContextCompat.getColor(FinalProductionUpdate.this, R.color.black);
+
+        timePickerDialog.show();
+
+        timePickerDialog.getButton(DatePickerDialog.BUTTON_POSITIVE).setTextColor(positiveColor);
+        timePickerDialog.getButton(DatePickerDialog.BUTTON_NEGATIVE).setTextColor(negativeColor);
 
     }
 
@@ -262,18 +322,14 @@ public class FinalProductionUpdate extends AppCompatActivity implements FinalInv
                 datePickerDialog.show();
                 datePickerDialog.getButton(DatePickerDialog.BUTTON_POSITIVE).setTextColor(positiveColor);
                 datePickerDialog.getButton(DatePickerDialog.BUTTON_NEGATIVE).setTextColor(negativeColor);
-
             }
         });
-
-
     }
 
     @Override
     public void ShowErrorMessage(MessageViewType messageViewType, String errorMessage) {
 
     }
-
     @Override
     public void ShowErrorMessage(MessageViewType messageViewType, ViewType viewType, String errorMessage) {
 
@@ -475,6 +531,34 @@ public class FinalProductionUpdate extends AppCompatActivity implements FinalInv
             preferenceManager.initialize(getApplicationContext());
         }
         return preferenceManager;
+    }
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    public static boolean isValidFormat(String format, String value, Locale locale) {
+        LocalDateTime ldt = null;
+        DateTimeFormatter fomatter = DateTimeFormatter.ofPattern(format, locale);
+
+        try {
+            ldt = LocalDateTime.parse(value, fomatter);
+            String result = ldt.format(fomatter);
+            return result.equals(value);
+        } catch (DateTimeParseException e) {
+            try {
+                LocalDate ld = LocalDate.parse(value, fomatter);
+                String result = ld.format(fomatter);
+                return result.equals(value);
+            } catch (DateTimeParseException exp) {
+                try {
+                    LocalTime lt = LocalTime.parse(value, fomatter);
+                    String result = lt.format(fomatter);
+                    return result.equals(value);
+                } catch (DateTimeParseException e2) {
+                    // Debugging purposes
+                    //e2.printStackTrace();
+                }
+            }
+        }
+
+        return false;
     }
 
 }

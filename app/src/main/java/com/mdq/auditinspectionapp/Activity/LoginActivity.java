@@ -130,7 +130,6 @@ public class LoginActivity extends AppCompatActivity implements LoginResponseInt
     public void generateLoginProcessed(GenerateLoginResponseModel generateLoginResponseModel) {
         String msg="Logged in successfully";
         String message=generateLoginResponseModel.getMessage().toString();
-
         activityMainBinding.Progress.setVisibility(View.GONE);
        if(message.equals(msg)){
            dpid= Integer.parseInt(generateLoginResponseModel.getResponse().getDepartmentId().toString());
@@ -141,9 +140,11 @@ public class LoginActivity extends AppCompatActivity implements LoginResponseInt
                startActivity(intent);
                finishAffinity();
                preferenceManager.setPrefUsername(generateLoginResponseModel.getResponse().getName());
+               preferenceManager.setPrefDpid(Integer.parseInt(generateLoginResponseModel.getResponse().getDepartmentId().toString()));
                Toast.makeText(getApplicationContext(), "Login Successful", Toast.LENGTH_SHORT).show();
        }
     }
+
     @Override
     public void onFailure(ErrorBody errorBody, int statusCode) {
         activityMainBinding.Progress.setVisibility(View.GONE);
@@ -161,5 +162,4 @@ public class LoginActivity extends AppCompatActivity implements LoginResponseInt
         }
         return preferenceManager;
     }
-
 }

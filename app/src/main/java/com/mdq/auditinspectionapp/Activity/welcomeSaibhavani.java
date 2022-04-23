@@ -3,11 +3,15 @@ package com.mdq.auditinspectionapp.Activity;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.TextView;
 
 import com.mdq.auditinspectionapp.R;
 import com.mdq.auditinspectionapp.Utils.PreferenceManager;
@@ -15,7 +19,7 @@ import com.mdq.auditinspectionapp.databinding.ActivityWelcomeSaibhavaniBinding;
 
 public class welcomeSaibhavani extends AppCompatActivity {
 
-    CardView cardProduct;
+    CardView cardProduct,ReportCard;
     ActivityWelcomeSaibhavaniBinding aw;
     int dpid=0;
     PreferenceManager preferenceManager;
@@ -26,6 +30,7 @@ public class welcomeSaibhavani extends AppCompatActivity {
         aw=ActivityWelcomeSaibhavaniBinding.inflate(getLayoutInflater());
         setContentView(aw.getRoot());
         cardProduct=findViewById(R.id.CardProduct);
+        ReportCard=findViewById(R.id.ReportCard);
         //making status bar color as transparent
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             getWindow().addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
@@ -44,7 +49,7 @@ public class welcomeSaibhavani extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent=new Intent(welcomeSaibhavani.this, TransactionProductUpdate.class);
                 intent.putExtra("name",name);
-                intent.putExtra("dpid",dpid);
+                intent.putExtra("dpid",getPreferenceManager().getPrefDpid());
                 startActivity(intent);
             }
         });
@@ -56,6 +61,14 @@ public class welcomeSaibhavani extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        ReportCard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                logout();
+            }
+        });
+
         aw.LogOut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -64,6 +77,41 @@ public class welcomeSaibhavani extends AppCompatActivity {
             }
         });
     }
+
+    private void logout() {
+
+        Dialog dialoglogout = new Dialog(this, R.style.dialog_center);
+        dialoglogout.setContentView(R.layout.dialog_report_selection);
+        dialoglogout.setCanceledOnTouchOutside(true);
+        dialoglogout.show();
+        TextView textView23 = dialoglogout.findViewById(R.id.textView23);
+        TextView textView24 = dialoglogout.findViewById(R.id.textView24);
+
+        textView23.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialoglogout.dismiss();
+
+                Intent intent=new Intent(getApplicationContext(), FinalReportScreen.class);
+                startActivity(intent);
+                finish();
+            }
+
+        });
+        textView24.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialoglogout.dismiss();
+
+                Intent intent=new Intent(getApplicationContext(), FinalReportScreen.class);
+                startActivity(intent);
+                finish();
+            }
+
+        });
+
+    }
+
     /**
      * @return
      * @brief initializing the preferenceManager from shared preference for local use in this activity

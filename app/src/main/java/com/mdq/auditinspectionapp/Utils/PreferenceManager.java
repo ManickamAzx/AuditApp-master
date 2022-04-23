@@ -26,6 +26,8 @@ public class PreferenceManager {
 
     private static final String PREF_USERNAME = "PREF_USERNAME";
 
+    private static final String PREF_DPID = "PREF_DPID";
+
     private static PreferenceManager mInstance;
     public void initialize(Context context) {
         this.mContext = context;
@@ -57,6 +59,15 @@ public class PreferenceManager {
 
     public String getPrefToken() {
         return sharedPreferences.getString(PREF_TOKEN, null);
+    }
+
+    public void setPrefDpid(int Token) {
+        editor.putInt(PREF_DPID, Token);
+        editor.commit();
+    }
+
+    public int getPrefDpid() {
+        return sharedPreferences.getInt(PREF_DPID,0);
     }
 
     public void setPrefUsername(String Token) {

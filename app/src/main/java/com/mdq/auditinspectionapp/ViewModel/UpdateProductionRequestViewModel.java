@@ -33,7 +33,7 @@ public class UpdateProductionRequestViewModel extends UpdateProductionBaseViewMo
         generateUpdateProductionRequestModel.sourceFlag=getSourceFlag();
         generateUpdateProductionRequestModel.updateForm="FORECAST";
         generateUpdateProductionRequestModel.dispatchModeId=getDispatchModeId();
-        generateUpdateProductionRequestModel.foreCastDelDate=getForeCastDelDate()+"T00:00:00";
+        generateUpdateProductionRequestModel.foreCastDelDate=getForeCastDelDate();
         generateUpdateProductionRequestModel.custOrderNo=getCustOrderNo();
         generateUpdateProductionRequestModel.pgmCode=getPgmCode();
         generateUpdateProductionRequestModel.remarks=getRemarks();

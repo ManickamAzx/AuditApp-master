@@ -141,7 +141,7 @@
                                         android:textSize="13dp"
                                         android:textColor="@color/white"
                                         android:gravity="end"
-                                        android:text="Outstanding Forecast Until "
+                                        android:text="Outstanding Forecast Until : "
                                         android:textStyle="bold" />
 
                                     <TextView
@@ -165,7 +165,7 @@
 
                                     <TextView
                                         android:layout_width="0dp"
-                                        android:layout_weight="1"
+                                        android:layout_weight="1.1"
                                         android:layout_height="wrap_content"
                                         android:textSize="13dp"
                                         android:textColor="@color/white"
@@ -175,7 +175,7 @@
 
                                     <TextView
                                         android:layout_width="0dp"
-                                        android:layout_weight="1"
+                                        android:layout_weight="0.9"
                                         android:layout_height="wrap_content"
                                         android:textSize="13dp"
                                         android:id="@+id/piNo"
@@ -608,13 +608,12 @@
                                 <TextView
                                     android:id="@+id/FORECASTDELDATE"
                                     android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
+                                    android:layout_height="30dp"
                                     android:layout_below="@+id/Forecast"
                                     android:background="?attr/editTextBackground"
                                     android:drawableRight="@drawable/ic_calendar_updated"
                                     android:gravity="center_vertical"
                                     android:paddingTop="4dp"
-                                    android:text="2020-02-22"
                                     android:textAllCaps="true"
                                     android:textSize="9dp" />
 
@@ -718,14 +717,15 @@
                                     android:orientation="vertical"
                                     android:weightSum="2">
 
-                                    <EditText
+                                    <TextView
                                         android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
+                                        android:layout_height="30dp"
                                         android:layout_weight="1.8"
                                         android:text="REmarks"
                                         android:textSize="9dp"
                                         android:editable="false"
                                         android:textColor="#ED0E0E"
+                                        android:background="?attr/editTextBackground"
                                         android:textAllCaps="true"
                                         android:gravity="bottom"
                                          />

@@ -20,4 +20,5 @@ public class ApiClass {
     public static String UPDATEPRODUCTION= "invoice/update-productiondetails";
     public static String UPDATEINSPECTION= "invoice/update-inspectiondetails";
 
+
 }

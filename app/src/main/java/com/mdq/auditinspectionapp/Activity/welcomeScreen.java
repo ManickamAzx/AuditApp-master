@@ -34,4 +34,6 @@ public class welcomeScreen extends AppCompatActivity {
                 finish();
             }
         },3000);    }
+
+
 }
