@@ -52,7 +52,7 @@ import java.util.Calendar;
 import java.util.Collections;
 import java.util.List;
 
-public class FinalInspectionScreen extends AppCompatActivity implements FinalInvoiceResponseInterface, QCNameResponseInterface, QCResultResponseInterface, UpdateInspectionResponseInterface {
+public class FinalInspectionScreen extends AppCompatActivity implements FinalInvoiceResponseInterface, QCNameResponseInterface, QCResultResponseInterface, UpdateInspectionResponseInterface,ShipModeResponseInterface {
     LinearLayout back;
     ImageView datepicker;
     TextView textView, prev, next;
@@ -60,12 +60,14 @@ public class FinalInspectionScreen extends AppCompatActivity implements FinalInv
     FinalInvoiceViewModel finalInvoiceViewModel;
     GenerateFinalInvoiceResponseModel generateFinalInvoiceResponseModel;
     String piNo;
-    String from, to, orderStatus, SourceFlag;
+    ShipModeRequestViewModel shipModeRequestViewModel;
+    String from, to, orderStatus, SourceFlag,SeasonAuto,SourceName;
     int SourceId, getId = 0, totalgetid = 0;
     ArrayAdapter<String> arrayAdapterQCResult, ArrayAdapterQCName;
     String[] QCResultArray, QCNameArray;
     int QCResultId = 0, QCNameId = 0;
     int dpid = 0;
+    GenerateShipModeResponseModel generateShipModeResponseModel;
     QCResultRequestViewModel qcResultRequestViewModel;
     QCNameRequestViewModel qcNameRequestViewModel;
     UpdateInspectionRequestViewModel updateInspectionRequestViewModel;
@@ -85,6 +87,9 @@ public class FinalInspectionScreen extends AppCompatActivity implements FinalInv
         back = findViewById(R.id.linearBack);
         datepicker = findViewById(R.id.date_picker);
         textView = findViewById(R.id.datetext);
+
+        shipModeRequestViewModel=new ShipModeRequestViewModel(getApplicationContext(),this);
+        shipModeRequestViewModel.generateShipModeRequest();
 
         prev = findViewById(R.id.PREV);
         next = findViewById(R.id.NEXT);
@@ -179,11 +184,17 @@ public class FinalInspectionScreen extends AppCompatActivity implements FinalInv
             public void onClick(View v) {
                 customerorderno.clear();
                 String dates = ap.datetext.getText().toString();
-                if (dates != null) {
+                if(dates.length()>10){
+
+                }else{
+                    dates=dates+"T00:00:00";
+                }
+                if (!dates.isEmpty()) {
                     if (!dates.contains("NO DATA")) {
+                        if(!dates.equals("T00:00:00")){
                         try {
                             customerorderno.add(generateFinalInvoiceResponseModel.getResponse().get(getId).getCustOrderNo().trim());
-                            updateInspectionRequestViewModel.inspectionDate = ap.datetext.getText().toString();
+                            updateInspectionRequestViewModel.inspectionDate =dates;
                             updateInspectionRequestViewModel.qcRemarks = ap.QCREMARKS.getText().toString();
                             updateInspectionRequestViewModel.customerOrderNos = customerorderno;
                             updateInspectionRequestViewModel.pgmCode = generateFinalInvoiceResponseModel.getResponse().get(getId).getPgmCode();
@@ -197,7 +208,11 @@ public class FinalInspectionScreen extends AppCompatActivity implements FinalInv
                         } catch (Exception e) {
 
                         }
-                    } else {
+                    }else{
+                            Toast.makeText(getApplicationContext(), "Select Inspection Date", Toast.LENGTH_SHORT).show();
+
+                        }
+                    }else {
                         Toast.makeText(getApplicationContext(), "Select Inspection Date", Toast.LENGTH_SHORT).show();
                     }
                 } else {
@@ -212,18 +227,28 @@ public class FinalInspectionScreen extends AppCompatActivity implements FinalInv
         SourceId = intent.getIntExtra("SourceId", 0);
         SourceFlag = intent.getStringExtra("SourceFlag");
         orderStatus = intent.getStringExtra("OrderStatus");
-        if (!piNo.isEmpty() && !from.isEmpty() && !to.isEmpty() && !SourceFlag.isEmpty() && SourceId != 0 && !orderStatus.isEmpty()) {
+        SeasonAuto=intent.getStringExtra("SeasonAuto");
+        SourceName=intent.getStringExtra("SourceName");
 
-            finalInvoiceViewModel.setPiNo(piNo);
-            finalInvoiceViewModel.setFrom(from);
-            finalInvoiceViewModel.setTo(to);
-            finalInvoiceViewModel.setSourceFlag(SourceFlag);
-            finalInvoiceViewModel.setSourceId(SourceId);
-            finalInvoiceViewModel.setOrderStatus(orderStatus);
-            finalInvoiceViewModel.generateFinalVoiceRequest();
-            ap.outForeUntil.setText(to);
-            ap.piNo.setText(piNo);
+
+        ap.Season.setText(SeasonAuto);
+        ap.Buyer.setText(SourceName);
+
+        if (!piNo.isEmpty() && !from.isEmpty() && !to.isEmpty() && !SourceFlag.isEmpty() && SourceId != 0 && !orderStatus.isEmpty()) {
+            finalInvoice();
         }
+    }
+
+    private void finalInvoice() {
+        finalInvoiceViewModel.setPiNo(piNo);
+        finalInvoiceViewModel.setFrom(from);
+        finalInvoiceViewModel.setTo(to);
+        finalInvoiceViewModel.setSourceFlag(SourceFlag);
+        finalInvoiceViewModel.setSourceId(SourceId);
+        finalInvoiceViewModel.setOrderStatus(orderStatus);
+        finalInvoiceViewModel.generateFinalVoiceRequest();
+        ap.outForeUntil.setText(to);
+        ap.piNo.setText(piNo);
     }
 
     private void setClick() {
@@ -259,6 +284,7 @@ public class FinalInspectionScreen extends AppCompatActivity implements FinalInv
                         }
                         String dates = year + "-" + mm + "-" + dd;
                         ap.datetext.setText(dates);
+                        time();
                     }
                 }, years, months, days);
                 int positiveColor = ContextCompat.getColor(FinalInspectionScreen.this, R.color.black);
@@ -289,6 +315,43 @@ public class FinalInspectionScreen extends AppCompatActivity implements FinalInv
         }
 
     }
+    private void time(){
+
+        String date= ap.datetext.getText().toString();
+        Calendar calendar=Calendar.getInstance();
+        int hour=calendar.get(Calendar.HOUR);
+        int min=calendar.get(Calendar.MINUTE);
+        int sec=calendar.get(Calendar.SECOND);
+        TimePickerDialog timePickerDialog=new TimePickerDialog(FinalInspectionScreen.this,new TimePickerDialog.OnTimeSetListener() {
+            @Override
+            public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+                String hh,mm;
+                hh= String.valueOf(hourOfDay);
+                mm= String.valueOf(minute);
+                String secs=String.valueOf(sec);
+                if(hh.length()==1){
+                    hh="0"+hh;
+                }
+                if(mm.length()==1){
+                    mm="0"+mm;
+                }
+                if(secs.length()==1){
+                    secs="0"+secs;
+                }
+                String times=hh+":"+mm+":"+secs;
+                ap.datetext.setText(date+"T"+times);
+            }
+        },hour,min,false);
+
+        int positiveColor = ContextCompat.getColor(FinalInspectionScreen.this, R.color.black);
+        int negativeColor = ContextCompat.getColor(FinalInspectionScreen.this, R.color.black);
+
+        timePickerDialog.show();
+
+        timePickerDialog.getButton(DatePickerDialog.BUTTON_POSITIVE).setTextColor(positiveColor);
+        timePickerDialog.getButton(DatePickerDialog.BUTTON_NEGATIVE).setTextColor(negativeColor);
+
+    }
 
 
     @Override
@@ -307,9 +370,10 @@ public class FinalInspectionScreen extends AppCompatActivity implements FinalInv
         ap.PREV.setClickable(true);
         ap.NEXT.setClickable(true);
         if (generateFinalInvoiceResponseModel != null) {
+            ap.Progress.setVisibility(View.INVISIBLE);
+
             totalgetid = generateFinalInvoiceResponseModel.getResponse().size();
             FinalInvoice(generateFinalInvoiceResponseModel, 0);
-
             this.generateFinalInvoiceResponseModel = generateFinalInvoiceResponseModel;
         }
     }
@@ -338,15 +402,15 @@ public class FinalInspectionScreen extends AppCompatActivity implements FinalInv
                 }
 //        ap.piDate.setText("FAI21220037HAR");
                 if (generateFinalInvoiceResponseModel.getResponse().get(getId).getBuyerPo() != null) {
-                    ap.BUYER.setText(generateFinalInvoiceResponseModel.getResponse().get(getId).getBuyerPo());
+                    ap.BUYER.setText(generateFinalInvoiceResponseModel.getResponse().get(getId).getBuyerPo().trim());
                 } else {
                     ap.Buyer.setText("NO DATA");
                 }
-                if (generateFinalInvoiceResponseModel.getResponse().get(getId).getbrandId() != null) {
-                    ap.Buyer.setText(generateFinalInvoiceResponseModel.getResponse().get(getId).getbrandId());
-                } else {
-                    ap.Buyer.setText("NO DATA");
-                }
+//                if (generateFinalInvoiceResponseModel.getResponse().get(getId).getbrandId() != null) {
+//                    ap.Buyer.setText(generateFinalInvoiceResponseModel.getResponse().get(getId).getbrandId());
+//                } else {
+//                    ap.Buyer.setText("NO DATA");
+//                }
                 if (generateFinalInvoiceResponseModel.getResponse().get(getId).getOrderQty() != null) {
 
                     ap.ORDERQTY.setText(generateFinalInvoiceResponseModel.getResponse().get(getId).getOrderQty());
@@ -380,7 +444,9 @@ public class FinalInspectionScreen extends AppCompatActivity implements FinalInv
                 }
                 if (generateFinalInvoiceResponseModel.getResponse().get(getId).getDespatchModeId() != null) {
 
-                    ap.dispatch.setText(generateFinalInvoiceResponseModel.getResponse().get(getId).getDespatchModeId());
+                    int id= Integer.parseInt(generateFinalInvoiceResponseModel.getResponse().get(getId).getDespatchModeId());
+                    shipment(id);
+
                 } else {
                     ap.dispatch.setText("NO DATA");
                 }
@@ -409,7 +475,7 @@ public class FinalInspectionScreen extends AppCompatActivity implements FinalInv
                 }
                 if (generateFinalInvoiceResponseModel.getResponse().get(getId).getStyleName() != null) {
 
-                    ap.STYLENAME.setText(generateFinalInvoiceResponseModel.getResponse().get(getId).getStyleName());
+                    ap.STYLENAME.setText(generateFinalInvoiceResponseModel.getResponse().get(getId).getStyleCode().trim()+"-"+generateFinalInvoiceResponseModel.getResponse().get(getId).getStyleName().trim());
 
                 } else {
                     ap.STYLENAME.setText("NO DATA");
@@ -422,7 +488,7 @@ public class FinalInspectionScreen extends AppCompatActivity implements FinalInv
         }
     }
 
-    private void logout() {
+    public void logout() {
         Dialog dialoglogout = new Dialog(this, R.style.dialog_center);
         dialoglogout.setCanceledOnTouchOutside(false);
         dialoglogout.setContentView(R.layout.logout);
@@ -498,7 +564,24 @@ public class FinalInspectionScreen extends AppCompatActivity implements FinalInv
 
     @Override
     public void generateUpdateInspectionProcessed(GenerateUpdateInspectionResponseModel generateUpdateInspectionResponseModel) {
-        Toast.makeText(getApplicationContext(), "" + generateUpdateInspectionResponseModel.getMessage(), Toast.LENGTH_SHORT).show();
+        if( generateUpdateInspectionResponseModel.getMessage().equals("time out")){
+            timeout();
+        }else {
+            Toast.makeText(getApplicationContext(), "" + generateUpdateInspectionResponseModel.getMessage(), Toast.LENGTH_SHORT).show();
+            finalInvoice();
+        }
+    }
+
+    @Override
+    public void generateShipModeProcessed(GenerateShipModeResponseModel generateShipModeResponceModel) {
+        if(generateShipModeResponceModel!=null){
+            this.generateShipModeResponseModel=generateShipModeResponceModel;
+        }
+    }
+
+    private void shipment(int id) {
+        ap.dispatch.setText(generateShipModeResponseModel.getResponse().get(id).getModeName());
+
     }
 
     @Override
@@ -517,6 +600,23 @@ public class FinalInspectionScreen extends AppCompatActivity implements FinalInv
             preferenceManager.initialize(getApplicationContext());
         }
         return preferenceManager;
+    }
+
+    public void timeout() {
+        Dialog dialoglogout = new Dialog(this, R.style.dialog_center);
+        dialoglogout.setContentView(R.layout.time_out);
+        dialoglogout.setCanceledOnTouchOutside(true);
+        dialoglogout.show();
+        TextView textView23 = dialoglogout.findViewById(R.id.textView23);
+
+
+        textView23.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialoglogout.dismiss();
+            }
+        });
+
     }
 
 }

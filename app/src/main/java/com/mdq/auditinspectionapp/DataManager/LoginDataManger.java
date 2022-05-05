@@ -83,6 +83,5 @@ public class LoginDataManger {
                 Toast.makeText(context, "" + t.getMessage(), Toast.LENGTH_LONG).show();
             }
         });
-
     }
 }

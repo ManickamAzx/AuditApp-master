@@ -58,7 +58,7 @@ public class FinalProductionUpdate extends AppCompatActivity implements FinalInv
     FinalInvoiceViewModel finalInvoiceViewModel;
     GenerateFinalInvoiceResponseModel generateFinalInvoiceResponseModel;
     String piNo;
-    String from,to,orderStatus,SourceFlag;int SourceId,getId=0,totalgetid=0;
+    String from,to,orderStatus,SourceFlag,SourceName,SeasonAuto;int SourceId,getId=0,totalgetid=0;
     ArrayAdapter<String> arrayAdapter;
     String[] ShipModeArray;
     int ShipId=0;
@@ -68,6 +68,7 @@ public class FinalProductionUpdate extends AppCompatActivity implements FinalInv
     int bachi=0;
     PreferenceManager preferenceManager;
     DatePickerDialog datePickerDialog;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -80,6 +81,7 @@ public class FinalProductionUpdate extends AppCompatActivity implements FinalInv
         textView=findViewById(R.id.datetext);
         prev=findViewById(R.id.PREV);
         next=findViewById(R.id.NEXT);
+
 
         shipModeRequestViewModel=new ShipModeRequestViewModel(getApplicationContext(),this);
         shipModeRequestViewModel.generateShipModeRequest();
@@ -189,17 +191,17 @@ public class FinalProductionUpdate extends AppCompatActivity implements FinalInv
         SourceId=intent.getIntExtra("SourceId",0);
         SourceFlag=intent.getStringExtra("SourceFlag");
         orderStatus=intent.getStringExtra("OrderStatus");
-       if(!piNo.isEmpty() && !from.isEmpty() && !to.isEmpty() && !SourceFlag.isEmpty() && SourceId!=0 && !orderStatus.isEmpty()){
+        SourceName=intent.getStringExtra("SourceName");
+        SeasonAuto=intent.getStringExtra("SeasonAuto");
 
-           finalInvoiceViewModel.setPiNo(piNo);
-           finalInvoiceViewModel.setFrom(from);
-           finalInvoiceViewModel.setTo(to);
-           finalInvoiceViewModel.setSourceFlag(SourceFlag);
-           finalInvoiceViewModel.setSourceId(SourceId);
-           finalInvoiceViewModel.setOrderStatus(orderStatus);
-           finalInvoiceViewModel.generateFinalVoiceRequest();
-           ap.outForeUntil.setText(to);
-           ap.piNo.setText(piNo);
+
+        ap.Season.setText(SeasonAuto);
+        ap.Buyer.setText(SourceName);
+
+        if(!piNo.isEmpty() && !from.isEmpty() && !to.isEmpty() && !SourceFlag.isEmpty() && SourceId!=0 && !orderStatus.isEmpty()){
+
+          finainvoice();
+
        }
 
        ap.SAVE.setOnClickListener(new View.OnClickListener() {
@@ -215,6 +217,8 @@ public class FinalProductionUpdate extends AppCompatActivity implements FinalInv
                System.out.println("isValid - yyyy-MM-dd with 2017-18--15 = " + isValidFormat("yyyy-MM-dd", dates, Locale.ENGLISH));
                if (!dates .isEmpty()) {
                    if (!dates.contains("NO DATA")) {
+                       if (!dates.equals("T00:00:00")) {
+                           ap.Progress.setVisibility(View.VISIBLE);
                            updateProductionRequestViewModel.custOrderNo = generateFinalInvoiceResponseModel.getResponse().get(getId).getCustOrderNo().trim();
                            updateProductionRequestViewModel.dispatchModeId = Integer.parseInt(generateShipModeResponseModel.getResponse().get(ShipId).getModeId().trim());
                            updateProductionRequestViewModel.foreCastDelDate = dates.trim();
@@ -225,6 +229,9 @@ public class FinalProductionUpdate extends AppCompatActivity implements FinalInv
                            updateProductionRequestViewModel.styleId = Integer.parseInt(generateFinalInvoiceResponseModel.getResponse().get(getId).getStyleId().trim());
                            updateProductionRequestViewModel.sysOrderNo = generateFinalInvoiceResponseModel.getResponse().get(getId).getSysOrderNo().trim();
                            updateProductionRequestViewModel.generateUpdateProductionRequest();
+                       }else{
+                           Toast.makeText(getApplicationContext(), "select date properly", Toast.LENGTH_SHORT).show();
+                       }
                    }else{
                        Toast.makeText(getApplicationContext(), "select date properly", Toast.LENGTH_SHORT).show();
                    }
@@ -234,6 +241,18 @@ public class FinalProductionUpdate extends AppCompatActivity implements FinalInv
                }
            }
        });
+    }
+
+    private void finainvoice() {
+        finalInvoiceViewModel.setPiNo(piNo);
+        finalInvoiceViewModel.setFrom(from);
+        finalInvoiceViewModel.setTo(to);
+        finalInvoiceViewModel.setSourceFlag(SourceFlag);
+        finalInvoiceViewModel.setSourceId(SourceId);
+        finalInvoiceViewModel.setOrderStatus(orderStatus);
+        finalInvoiceViewModel.generateFinalVoiceRequest();
+        ap.outForeUntil.setText(to);
+        ap.piNo.setText(piNo);
     }
 
     private void time(){
@@ -249,13 +268,17 @@ public class FinalProductionUpdate extends AppCompatActivity implements FinalInv
                 String hh,mm;
                 hh= String.valueOf(hourOfDay);
                 mm= String.valueOf(minute);
+                String secs=String.valueOf(sec);
                 if(hh.length()==1){
                     hh="0"+hh;
                 }
                 if(mm.length()==1){
                     mm="0"+mm;
                 }
-                String times=hh+":"+mm+":"+sec;
+                if(secs.length()==1){
+                    secs="0"+secs;
+                }
+                String times=hh+":"+mm+":"+secs;
                 ap.FORECASTDELDATE.setText(date+"T"+times);
             }
         },hour,min,false);
@@ -341,10 +364,12 @@ public class FinalProductionUpdate extends AppCompatActivity implements FinalInv
         ap.PREV.setClickable(true);
         ap.NEXT.setClickable(true);
         if(generateFinalInvoiceResponseModel!=null){
+            ap.Progress.setVisibility(View.INVISIBLE);
             totalgetid=generateFinalInvoiceResponseModel.getResponse().size();
             FinalInvoice(generateFinalInvoiceResponseModel,0);
             this.generateFinalInvoiceResponseModel=generateFinalInvoiceResponseModel;
         }
+
     }
 
     private void FinalInvoice(GenerateFinalInvoiceResponseModel generateFinalInvoiceResponseModel,int i) {
@@ -371,15 +396,16 @@ public class FinalProductionUpdate extends AppCompatActivity implements FinalInv
                 }
 //        ap.piDate.setText("FAI21220037HAR");
                 if (generateFinalInvoiceResponseModel.getResponse().get(getId).getBuyerPo() != null) {
-                    ap.BUYER.setText(generateFinalInvoiceResponseModel.getResponse().get(getId).getBuyerPo());
+                    ap.BUYER.setText(generateFinalInvoiceResponseModel.getResponse().get(getId).getBuyerPo().trim());
                 }else{
                     ap.BUYER.setText("NO DATA");
                 }
-                if (generateFinalInvoiceResponseModel.getResponse().get(getId).getbrandId() != null) {
-                    ap.Buyer.setText(generateFinalInvoiceResponseModel.getResponse().get(getId).getbrandId());
-                }else{
-                    ap.Buyer.setText("NO DATA");
-                }
+//                if (generateFinalInvoiceResponseModel.getResponse().get(getId).getbrandId() != null) {
+//                    ap.Buyer.setText(generateFinalInvoiceResponseModel.getResponse().get(getId).getbrandId());
+//                }else{
+//                    ap.Buyer.setText("NO DATA");
+//                }
+
                 if (generateFinalInvoiceResponseModel.getResponse().get(getId).getOrderQty() != null) {
 
                     ap.ORDERQTY.setText(generateFinalInvoiceResponseModel.getResponse().get(getId).getOrderQty());
@@ -398,13 +424,15 @@ public class FinalProductionUpdate extends AppCompatActivity implements FinalInv
                 }else{
                     ap.VENDORDELDATE.setText("NO DATA");
                 }
+
                 if (generateFinalInvoiceResponseModel.getResponse().get(getId).getForecastDelDate() != null) {
 
-//                    ap.FORECASTDELDATE.setText(generateFinalInvoiceResponseModel.getResponse().get(getId).getForecastDelDate());
+                    ap.FORECASTDELDATE.setText(generateFinalInvoiceResponseModel.getResponse().get(getId).getForecastDelDate());
 
                 }else{
                     ap.FORECASTDELDATE.setText("NO DATA");
                 }
+
                 if (generateFinalInvoiceResponseModel.getResponse().get(getId).getCityName() != null) {
 
                     ap.CITY.setText(generateFinalInvoiceResponseModel.getResponse().get(getId).getCityName());
@@ -413,7 +441,9 @@ public class FinalProductionUpdate extends AppCompatActivity implements FinalInv
                 }
                 if (generateFinalInvoiceResponseModel.getResponse().get(getId).getDespatchModeId() != null) {
 
-//                    ap.dispatch.setText(generateFinalInvoiceResponseModel.getResponse().get(getId).getDespatchModeId());
+                    int id= Integer.parseInt(generateFinalInvoiceResponseModel.getResponse().get(getId).getDespatchModeId());
+                    shipment(id);
+
                 }else {ap.dispatch.setText("NO DATA");}
                 if (generateFinalInvoiceResponseModel.getResponse().get(getId).getRemarks() != null) {
                     ap.REMARKS.setText(generateFinalInvoiceResponseModel.getResponse().get(getId).getRemarks());
@@ -440,7 +470,7 @@ public class FinalProductionUpdate extends AppCompatActivity implements FinalInv
                 }
                 if (generateFinalInvoiceResponseModel.getResponse().get(getId).getStyleName() != null) {
 
-                    ap.STYLENAME.setText(generateFinalInvoiceResponseModel.getResponse().get(getId).getStyleName());
+                    ap.STYLENAME.setText(generateFinalInvoiceResponseModel.getResponse().get(getId).getStyleCode().trim()+"-"+generateFinalInvoiceResponseModel.getResponse().get(getId).getStyleName().trim());
 
                 }else {
                     ap.STYLENAME.setText("NO DATA");
@@ -461,7 +491,6 @@ public class FinalProductionUpdate extends AppCompatActivity implements FinalInv
         dialoglogout.setCanceledOnTouchOutside(true);
         dialoglogout.show();
         TextView textView23 = dialoglogout.findViewById(R.id.textView23);
-
 
         DialogInterface.OnKeyListener keylistener = new DialogInterface.OnKeyListener() {
 
@@ -493,7 +522,6 @@ public class FinalProductionUpdate extends AppCompatActivity implements FinalInv
 
         });
 
-
     }
 
     @Override
@@ -504,20 +532,47 @@ public class FinalProductionUpdate extends AppCompatActivity implements FinalInv
             for(int i=0;i<generateShipModeResponceModel.getResponse().size();i++){
                 ShipModeArray[i]=generateShipModeResponceModel.getResponse().get(i).getModeName();
             }
-            arrayAdapter =new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item,ShipModeArray);
-            ap.dispatch.setText(generateShipModeResponceModel.getResponse().get(getId).getModeName());
-            ap.dispatch.setAdapter(arrayAdapter);
+
+           shipment(0);
+
         }
+    }
+
+    private void shipment(int id) {
+        arrayAdapter =new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item,ShipModeArray);
+        ap.dispatch.setText(generateShipModeResponseModel.getResponse().get(id).getModeName());
+        ap.dispatch.setAdapter(arrayAdapter);
+        ap.dispatch.dismissDropDown();
     }
 
     @Override
     public void generateUpdateProductionProcessed(GenerateUpdateProductionResponseModel generateUpdateProductionResponseModel) {
         Toast.makeText(getApplicationContext(), ""+generateUpdateProductionResponseModel.getMessage(), Toast.LENGTH_SHORT).show();
+        if(generateUpdateProductionResponseModel.getMessage().equals("time out")){
+            timeout();
+        }else{
+            finainvoice();
+        }
+    }
+
+    public void timeout() {
+        Dialog dialoglogout = new Dialog(this, R.style.dialog_center);
+        dialoglogout.setContentView(R.layout.time_out);
+        dialoglogout.setCanceledOnTouchOutside(true);
+        dialoglogout.show();
+        TextView textView23 = dialoglogout.findViewById(R.id.textView23);
+
+        textView23.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialoglogout.dismiss();
+            }
+        });
+
     }
 
     @Override
     public void onFailure(ErrorBody errorBody, int statusCode) {
-
     }
 
     /**
@@ -557,8 +612,6 @@ public class FinalProductionUpdate extends AppCompatActivity implements FinalInv
                 }
             }
         }
-
         return false;
     }
-
 }

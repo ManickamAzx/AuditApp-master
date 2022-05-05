@@ -41,9 +41,10 @@
         <entry key="..\:/Users/sanjai/AndroidStudioProjects/AuditInspectionApp/app/src/main/res/layout/activity_final_inspection_update.xml" value="0.16666666666666666" />
         <entry key="..\:/Users/sanjai/AndroidStudioProjects/AuditInspectionApp/app/src/main/res/layout/activity_final_production_screen.xml" value="0.16666666666666666" />
         <entry key="..\:/Users/sanjai/AndroidStudioProjects/AuditInspectionApp/app/src/main/res/layout/activity_final_report_screen.xml" value="0.16666666666666666" />
-        <entry key="..\:/Users/sanjai/AndroidStudioProjects/AuditInspectionApp/app/src/main/res/layout/activity_main.xml" value="0.12" />
+        <entry key="..\:/Users/sanjai/AndroidStudioProjects/AuditInspectionApp/app/src/main/res/layout/activity_main.xml" value="0.16666666666666666" />
         <entry key="..\:/Users/sanjai/AndroidStudioProjects/AuditInspectionApp/app/src/main/res/layout/activity_no_data.xml" value="0.14666666666666667" />
-        <entry key="..\:/Users/sanjai/AndroidStudioProjects/AuditInspectionApp/app/src/main/res/layout/activity_transaction_product_update.xml" value="0.22" />
+        <entry key="..\:/Users/sanjai/AndroidStudioProjects/AuditInspectionApp/app/src/main/res/layout/activity_report_screen.xml" value="0.16666666666666666" />
+        <entry key="..\:/Users/sanjai/AndroidStudioProjects/AuditInspectionApp/app/src/main/res/layout/activity_transaction_product_update.xml" value="0.16666666666666666" />
         <entry key="..\:/Users/sanjai/AndroidStudioProjects/AuditInspectionApp/app/src/main/res/layout/activity_welcome_saibhavani.xml" value="0.1" />
         <entry key="..\:/Users/sanjai/AndroidStudioProjects/AuditInspectionApp/app/src/main/res/layout/activity_welcome_screen.xml" value="0.165625" />
         <entry key="..\:/Users/sanjai/AndroidStudioProjects/AuditInspectionApp/app/src/main/res/layout/bottomfortransaction_productupdate.xml" value="0.14666666666666667" />
@@ -51,6 +52,7 @@
         <entry key="..\:/Users/sanjai/AndroidStudioProjects/AuditInspectionApp/app/src/main/res/layout/item_for_autocompletetextview.xml" value="0.16666666666666666" />
         <entry key="..\:/Users/sanjai/AndroidStudioProjects/AuditInspectionApp/app/src/main/res/layout/item_for_invoice_num.xml" value="0.11891385767790262" />
         <entry key="..\:/Users/sanjai/AndroidStudioProjects/AuditInspectionApp/app/src/main/res/layout/logout.xml" value="0.22" />
+        <entry key="..\:/Users/sanjai/AndroidStudioProjects/AuditInspectionApp/app/src/main/res/layout/time_out.xml" value="0.1796875" />
         <entry key="..\:/Users/sanjai/AndroidStudioProjects/AuditInspectionApp/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.17407407407407408" />
       </map>
     </option>

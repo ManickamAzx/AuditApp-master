@@ -443,7 +443,7 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_weight="1"
-                                    android:text="BUYER"
+                                    android:text="Order NO"
                                     android:textStyle="bold"
                                     android:textSize="12sp"
                                     android:layout_marginLeft="2dp"
@@ -456,6 +456,7 @@
                                     android:layout_weight="1"
                                     android:textSize="9dp"
                                     android:id="@+id/BUYER"
+                                    android:gravity="end"
                                     android:paddingTop="4dp"
                                     android:textAllCaps="true"
                                     android:background="?attr/editTextBackground" />
@@ -497,6 +498,7 @@
                                     android:layout_weight="1"
                                     android:id="@+id/ORDER_QTY"
                                     android:textSize="9dp"
+                                    android:gravity="end"
                                     android:textAllCaps="true"
                                     android:paddingTop="4dp"
                                     android:background="?attr/editTextBackground" />
@@ -527,10 +529,12 @@
                                     android:layout_weight="1"
                                     android:textSize="9dp"
                                     android:textAllCaps="true"
+                                    android:gravity="end"
                                     android:paddingTop="4dp"
                                     android:textColor="@color/black"
                                     android:id="@+id/BALANCE"
                                     android:background="?attr/editTextBackground" />
+
                             </LinearLayout>
 
                             <LinearLayout
@@ -670,7 +674,6 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_weight="1"
-                                    android:text="Air Collector"
                                     android:textSize="9dp"
                                     android:textColor="@color/black"
                                     android:id="@+id/dispatch"
@@ -708,7 +711,7 @@
                                         android:layout_weight="1.8"
                                         android:text="REmarks"
                                         android:textSize="9dp"
-                                        android:textColor="#ED0E0E"
+                                        android:textColor="@color/black"
                                         android:textAllCaps="true"
                                         android:gravity="bottom"
                                         android:background="?attr/editTextBackground" />
@@ -720,7 +723,6 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="12dp"
                                 android:text="Revised date due to lock down"
-                                android:textColor="#ED0E0E"
                                 android:id="@+id/REMARKS"
                                 android:textSize="10dp"
                                 android:gravity="top" />
@@ -755,10 +757,9 @@
 
                                 <TextView
                                     android:layout_width="match_parent"
-                                    android:layout_height="35dp"
+                                    android:layout_height="45dp"
                                     android:layout_weight="1"
                                     android:textSize="9dp"
-                                    android:maxLength="10"
                                     android:id="@+id/datetext"
                                     android:drawableRight="@drawable/ic_calendar_updated"
                                     android:drawablePadding="5dp"
@@ -800,7 +801,6 @@
                                     android:layout_weight="1"
                                     android:textSize="9dp"
                                     android:textAllCaps="true"
-                                    android:padding="4dp"
                                     android:editable="false"
                                     android:textColor="@color/black"
                                     android:id="@+id/QCNAME"
@@ -833,7 +833,6 @@
                                     android:layout_height="wrap_content"
                                     android:layout_weight="1"
                                     android:textSize="9dp"
-                                    android:padding="4dp"
                                     android:id="@+id/QCRESULT"
                                     android:editable="false"
                                     android:gravity="center_vertical"
@@ -969,6 +968,18 @@
 
                 </androidx.cardview.widget.CardView>
 
+                <ProgressBar
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:id="@+id/Progress"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:indeterminate="true"
+                    android:indeterminateTintMode="src_atop"
+                    android:indeterminateTint="#302F2F"
+                    />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </ScrollView>

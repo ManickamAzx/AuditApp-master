@@ -2,7 +2,6 @@ package com.mdq.auditinspectionapp.Pojo.JsonRequest;
 
 public class GenerateUpdateProductionRequestModel {
 
-
     public String foreCastDelDate;
     public String remarks;
     public int dispatchModeId;
@@ -10,8 +9,9 @@ public class GenerateUpdateProductionRequestModel {
     public String sourceFlag;
     public int sourceId;
     public String pgmCode;
-    public String sysOrderNo;
+    public String systemOrderNo;
     public int styleId;
     public String custOrderNo;
+
 
 }

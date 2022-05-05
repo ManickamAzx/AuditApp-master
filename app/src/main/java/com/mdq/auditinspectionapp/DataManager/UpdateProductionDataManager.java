@@ -8,6 +8,8 @@ import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
+import com.mdq.auditinspectionapp.Activity.FinalInspectionScreen;
+import com.mdq.auditinspectionapp.Activity.FinalProductionUpdate;
 import com.mdq.auditinspectionapp.Http.ApiInterface;
 import com.mdq.auditinspectionapp.Interfaces.ResponseHandler;
 import com.mdq.auditinspectionapp.Pojo.JsonRequest.GenerateBrandRequestModel;
@@ -85,6 +87,12 @@ public class UpdateProductionDataManager {
             public void onFailure(Call<GenerateUpdateProductionResponseModel> call, Throwable t) {
                 Log.d(TAG, "onTokenExpired: " + t.getMessage());
                 Toast.makeText(context, "" + t.getMessage(), Toast.LENGTH_LONG).show();
+
+
+                FinalProductionUpdate finalInspectionScreen=new FinalProductionUpdate();
+                if( t.getMessage().equals("time out")) {
+                    finalInspectionScreen.timeout();
+                }
             }
         });
 

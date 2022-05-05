@@ -32,7 +32,7 @@ public class UpdateInspectionRequestViewModel extends UpdateInspectionRequestBas
         generateUpdateInspectionRequestModel.sourceId=getSourceId();
         generateUpdateInspectionRequestModel.sourceFlag=getSourceFlag();
         generateUpdateInspectionRequestModel.updateForm="INSPECTION";
-        generateUpdateInspectionRequestModel.inspectionDate=getInspectionDate()+"T00:00:00";
+        generateUpdateInspectionRequestModel.inspectionDate=getInspectionDate();
         generateUpdateInspectionRequestModel.qcBy=getQcBy();
         generateUpdateInspectionRequestModel.qcRemarks=getQcRemarks();
         generateUpdateInspectionRequestModel.pgmCode=getPgmCode();

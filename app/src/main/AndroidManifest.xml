@@ -14,6 +14,9 @@
         android:theme="@style/Theme.AuditInspectionApp"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".Activity.ReportScreen"
+            android:exported="true" />
+        <activity
             android:name=".Activity.NoDataActivity"
             android:exported="true" />
         <activity
@@ -24,10 +27,10 @@
             android:exported="true" />
         <activity
             android:name=".Activity.FinalProductionUpdate"
-            android:exported="true"></activity>
+            android:exported="true" />
         <activity
             android:name=".Activity.TransactionProductUpdate"
-            android:exported="true"></activity>
+            android:exported="true" />
         <activity
             android:name=".Activity.welcomeScreen"
             android:exported="true">

@@ -248,7 +248,6 @@
                                     android:layout_height="wrap_content"
                                     android:layout_weight="1.3"
                                     android:textColor="@color/black"
-                                    android:text="HARLY DAVIDSON MOTO CO"
                                     android:textSize="9dp" />
 
                             </LinearLayout>
@@ -275,7 +274,6 @@
                                     android:layout_height="wrap_content"
                                     android:layout_weight="1"
                                     android:textColor="@color/black"
-                                    android:text="Ex Factory"
                                     android:textSize="9dp" />
 
                             </LinearLayout>
@@ -413,15 +411,14 @@
                                     android:textStyle="bold" />
 
                                 <TextView
+                                    android:id="@+id/STYLENAME"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_below="@+id/STYLE"
                                     android:background="?attr/editTextBackground"
                                     android:paddingTop="4dp"
-                                    android:textColor="@color/black"
-                                    android:id="@+id/STYLENAME"
-                                    android:text="HARLEY DAVIDSON"
                                     android:textAllCaps="true"
+                                    android:textColor="@color/black"
                                     android:textSize="9dp" />
                             </RelativeLayout>
 
@@ -448,7 +445,7 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_weight="1"
-                                    android:text="BUYER"
+                                    android:text="ORDER NO"
                                     android:textStyle="bold"
                                     android:textSize="12sp"
                                     android:layout_marginLeft="2dp"
@@ -459,9 +456,9 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_weight="1"
-                                    android:text="HARLEY DAVIDSON"
                                     android:textSize="9dp"
                                     android:id="@+id/BUYER"
+                                    android:gravity="end"
                                     android:paddingTop="4dp"
                                     android:textAllCaps="true"
                                     android:background="?attr/editTextBackground" />
@@ -501,7 +498,7 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_weight="1"
-                                    android:text="21122"
+                                    android:gravity="end"
                                     android:id="@+id/ORDER_QTY"
                                     android:textSize="9dp"
                                     android:textAllCaps="true"
@@ -532,7 +529,7 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_weight="1"
-                                    android:text="21122"
+                                    android:gravity="end"
                                     android:textSize="9dp"
                                     android:textAllCaps="true"
                                     android:paddingTop="4dp"
@@ -608,7 +605,7 @@
                                 <TextView
                                     android:id="@+id/FORECASTDELDATE"
                                     android:layout_width="match_parent"
-                                    android:layout_height="30dp"
+                                    android:layout_height="wrap_content"
                                     android:layout_below="@+id/Forecast"
                                     android:background="?attr/editTextBackground"
                                     android:drawableRight="@drawable/ic_calendar_updated"
@@ -640,11 +637,10 @@
                                 <TextView
                                     android:id="@+id/CITY"
                                     android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
+                                    android:layout_height="40dp"
                                     android:layout_below="@+id/DESTINATION"
                                     android:background="?attr/editTextBackground"
                                     android:paddingTop="4dp"
-                                    android:text="united State of america"
                                     android:textAllCaps="true"
                                     android:textSize="9dp" />
                             </RelativeLayout>
@@ -719,12 +715,11 @@
 
                                     <TextView
                                         android:layout_width="wrap_content"
-                                        android:layout_height="30dp"
-                                        android:layout_weight="1.8"
-                                        android:text="REmarks"
-                                        android:textSize="9dp"
-                                        android:editable="false"
-                                        android:textColor="#ED0E0E"
+                                        android:layout_height="0dp"
+                                        android:layout_weight="2"
+                                        android:text="remarks"
+                                        android:textStyle="bold"
+                                        android:textSize="12sp"                                        android:textColor="@color/black"
                                         android:background="?attr/editTextBackground"
                                         android:textAllCaps="true"
                                         android:gravity="bottom"
@@ -736,8 +731,6 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="12dp"
-                                android:text="Revised date due to lock down"
-                                android:textColor="#ED0E0E"
                                 android:id="@+id/REMARKS"
                                 android:padding="5dp"
                                 android:background="@null"
@@ -990,6 +983,20 @@
 
 
                 </androidx.cardview.widget.CardView>
+
+
+                <ProgressBar
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:id="@+id/Progress"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:indeterminate="true"
+                    android:indeterminateTintMode="src_atop"
+                    android:indeterminateTint="#302F2F"
+                    />
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>

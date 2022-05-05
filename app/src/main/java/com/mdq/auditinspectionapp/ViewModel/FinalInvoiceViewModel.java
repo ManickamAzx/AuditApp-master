@@ -62,9 +62,9 @@ public class FinalInvoiceViewModel extends FinalInvoiceRequestBaseViewModel impl
         });
     }
 
-
         @Override
         public void generateFinalVoiceRequest() {
            goGenerateBrand();
         }
+
     }

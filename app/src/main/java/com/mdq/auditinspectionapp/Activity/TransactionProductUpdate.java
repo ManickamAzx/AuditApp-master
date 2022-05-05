@@ -446,6 +446,7 @@ public class TransactionProductUpdate extends AppCompatActivity implements Sourc
             SourceAuto.setAdapter(sourceAdapter);
             sourceNum=1;
         }
+
     }
 
     @Override
@@ -529,8 +530,6 @@ public class TransactionProductUpdate extends AppCompatActivity implements Sourc
         for(int i=0;i<generateInvoiceResponseModel.getResponse().size();i++){
             InvoiceDate[i]=generateInvoiceResponseModel.getResponse().get(i).getInvoidDate();
             InvoiceNo[i]=generateInvoiceResponseModel.getResponse().get(i).getInvoidNo();
-
-
         }
         bottom();
         bottomSheetDialog.show();
@@ -568,24 +567,32 @@ public class TransactionProductUpdate extends AppCompatActivity implements Sourc
     public void FinalInvoiceCall(int invoice) {
         bottomSheetDialog.dismiss();
         if(dpid!=0){
+
             Intent intent = new Intent(getApplicationContext(), FinalInspectionScreen.class);
             intent.putExtra("piNo", generateInvoiceResponseModel.getResponse().get(invoice).getInvoidNo());
             intent.putExtra("from", f);
             intent.putExtra("to", t);
             intent.putExtra("SourceId", Integer.valueOf(generateSourceResponseModel.getResponse().get(sourceNum - 1).getSourceId()));
             intent.putExtra("SourceFlag", generateSourceResponseModel.getResponse().get(sourceNum - 1).getSourceFlag());
+            intent.putExtra("SeasonAuto", at.SeasonAuto.getText().toString());
             intent.putExtra("OrderStatus", "OutStanding");
             intent.putExtra("dpid", dpid);
             startActivity(intent);
+
+
         }else {
+
             Intent intent = new Intent(TransactionProductUpdate.this, FinalProductionUpdate.class);
             intent.putExtra("piNo", generateInvoiceResponseModel.getResponse().get(invoice).getInvoidNo());
             intent.putExtra("from", f);
             intent.putExtra("to", t);
+            intent.putExtra("SeasonAuto", at.SeasonAuto.getText().toString());
             intent.putExtra("SourceId", Integer.valueOf(generateSourceResponseModel.getResponse().get(sourceNum - 1).getSourceId()));
+            intent.putExtra("SourceName", generateSourceResponseModel.getResponse().get(sourceNum - 1).getSourceName());
             intent.putExtra("SourceFlag", generateSourceResponseModel.getResponse().get(sourceNum - 1).getSourceFlag());
             intent.putExtra("OrderStatus", "OutStanding");
             startActivity(intent);
+
         }
     }
 
@@ -594,6 +601,4 @@ public class TransactionProductUpdate extends AppCompatActivity implements Sourc
         startActivity(new Intent(TransactionProductUpdate.this,welcomeSaibhavani.class));
         finishAffinity();
     }
-
-
 }

@@ -65,7 +65,10 @@ public class welcomeSaibhavani extends AppCompatActivity {
         ReportCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                logout();
+
+                Intent intent=new Intent(getApplicationContext(), ReportScreen.class);
+                startActivity(intent);
+
             }
         });
 
@@ -76,40 +79,6 @@ public class welcomeSaibhavani extends AppCompatActivity {
                 finishAffinity();
             }
         });
-    }
-
-    private void logout() {
-
-        Dialog dialoglogout = new Dialog(this, R.style.dialog_center);
-        dialoglogout.setContentView(R.layout.dialog_report_selection);
-        dialoglogout.setCanceledOnTouchOutside(true);
-        dialoglogout.show();
-        TextView textView23 = dialoglogout.findViewById(R.id.textView23);
-        TextView textView24 = dialoglogout.findViewById(R.id.textView24);
-
-        textView23.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialoglogout.dismiss();
-
-                Intent intent=new Intent(getApplicationContext(), FinalReportScreen.class);
-                startActivity(intent);
-                finish();
-            }
-
-        });
-        textView24.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialoglogout.dismiss();
-
-                Intent intent=new Intent(getApplicationContext(), FinalReportScreen.class);
-                startActivity(intent);
-                finish();
-            }
-
-        });
-
     }
 
     /**

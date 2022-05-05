@@ -38,7 +38,7 @@ public class UpdateProductionRequestViewModel extends UpdateProductionBaseViewMo
         generateUpdateProductionRequestModel.pgmCode=getPgmCode();
         generateUpdateProductionRequestModel.remarks=getRemarks();
         generateUpdateProductionRequestModel.styleId=getStyleId();
-        generateUpdateProductionRequestModel.sysOrderNo=getSysOrderNo();
+        generateUpdateProductionRequestModel.systemOrderNo=getSysOrderNo();
 
         updateProductionDataManager.callEnqueue(ApiClass.UPDATEPRODUCTION, generateUpdateProductionRequestModel,new ResponseHandler<GenerateUpdateProductionResponseModel>() {
             @Override
@@ -47,7 +47,6 @@ public class UpdateProductionRequestViewModel extends UpdateProductionBaseViewMo
             }
             @Override
             public void onSuccess(GenerateUpdateProductionResponseModel item, String message) {
-                Log.i("otpR","rr");
                 if(item.getMessage()!=null) {
                     Log.i("otpRecevied", item.getMessage());
                     updateProductionResponseInterface.generateUpdateProductionProcessed(item);

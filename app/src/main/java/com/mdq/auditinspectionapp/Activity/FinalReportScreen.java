@@ -42,14 +42,6 @@ public class FinalReportScreen extends AppCompatActivity {
                 onBackPressed();
             }
         });
-
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                Toast.makeText(getApplicationContext(), "Timing out for fetch data", Toast.LENGTH_SHORT).show();
-            }
-        },8000);
-
     }
 
     /**

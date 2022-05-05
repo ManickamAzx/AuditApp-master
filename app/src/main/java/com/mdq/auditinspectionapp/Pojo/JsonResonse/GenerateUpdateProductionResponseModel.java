@@ -13,7 +13,7 @@ public class GenerateUpdateProductionResponseModel {
     public String message;
     @SerializedName("status")
     @Expose
-    public Integer status;
+    public String status;
     @SerializedName("date")
     @Expose
     public String date;
@@ -34,11 +34,11 @@ public class GenerateUpdateProductionResponseModel {
         this.message = message;
     }
 
-    public Integer getStatus() {
+    public String getStatus() {
         return status;
     }
 
-    public void setStatus(Integer status) {
+    public void setStatus(String status) {
         this.status = status;
     }
 

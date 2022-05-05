@@ -1,11 +1,9 @@
 package com.mdq.auditinspectionapp.DataManager;
 
 import static com.mdq.auditinspectionapp.base.AuditInspectionApp.getApp;
-
 import android.content.Context;
 import android.util.Log;
 import android.widget.Toast;
-
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 import com.mdq.auditinspectionapp.Http.ApiInterface;
@@ -45,6 +43,7 @@ public class BrandDataManager {
              */
             @Override
             public void onResponse(Call<GenerateBrandResponseModel> call, Response<GenerateBrandResponseModel> response) {
+
                 /**
                  * Invoked for a received HTTP response.
                  * <p>
@@ -54,6 +53,7 @@ public class BrandDataManager {
                  * @param call
                  * @param response
                  */
+
                 Log.i("responce", "response get");
                 int statusCode = response.code();
 
