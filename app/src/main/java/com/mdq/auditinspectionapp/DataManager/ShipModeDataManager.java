@@ -32,10 +32,10 @@ public class ShipModeDataManager {
         this.apiInterface = getApp().getRetrofitInterface();
     }
 
-    public void callEnqueue(String url,  GenerateShipModeRequestModel generateShipModeRequestModel, final ResponseHandler<GenerateShipModeResponseModel> dataresponse) {
+    public void callEnqueue(String url, String Auth, GenerateShipModeRequestModel generateShipModeRequestModel, final ResponseHandler<GenerateShipModeResponseModel> dataresponse) {
 
         //calling the generatePostLoginCall methode from call apiInterface
-        Call<GenerateShipModeResponseModel> userMpinCall = apiInterface.generateGetShipModeCall(url);
+        Call<GenerateShipModeResponseModel> userMpinCall = apiInterface.generateGetShipModeCall(url,Auth);
         userMpinCall.enqueue(new Callback<GenerateShipModeResponseModel>() {
 
             /**

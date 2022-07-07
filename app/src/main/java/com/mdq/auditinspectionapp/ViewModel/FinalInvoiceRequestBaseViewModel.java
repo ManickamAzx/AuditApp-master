@@ -9,6 +9,16 @@ public class FinalInvoiceRequestBaseViewModel {
     private String to;
     private String orderStatus;
 
+    public String getAuth() {
+        return auth;
+    }
+
+    public void setAuth(String auth) {
+        this.auth = auth;
+    }
+
+    private String auth;
+
     public String getPiNo() {
         return piNo;
     }

@@ -17,7 +17,6 @@ public class AuditApiClient {
     private static ApiClass apiClass;
 
     public AuditApiClient() {
-
     }
 
     public static ApiInterface apiinterface() {
@@ -25,7 +24,7 @@ public class AuditApiClient {
         if (retrofit == null) {
             OkHttpClient defaultHttpClient = new OkHttpClient.Builder()
                     .addInterceptor(new HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
-                    .connectTimeout(120, TimeUnit.SECONDS)
+                    .connectTimeout(600, TimeUnit.SECONDS)
                     .retryOnConnectionFailure(true)
                     .build();
 

@@ -10,11 +10,11 @@ import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 import com.mdq.auditinspectionapp.Http.ApiInterface;
 import com.mdq.auditinspectionapp.Interfaces.ResponseHandler;
-import com.mdq.auditinspectionapp.Pojo.JsonRequest.GenerateQCNameRequestModel;
-import com.mdq.auditinspectionapp.Pojo.JsonRequest.GenerateQCResultRequestModel;
+import com.mdq.auditinspectionapp.Pojo.JsonRequest.GenerateFinalInvoiceRequestModel;
+import com.mdq.auditinspectionapp.Pojo.JsonRequest.GetProductionReportRequestModel;
 import com.mdq.auditinspectionapp.Pojo.JsonResonse.ErrorBody;
-import com.mdq.auditinspectionapp.Pojo.JsonResonse.GenerateQCNameResponseModel;
-import com.mdq.auditinspectionapp.Pojo.JsonResonse.GenerateQCResultResponseModel;
+import com.mdq.auditinspectionapp.Pojo.JsonResonse.GenerateFinalInvoiceResponseModel;
+import com.mdq.auditinspectionapp.Pojo.JsonResonse.GetProductionReportResponseModel;
 
 import java.io.IOException;
 
@@ -22,23 +22,22 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class QCNameDataManager {
+public class GetProductionReportDataManager {
 
-
-    private final String TAG = QCNameDataManager.class.getSimpleName();
+    private final String TAG = GetProductionReportDataManager.class.getSimpleName();
     private ApiInterface apiInterface;
     Context context;
 
-    public QCNameDataManager(Context context) {
+    public GetProductionReportDataManager(Context context) {
         this.context = context;
         this.apiInterface = getApp().getRetrofitInterface();
     }
 
-    public void callEnqueue(String url, String Auth,GenerateQCNameRequestModel generateQCNameRequestModel, final ResponseHandler<GenerateQCNameResponseModel> dataresponse) {
+    public void callEnqueue(String url, String auth, GetProductionReportRequestModel getProductionReportRequestModel, final ResponseHandler<GetProductionReportResponseModel> dataresponse) {
 
         //calling the generatePostLoginCall methode from call apiInterface
-        Call<GenerateQCNameResponseModel> userMpinCall = apiInterface.generateGetQCNameCall(url,Auth);
-        userMpinCall.enqueue(new Callback<GenerateQCNameResponseModel>() {
+        Call<GetProductionReportResponseModel> userMpinCall = apiInterface.getProductionReportCall(url,auth, getProductionReportRequestModel);
+        userMpinCall.enqueue(new Callback<GetProductionReportResponseModel>() {
 
             /**
              * @param call
@@ -46,7 +45,7 @@ public class QCNameDataManager {
              * @breif getting response from api
              */
             @Override
-            public void onResponse(Call<GenerateQCNameResponseModel> call, Response<GenerateQCNameResponseModel> response) {
+            public void onResponse(Call<GetProductionReportResponseModel> call, Response<GetProductionReportResponseModel> response) {
                 /**
                  * Invoked for a received HTTP response.
                  * <p>
@@ -83,7 +82,7 @@ public class QCNameDataManager {
              * @breif api call failure
              */
             @Override
-            public void onFailure(Call<GenerateQCNameResponseModel> call, Throwable t) {
+            public void onFailure(Call<GetProductionReportResponseModel> call, Throwable t) {
                 Log.d(TAG, "onTokenExpired: " + t.getMessage());
                 Toast.makeText(context, "" + t.getMessage(), Toast.LENGTH_LONG).show();
             }

@@ -117,6 +117,7 @@
                                 android:background="#17060A">
 
                                 <TextView
+                                    android:id="@+id/title"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:gravity="center"
@@ -382,6 +383,7 @@
                                     android:textStyle="bold" />
 
                                 <TextView
+                                    android:id="@+id/vendor"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_below="@+id/VENDOR"
@@ -606,8 +608,8 @@
                                     android:layout_height="wrap_content"
                                     android:layout_below="@+id/Forecast"
                                     android:background="?attr/editTextBackground"
-                                    android:paddingTop="4dp"
                                     android:maxLength="10"
+                                    android:paddingTop="4dp"
                                     android:textAllCaps="true"
                                     android:textSize="9dp" />
                             </RelativeLayout>
@@ -918,6 +920,7 @@
                             </LinearLayout>
 
                             <LinearLayout
+                                android:id="@+id/saveLinear"
                                 android:layout_width="0dp"
                                 android:layout_height="match_parent"
                                 android:layout_weight="0.33"

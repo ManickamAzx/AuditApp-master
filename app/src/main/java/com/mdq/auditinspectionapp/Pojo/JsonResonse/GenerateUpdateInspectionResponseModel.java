@@ -5,26 +5,12 @@ import com.google.gson.annotations.SerializedName;
 
 public class GenerateUpdateInspectionResponseModel {
 
-    @SerializedName("response")
-    @Expose
-    public String response;
     @SerializedName("message")
     @Expose
     public String message;
     @SerializedName("status")
     @Expose
-    public Integer status;
-    @SerializedName("date")
-    @Expose
-    public String date;
-
-    public String getResponse() {
-        return response;
-    }
-
-    public void setResponse(String response) {
-        this.response = response;
-    }
+    public String status;
 
     public String getMessage() {
         return message;
@@ -34,20 +20,12 @@ public class GenerateUpdateInspectionResponseModel {
         this.message = message;
     }
 
-    public Integer getStatus() {
+    public String getStatus() {
         return status;
     }
 
-    public void setStatus(Integer status) {
+    public void setStatus(String status) {
         this.status = status;
-    }
-
-    public String getDate() {
-        return date;
-    }
-
-    public void setDate(String date) {
-        this.date = date;
     }
 
 }

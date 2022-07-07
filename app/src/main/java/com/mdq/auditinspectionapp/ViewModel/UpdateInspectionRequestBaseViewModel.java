@@ -76,11 +76,11 @@ public class UpdateInspectionRequestBaseViewModel {
         this.styleId = styleId;
     }
 
-    public List<String> getCustomerOrderNos() {
+    public String getCustomerOrderNos() {
         return customerOrderNos;
     }
 
-    public void setCustomerOrderNos(List<String> customerOrderNos) {
+    public void setCustomerOrderNos(String customerOrderNos) {
         this.customerOrderNos = customerOrderNos;
     }
 
@@ -90,10 +90,20 @@ public class UpdateInspectionRequestBaseViewModel {
     public String qcRemarks;
     public String updateForm;
     public String pgmCode;
+
+    public String getAuth() {
+        return Auth;
+    }
+
+    public void setAuth(String auth) {
+        Auth = auth;
+    }
+
+    public String Auth;
     public String sourceFlag;
     public int sourceId;
     public int styleId;
-    public List<String> customerOrderNos;
+    public String customerOrderNos;
 
 
    }

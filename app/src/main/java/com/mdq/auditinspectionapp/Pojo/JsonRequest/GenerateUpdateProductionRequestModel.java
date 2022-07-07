@@ -5,7 +5,7 @@ public class GenerateUpdateProductionRequestModel {
     public String foreCastDelDate;
     public String remarks;
     public int dispatchModeId;
-    public String updateForm;
+    public String updateFrom;
     public String sourceFlag;
     public int sourceId;
     public String pgmCode;

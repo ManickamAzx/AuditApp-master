@@ -31,7 +31,7 @@ public class QCResultRequestViewModel extends QCResultRequestBaseViewModel imple
     private void goGenerateBrand() {
         GenerateQCResultRequestModel sourceRequestModel=new GenerateQCResultRequestModel();
 
-        qcResultDataManager.callEnqueue(ApiClass.QCRESULT, sourceRequestModel,new ResponseHandler<GenerateQCResultResponseModel>() {
+        qcResultDataManager.callEnqueue(ApiClass.QCRESULT, getAuth(),sourceRequestModel,new ResponseHandler<GenerateQCResultResponseModel>() {
             @Override
             public void onSuccess(String message) {
 

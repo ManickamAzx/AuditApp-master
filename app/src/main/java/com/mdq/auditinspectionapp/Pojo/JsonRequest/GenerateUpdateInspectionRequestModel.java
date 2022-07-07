@@ -9,11 +9,11 @@ public class GenerateUpdateInspectionRequestModel {
     public String qcBy;
     public String result;
     public String qcRemarks;
-    public String updateForm;
+    public String updateFrom;
     public String pgmCode;
     public String sourceFlag;
     public int sourceId;
     public int styleId;
-    public List<String> customerOrderNos;
+    public String customerOrderNos;
 
 }

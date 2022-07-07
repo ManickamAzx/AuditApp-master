@@ -31,7 +31,7 @@ public class UpdateInspectionRequestViewModel extends UpdateInspectionRequestBas
         GenerateUpdateInspectionRequestModel generateUpdateInspectionRequestModel=new GenerateUpdateInspectionRequestModel();
         generateUpdateInspectionRequestModel.sourceId=getSourceId();
         generateUpdateInspectionRequestModel.sourceFlag=getSourceFlag();
-        generateUpdateInspectionRequestModel.updateForm="INSPECTION";
+        generateUpdateInspectionRequestModel.updateFrom="INSPECTION";
         generateUpdateInspectionRequestModel.inspectionDate=getInspectionDate();
         generateUpdateInspectionRequestModel.qcBy=getQcBy();
         generateUpdateInspectionRequestModel.qcRemarks=getQcRemarks();
@@ -40,7 +40,7 @@ public class UpdateInspectionRequestViewModel extends UpdateInspectionRequestBas
         generateUpdateInspectionRequestModel.styleId=getStyleId();
         generateUpdateInspectionRequestModel.result=getResult();
 
-        updateInspectionDataManager.callEnqueue(ApiClass.UPDATEINSPECTION, generateUpdateInspectionRequestModel,new ResponseHandler<GenerateUpdateInspectionResponseModel>() {
+        updateInspectionDataManager.callEnqueue(ApiClass.UPDATEINSPECTION,getAuth(), generateUpdateInspectionRequestModel,new ResponseHandler<GenerateUpdateInspectionResponseModel>() {
             @Override
             public void onSuccess(String message) {
 

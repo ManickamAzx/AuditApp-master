@@ -5,13 +5,24 @@ public class UpdateProductionBaseViewModel {
     public String foreCastDelDate;
     public String remarks;
     public int dispatchModeId;
-    public String updateForm;
+    public String updateFrom;
     public String sourceFlag;
     public int sourceId;
     public String pgmCode;
-    public String sysOrderNo;
+    public String systemOrderNo;
     public int styleId;
     public String custOrderNo;
+
+
+    public String getAuth() {
+        return Auth;
+    }
+
+    public void setAuth(String auth) {
+        Auth = auth;
+    }
+
+    public String Auth;
 
     public String getForeCastDelDate() {
         return foreCastDelDate;
@@ -38,11 +49,11 @@ public class UpdateProductionBaseViewModel {
     }
 
     public String getUpdateForm() {
-        return updateForm;
+        return updateFrom;
     }
 
     public void setUpdateForm(String updateForm) {
-        this.updateForm = updateForm;
+        this.updateFrom = updateForm;
     }
 
     public String getSourceFlag() {
@@ -70,11 +81,11 @@ public class UpdateProductionBaseViewModel {
     }
 
     public String getSysOrderNo() {
-        return sysOrderNo;
+        return systemOrderNo;
     }
 
     public void setSysOrderNo(String sysOrderNo) {
-        this.sysOrderNo = sysOrderNo;
+        this.systemOrderNo = sysOrderNo;
     }
 
     public int getStyleId() {

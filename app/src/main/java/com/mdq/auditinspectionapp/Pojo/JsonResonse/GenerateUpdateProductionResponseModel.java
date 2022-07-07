@@ -5,26 +5,13 @@ import com.google.gson.annotations.SerializedName;
 
 public class GenerateUpdateProductionResponseModel {
 
-    @SerializedName("response")
-    @Expose
-    public String response;
+
     @SerializedName("message")
     @Expose
     public String message;
     @SerializedName("status")
     @Expose
     public String status;
-    @SerializedName("date")
-    @Expose
-    public String date;
-
-    public String getResponse() {
-        return response;
-    }
-
-    public void setResponse(String response) {
-        this.response = response;
-    }
 
     public String getMessage() {
         return message;
@@ -40,14 +27,6 @@ public class GenerateUpdateProductionResponseModel {
 
     public void setStatus(String status) {
         this.status = status;
-    }
-
-    public String getDate() {
-        return date;
-    }
-
-    public void setDate(String date) {
-        this.date = date;
     }
 
 }

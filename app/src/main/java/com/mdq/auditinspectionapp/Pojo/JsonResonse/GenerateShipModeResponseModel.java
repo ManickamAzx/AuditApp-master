@@ -6,9 +6,9 @@ import com.google.gson.annotations.SerializedName;
 import java.util.List;
 
 public class GenerateShipModeResponseModel {
-    @SerializedName("response")
+    @SerializedName("data")
     @Expose
-    public List<ResponseForShipMode> response;
+    public List<ResponseForShipMode> data;
 
     @SerializedName("message")
     @Expose
@@ -34,23 +34,12 @@ public class GenerateShipModeResponseModel {
         this.status = status;
     }
 
-    public String getDate() {
-        return date;
-    }
-
-    public void setDate(String date) {
-        this.date = date;
-    }
-
-    @SerializedName("date")
-    @Expose
-    public String date;
 
     public List<ResponseForShipMode> getResponse() {
-        return response;
+        return data;
     }
 
     public void setResponse(List<ResponseForShipMode> response) {
-        this.response = response;
+        this.data = response;
     }
 }

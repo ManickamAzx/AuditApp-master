@@ -3,6 +3,7 @@ package com.mdq.auditinspectionapp.Activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
@@ -23,37 +24,23 @@ public class ReportScreen extends AppCompatActivity {
         activityReportScreenBinding=ActivityReportScreenBinding.inflate(getLayoutInflater());
         setContentView(activityReportScreenBinding.getRoot());
 
-
         activityReportScreenBinding.welcomeText.setText("welcome "+getPreferenceManager().getPrefUsername());
 
         activityReportScreenBinding.CardProduct.setOnClickListener(new View.OnClickListener() {
-
             @Override
             public void onClick(View v) {
-                activityReportScreenBinding.Progress.setVisibility(View.VISIBLE);
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        Toast.makeText(getApplicationContext(), "It's taking too long to fetch the data!", Toast.LENGTH_SHORT).show();
-                        activityReportScreenBinding.Progress.setVisibility(View.INVISIBLE);
-
-                    }
-                },8000);
+                startActivity(new Intent(ReportScreen.this,TransactionProductUpdate.class)
+                        .putExtra("from","report")
+                        .putExtra("FromTo","Production"));
             }
         });
 
         activityReportScreenBinding.inspections.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                activityReportScreenBinding.Progress.setVisibility(View.VISIBLE);
-
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        Toast.makeText(getApplicationContext(), "It's taking too long to fetch the data!", Toast.LENGTH_SHORT).show();
-                        activityReportScreenBinding.Progress.setVisibility(View.INVISIBLE);
-                    }
-                }, 8000);
+                startActivity(new Intent(ReportScreen.this,TransactionProductUpdate.class)
+                        .putExtra("from","report")
+                        .putExtra("FromTo","Inspection"));
             }
         });
     }

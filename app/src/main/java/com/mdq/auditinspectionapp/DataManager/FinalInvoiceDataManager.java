@@ -33,10 +33,10 @@ public class FinalInvoiceDataManager {
         this.apiInterface = getApp().getRetrofitInterface();
     }
 
-    public void callEnqueue(String url, GenerateFinalInvoiceRequestModel generateFinalInvoiceRequestModel, final ResponseHandler<GenerateFinalInvoiceResponseModel> dataresponse) {
+    public void callEnqueue(String url, String auth, GenerateFinalInvoiceRequestModel generateFinalInvoiceRequestModel, final ResponseHandler<GenerateFinalInvoiceResponseModel> dataresponse) {
 
         //calling the generatePostLoginCall methode from call apiInterface
-        Call<GenerateFinalInvoiceResponseModel> userMpinCall = apiInterface.generateGetFinalInvoiceCall(url, generateFinalInvoiceRequestModel);
+        Call<GenerateFinalInvoiceResponseModel> userMpinCall = apiInterface.generateGetFinalInvoiceCall(url,auth, generateFinalInvoiceRequestModel);
         userMpinCall.enqueue(new Callback<GenerateFinalInvoiceResponseModel>() {
 
             /**

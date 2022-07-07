@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName;
 
 public class ResponseForShipMode {
 
-    @SerializedName("modeId")
+    @SerializedName("despatch_mode_id")
     @Expose
     public String modeId;
 
@@ -16,7 +16,6 @@ public class ResponseForShipMode {
     public void setModeId(String modeId) {
         this.modeId = modeId;
     }
-
     public String getModeName() {
         return modeName;
     }
@@ -25,7 +24,8 @@ public class ResponseForShipMode {
         this.modeName = modeName;
     }
 
-    @SerializedName("modeName")
+    @SerializedName("despatch_mode_name")
     @Expose
     public String modeName;
+
 }

@@ -111,7 +111,6 @@ public class LoginActivity extends AppCompatActivity implements LoginResponseInt
                         Toast.makeText(getApplicationContext(), "This App Require Internet", Toast.LENGTH_SHORT).show();
                     }
                 }
-
             }
         });
     }
@@ -132,15 +131,15 @@ public class LoginActivity extends AppCompatActivity implements LoginResponseInt
         String message=generateLoginResponseModel.getMessage().toString();
         activityMainBinding.Progress.setVisibility(View.GONE);
        if(message.equals(msg)){
-           dpid= Integer.parseInt(generateLoginResponseModel.getResponse().getDepartmentId().toString());
-               getPreferenceManager().setPrefToken(generateLoginResponseModel.getResponse().getToken());
+           dpid= Integer.parseInt(generateLoginResponseModel.getData().get(0).getDepartmentId());
+               getPreferenceManager().setPrefToken(generateLoginResponseModel.getToken());
                Intent intent=new Intent(LoginActivity.this, welcomeSaibhavani.class);
-               intent.putExtra("name",generateLoginResponseModel.getResponse().getName());
+               intent.putExtra("name",generateLoginResponseModel.getData().get(0).getName());
                intent.putExtra("dpid",dpid);
                startActivity(intent);
                finishAffinity();
-               preferenceManager.setPrefUsername(generateLoginResponseModel.getResponse().getName());
-               preferenceManager.setPrefDpid(Integer.parseInt(generateLoginResponseModel.getResponse().getDepartmentId().toString()));
+               preferenceManager.setPrefUsername(generateLoginResponseModel.getData().get(0).getName());
+               preferenceManager.setPrefDpid(Integer.parseInt(generateLoginResponseModel.getData().get(0).getDepartmentId().toString()));
                Toast.makeText(getApplicationContext(), "Login Successful", Toast.LENGTH_SHORT).show();
        }
     }

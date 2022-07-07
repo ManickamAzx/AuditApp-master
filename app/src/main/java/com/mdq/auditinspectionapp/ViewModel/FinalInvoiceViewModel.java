@@ -38,7 +38,7 @@ public class FinalInvoiceViewModel extends FinalInvoiceRequestBaseViewModel impl
             finalInvoiceRequestModel.to=getTo();
             finalInvoiceRequestModel.orderStatus=getOrderStatus();
 
-        finalInvoiceDataManager.callEnqueue(ApiClass.FINALINVOICE,  finalInvoiceRequestModel,new ResponseHandler<GenerateFinalInvoiceResponseModel>() {
+        finalInvoiceDataManager.callEnqueue(ApiClass.FINALINVOICE,getAuth(), finalInvoiceRequestModel,new ResponseHandler<GenerateFinalInvoiceResponseModel>() {
             @Override
             public void onSuccess(String message) {
 
@@ -47,7 +47,7 @@ public class FinalInvoiceViewModel extends FinalInvoiceRequestBaseViewModel impl
             @Override
             public void onSuccess(GenerateFinalInvoiceResponseModel item, String message) {
                 Log.i("otpR","rr");
-                if(item.response!=null) {
+                if(item.data!=null) {
                     finalInvoiceResponseInterface.generateFinalInvoiceProcessed(item);
                 }
 

@@ -3,21 +3,26 @@ package com.mdq.auditinspectionapp.Pojo.JsonResonse;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class GenerateLoginResponseModel {
+import java.util.List;
 
+public class GenerateLoginResponseModel {
+    @SerializedName("token")
+    @Expose
+    public String token;
+
+    @SerializedName("data")
+    @Expose
+    public List<ResponseForLogin> data;
 
     @SerializedName("status")
     @Expose
-    public Integer status;
-    @SerializedName("message")
-    @Expose
-    public String message;
+    public String status;
 
-    public Integer getStatus() {
+    public String getStatus() {
         return status;
     }
 
-    public void setStatus(Integer status) {
+    public void setStatus(String status) {
         this.status = status;
     }
 
@@ -29,28 +34,25 @@ public class GenerateLoginResponseModel {
         this.message = message;
     }
 
-    public ResponseForLogin getResponse() {
-        return response;
+    public String getToken() {
+        return token;
     }
 
-    public void setResponse(ResponseForLogin response) {
-        this.response = response;
+    public void setToken(String token) {
+        this.token = token;
     }
 
-    public String getDate() {
-        return date;
+    public List<ResponseForLogin> getData() {
+        return data;
     }
 
-    public void setDate(String date) {
-        this.date = date;
+    public void setData(List<ResponseForLogin> data) {
+        this.data = data;
     }
 
-    @SerializedName("response")
+    @SerializedName("message")
     @Expose
-    public ResponseForLogin response;
-    @SerializedName("date")
-    @Expose
-    public String date;
+    public String message;
 
 
 }

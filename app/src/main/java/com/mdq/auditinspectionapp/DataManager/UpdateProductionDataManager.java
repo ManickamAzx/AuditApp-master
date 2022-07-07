@@ -35,10 +35,10 @@ public class UpdateProductionDataManager {
         this.apiInterface = getApp().getRetrofitInterface();
     }
 
-    public void callEnqueue(String url, GenerateUpdateProductionRequestModel generateUpdateProductionRequestModel, final ResponseHandler<GenerateUpdateProductionResponseModel> dataresponse) {
+    public void callEnqueue(String url, String auth,GenerateUpdateProductionRequestModel generateUpdateProductionRequestModel, final ResponseHandler<GenerateUpdateProductionResponseModel> dataresponse) {
 
         //calling the generatePostLoginCall methode from call apiInterface
-        Call<GenerateUpdateProductionResponseModel> userMpinCall = apiInterface.generatePostUpdateProductionCall(url, generateUpdateProductionRequestModel);
+        Call<GenerateUpdateProductionResponseModel> userMpinCall = apiInterface.generatePostUpdateProductionCall(url,auth, generateUpdateProductionRequestModel);
         userMpinCall.enqueue(new Callback<GenerateUpdateProductionResponseModel>() {
 
             /**

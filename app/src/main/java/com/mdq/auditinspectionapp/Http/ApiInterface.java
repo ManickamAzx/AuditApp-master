@@ -9,6 +9,8 @@ import com.mdq.auditinspectionapp.Pojo.JsonRequest.GenerateShipModeRequestModel;
 import com.mdq.auditinspectionapp.Pojo.JsonRequest.GenerateSupplierRequestModel;
 import com.mdq.auditinspectionapp.Pojo.JsonRequest.GenerateUpdateInspectionRequestModel;
 import com.mdq.auditinspectionapp.Pojo.JsonRequest.GenerateUpdateProductionRequestModel;
+import com.mdq.auditinspectionapp.Pojo.JsonRequest.GetInspectionReportRequestModel;
+import com.mdq.auditinspectionapp.Pojo.JsonRequest.GetProductionReportRequestModel;
 import com.mdq.auditinspectionapp.Pojo.JsonResonse.GenerateBrandResponseModel;
 import com.mdq.auditinspectionapp.Pojo.JsonResonse.GenerateFinalInvoiceResponseModel;
 import com.mdq.auditinspectionapp.Pojo.JsonResonse.GenerateInvoiceResponseModel;
@@ -21,6 +23,8 @@ import com.mdq.auditinspectionapp.Pojo.JsonResonse.GenerateSourceResponseModel;
 import com.mdq.auditinspectionapp.Pojo.JsonResonse.GenerateSupplierResponseModel;
 import com.mdq.auditinspectionapp.Pojo.JsonResonse.GenerateUpdateInspectionResponseModel;
 import com.mdq.auditinspectionapp.Pojo.JsonResonse.GenerateUpdateProductionResponseModel;
+import com.mdq.auditinspectionapp.Pojo.JsonResonse.GetInspectionReportResponseModel;
+import com.mdq.auditinspectionapp.Pojo.JsonResonse.GetProductionReportResponseModel;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -51,21 +55,28 @@ public interface ApiInterface {
     Call<GenerateInvoiceResponseModel> generateGetInvoiceCall(@Url String url, @Header("Authorization") String Authorization, @Body GenerateInvoiceRequestModel generateInvoiceRequestModel);
 
     @POST
-    Call<GenerateFinalInvoiceResponseModel> generateGetFinalInvoiceCall(@Url String url, @Body GenerateFinalInvoiceRequestModel generateFinalInvoiceRequestModel);
+    Call<GenerateFinalInvoiceResponseModel> generateGetFinalInvoiceCall(@Url String url, @Header("Authorization") String Authorization, @Body GenerateFinalInvoiceRequestModel generateFinalInvoiceRequestModel);
 
     @GET
-    Call<GenerateShipModeResponseModel> generateGetShipModeCall(@Url String url);
+    Call<GenerateShipModeResponseModel> generateGetShipModeCall(@Url String url, @Header("Authorization") String Authorization);
 
     @GET
-    Call<GenerateQCResultResponseModel> generateGetQCResultCall(@Url String url);
+    Call<GenerateQCResultResponseModel> generateGetQCResultCall(@Url String url, @Header("Authorization") String Authorization);
 
     @GET
-    Call<GenerateQCNameResponseModel> generateGetQCNameCall(@Url String url);
+    Call<GenerateQCNameResponseModel> generateGetQCNameCall(@Url String url, @Header("Authorization") String Authorization);
 
     @POST
-    Call<GenerateUpdateProductionResponseModel> generatePostUpdateProductionCall(@Url String url, @Body GenerateUpdateProductionRequestModel generateUpdateProductionRequestModel);
+    Call<GenerateUpdateProductionResponseModel> generatePostUpdateProductionCall(@Url String url, @Header("Authorization") String Authorization, @Body GenerateUpdateProductionRequestModel generateUpdateProductionRequestModel);
 
     @POST
-    Call<GenerateUpdateInspectionResponseModel> generatePostUpdateInspectionCall(@Url String url, @Body GenerateUpdateInspectionRequestModel generateUpdateInspectionRequestModel);
+    Call<GenerateUpdateInspectionResponseModel> generatePostUpdateInspectionCall(@Url String url, @Header("Authorization") String Authorization, @Body GenerateUpdateInspectionRequestModel generateUpdateInspectionRequestModel);
+
+
+    @POST
+    Call<GetProductionReportResponseModel> getProductionReportCall(@Url String url, @Header("Authorization") String Authorization, @Body GetProductionReportRequestModel getProductionReportRequestModel);
+
+    @POST
+    Call<GetInspectionReportResponseModel> getInspectionReportCall(@Url String url, @Header("Authorization") String Authorization, @Body GetInspectionReportRequestModel getInspectionReportRequestModel);
 
 }

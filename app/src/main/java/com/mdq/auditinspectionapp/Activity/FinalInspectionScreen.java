@@ -24,6 +24,7 @@ import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.mdq.auditinspectionapp.Interfaces.ViewResponceInterface.FinalInvoiceResponseInterface;
+import com.mdq.auditinspectionapp.Interfaces.ViewResponceInterface.GetInspectionReportResponseInterface;
 import com.mdq.auditinspectionapp.Interfaces.ViewResponceInterface.QCNameResponseInterface;
 import com.mdq.auditinspectionapp.Interfaces.ViewResponceInterface.QCResultResponseInterface;
 import com.mdq.auditinspectionapp.Interfaces.ViewResponceInterface.ShipModeResponseInterface;
@@ -34,10 +35,12 @@ import com.mdq.auditinspectionapp.Pojo.JsonResonse.GenerateQCNameResponseModel;
 import com.mdq.auditinspectionapp.Pojo.JsonResonse.GenerateQCResultResponseModel;
 import com.mdq.auditinspectionapp.Pojo.JsonResonse.GenerateShipModeResponseModel;
 import com.mdq.auditinspectionapp.Pojo.JsonResonse.GenerateUpdateInspectionResponseModel;
+import com.mdq.auditinspectionapp.Pojo.JsonResonse.GetInspectionReportResponseModel;
 import com.mdq.auditinspectionapp.R;
 import com.mdq.auditinspectionapp.Utils.ApiClass;
 import com.mdq.auditinspectionapp.Utils.PreferenceManager;
 import com.mdq.auditinspectionapp.ViewModel.FinalInvoiceViewModel;
+import com.mdq.auditinspectionapp.ViewModel.GetInspectionViewModel;
 import com.mdq.auditinspectionapp.ViewModel.QCNameRequestViewModel;
 import com.mdq.auditinspectionapp.ViewModel.QCResultRequestViewModel;
 import com.mdq.auditinspectionapp.ViewModel.ShipModeRequestViewModel;
@@ -52,7 +55,7 @@ import java.util.Calendar;
 import java.util.Collections;
 import java.util.List;
 
-public class FinalInspectionScreen extends AppCompatActivity implements FinalInvoiceResponseInterface, QCNameResponseInterface, QCResultResponseInterface, UpdateInspectionResponseInterface,ShipModeResponseInterface {
+public class FinalInspectionScreen extends AppCompatActivity implements FinalInvoiceResponseInterface, QCNameResponseInterface, QCResultResponseInterface, UpdateInspectionResponseInterface, ShipModeResponseInterface, GetInspectionReportResponseInterface {
     LinearLayout back;
     ImageView datepicker;
     TextView textView, prev, next;
@@ -61,7 +64,7 @@ public class FinalInspectionScreen extends AppCompatActivity implements FinalInv
     GenerateFinalInvoiceResponseModel generateFinalInvoiceResponseModel;
     String piNo;
     ShipModeRequestViewModel shipModeRequestViewModel;
-    String from, to, orderStatus, SourceFlag,SeasonAuto,SourceName;
+    String from, to, orderStatus, SourceFlag, SeasonAuto, SourceName;
     int SourceId, getId = 0, totalgetid = 0;
     ArrayAdapter<String> arrayAdapterQCResult, ArrayAdapterQCName;
     String[] QCResultArray, QCNameArray;
@@ -75,27 +78,75 @@ public class FinalInspectionScreen extends AppCompatActivity implements FinalInv
     GenerateQCResultResponseModel generateQCResultResponseModel;
     List<String> customerorderno = new ArrayList<>();
     PreferenceManager preferenceManager;
+    String who,BRAND;
+    String RSeasonID, RSourceId, RSourceFlag, RBrandId, RFrom, RTo, RSupplierCode;
+    GetInspectionViewModel getInspectionViewModel;
+    GetInspectionReportResponseModel getInspectionReportResponseModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ap = ActivityFinalInspectionUpdateBinding.inflate(getLayoutInflater());
         setContentView(ap.getRoot());
-
+        getInspectionViewModel = new GetInspectionViewModel(this, this);
         updateInspectionRequestViewModel = new UpdateInspectionRequestViewModel(getApplicationContext(), this);
         finalInvoiceViewModel = new FinalInvoiceViewModel(getApplicationContext(), this);
         back = findViewById(R.id.linearBack);
         datepicker = findViewById(R.id.date_picker);
         textView = findViewById(R.id.datetext);
-
-        shipModeRequestViewModel=new ShipModeRequestViewModel(getApplicationContext(),this);
-        shipModeRequestViewModel.generateShipModeRequest();
-
+        getInspectionReportResponseModel = new GetInspectionReportResponseModel();
         prev = findViewById(R.id.PREV);
         next = findViewById(R.id.NEXT);
 
+        shipModeRequestViewModel = new ShipModeRequestViewModel(getApplicationContext(), this);
+        shipModeRequestViewModel.setAuth("Bearer " + getPreferenceManager().getPrefToken());
+        shipModeRequestViewModel.generateShipModeRequest();
+
         Intent intent = getIntent();
-        dpid = intent.getIntExtra("dpid", 0);
+        who = intent.getStringExtra("who");
+        if (who != null) {
+            if (who.trim().equals("report")) {
+                ap.saveLinear.setVisibility(View.GONE);
+                RSupplierCode = intent.getStringExtra("SupplierCode");
+                RSourceId = intent.getStringExtra("SourceId");
+                RSeasonID = intent.getStringExtra("SeasonId");
+                RFrom = intent.getStringExtra("from");
+                RFrom = RFrom + "T00:00:00";
+                RTo = intent.getStringExtra("to");
+                ap.outForeUntil.setText(RTo);
+                RTo = RTo + "T00:00:00";
+                RBrandId = intent.getStringExtra("BrandID");
+                RSourceFlag = intent.getStringExtra("SourceFlag");
+                BRAND = intent.getStringExtra("BRAND");
+                ap.title.setText("FINAL INSPECTION REPORT");
+                SeasonAuto = intent.getStringExtra("SeasonAuto");
+                SourceName = intent.getStringExtra("SourceName");
+
+                ap.Season.setText(SeasonAuto);
+                ap.Buyer.setText(SourceName);
+                ap.Brand.setText(BRAND);
+                ap.vendor.setText(BRAND);
+
+                getInspectionReport();
+            }
+        } else {
+            dpid = intent.getIntExtra("dpid", 0);
+            piNo = intent.getStringExtra("piNo");
+            from = intent.getStringExtra("from");
+            to = intent.getStringExtra("to");
+            SourceId = intent.getIntExtra("SourceId", 0);
+            SourceFlag = intent.getStringExtra("SourceFlag");
+            orderStatus = intent.getStringExtra("OrderStatus");
+            SeasonAuto = intent.getStringExtra("SeasonAuto");
+            SourceName = intent.getStringExtra("SourceName");
+
+            ap.Season.setText(SeasonAuto);
+            ap.Buyer.setText(SourceName);
+
+            if (!piNo.isEmpty() && !from.isEmpty() && !to.isEmpty() && !SourceFlag.isEmpty() && SourceId != 0 && !orderStatus.isEmpty()) {
+                finalInvoice();
+            }
+        }
 
         ap.names.setText("Welcome " + getPreferenceManager().getPrefUsername());
         ApiClass apiClass = new ApiClass();
@@ -104,8 +155,10 @@ public class FinalInspectionScreen extends AppCompatActivity implements FinalInv
 
         if (dpid != 0) {
             qcNameRequestViewModel.setDptid(dpid);
+            qcNameRequestViewModel.setAuth("Bearer " + getPreferenceManager().getPrefToken().trim());
             apiClass.QCNAME = apiClass.QCNAME + dpid;
             Log.i("wded", "" + apiClass.QCNAME);
+            qcResultRequestViewModel.setAuth("Bearer " + getPreferenceManager().getPrefToken().trim());
             qcNameRequestViewModel.generateQCNameRequest();
             qcResultRequestViewModel.generateQCResultRequest();
         }
@@ -126,13 +179,13 @@ public class FinalInspectionScreen extends AppCompatActivity implements FinalInv
         ap.QCRESULT.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                QCResultId = position;
+                QCResultId = position+1;
             }
         });
         ap.QCNAME.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                QCNameId = position;
+                QCNameId = position+1;
             }
         });
 
@@ -153,19 +206,36 @@ public class FinalInspectionScreen extends AppCompatActivity implements FinalInv
             ap.PREV.setClickable(true);
         }
 
-        if (generateFinalInvoiceResponseModel.getResponse() != null) {
-            if (getId == generateFinalInvoiceResponseModel.getResponse().size()) {
-                ap.NEXT.setClickable(false);
-            } else {
-                ap.NEXT.setClickable(true);
+        if (who != null) {
+            if (getInspectionReportResponseModel.getDetails() != null) {
+                if (getId == getInspectionReportResponseModel.getDetails().size()) {
+                    ap.NEXT.setClickable(false);
+                } else {
+                    ap.NEXT.setClickable(true);
+                }
+            }
+        } else {
+            if (generateFinalInvoiceResponseModel.getResponse() != null) {
+                if (getId == generateFinalInvoiceResponseModel.getResponse().size()) {
+                    ap.NEXT.setClickable(false);
+                } else {
+                    ap.NEXT.setClickable(true);
+                }
             }
         }
 
         ap.PREV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getId = getId - 1;
-                FinalInvoice(generateFinalInvoiceResponseModel, 2);
+                if(who!=null){
+                    getId = getId - 1;
+                    if(getId>=0) {
+                        InspectionReport();
+                    }
+                }else {
+                    getId = getId - 1;
+                    FinalInvoice(generateFinalInvoiceResponseModel, 2);
+                }
                 diable();
             }
         });
@@ -173,9 +243,17 @@ public class FinalInspectionScreen extends AppCompatActivity implements FinalInv
         ap.NEXT.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getId = getId + 1;
-                FinalInvoice(generateFinalInvoiceResponseModel, 1);
+                if(who!=null){
+                    getId = getId + 1;
+                    if(getId<getInspectionReportResponseModel.getDetails().size()) {
+                        InspectionReport();
+                    }
+                }else {
+                    getId = getId + 1;
+                    FinalInvoice(generateFinalInvoiceResponseModel, 1);
+                }
                 diable();
+
             }
         });
 
@@ -184,35 +262,39 @@ public class FinalInspectionScreen extends AppCompatActivity implements FinalInv
             public void onClick(View v) {
                 customerorderno.clear();
                 String dates = ap.datetext.getText().toString();
-                if(dates.length()>10){
+                if (dates.length() > 10) {
 
-                }else{
-                    dates=dates+"T00:00:00";
+                } else {
+                    dates = dates + "T00:00:00";
                 }
                 if (!dates.isEmpty()) {
                     if (!dates.contains("NO DATA")) {
-                        if(!dates.equals("T00:00:00")){
-                        try {
-                            customerorderno.add(generateFinalInvoiceResponseModel.getResponse().get(getId).getCustOrderNo().trim());
-                            updateInspectionRequestViewModel.inspectionDate =dates;
-                            updateInspectionRequestViewModel.qcRemarks = ap.QCREMARKS.getText().toString();
-                            updateInspectionRequestViewModel.customerOrderNos = customerorderno;
-                            updateInspectionRequestViewModel.pgmCode = generateFinalInvoiceResponseModel.getResponse().get(getId).getPgmCode();
-                            updateInspectionRequestViewModel.result = ap.QCRESULT.getText().toString();
-                            updateInspectionRequestViewModel.sourceFlag = generateFinalInvoiceResponseModel.getResponse().get(getId).getSourceFlag();
-                            updateInspectionRequestViewModel.sourceId = generateFinalInvoiceResponseModel.getResponse().get(getId).getSourceId();
-                            updateInspectionRequestViewModel.sourceId = generateFinalInvoiceResponseModel.getResponse().get(getId).getSourceId();
-                            updateInspectionRequestViewModel.styleId = Integer.parseInt(generateFinalInvoiceResponseModel.getResponse().get(getId).getStyleId());
-                            updateInspectionRequestViewModel.qcBy = generateQCNameResponseModel.getResponse().get(QCNameId).getEmpNo().trim();
-                            updateInspectionRequestViewModel.generateUpdateInspectionRequest();
-                        } catch (Exception e) {
-
-                        }
-                    }else{
+                        if (!dates.equals("T00:00:00")) {
+                            try {
+                                customerorderno.add(generateFinalInvoiceResponseModel.getResponse().get(getId).getCustOrderNo().trim());
+                                updateInspectionRequestViewModel.inspectionDate = dates;
+                                updateInspectionRequestViewModel.qcRemarks = ap.QCREMARKS.getText().toString();
+                                updateInspectionRequestViewModel.customerOrderNos = generateFinalInvoiceResponseModel.getResponse().get(getId).getCustOrderNo().trim();
+                                updateInspectionRequestViewModel.pgmCode = generateFinalInvoiceResponseModel.getResponse().get(getId).getPgmCode();
+                                updateInspectionRequestViewModel.result = ap.QCRESULT.getText().toString();
+                                updateInspectionRequestViewModel.sourceFlag = generateFinalInvoiceResponseModel.getResponse().get(getId).getSourceFlag();
+                                updateInspectionRequestViewModel.sourceId = generateFinalInvoiceResponseModel.getResponse().get(getId).getSourceId();
+                                updateInspectionRequestViewModel.sourceId = generateFinalInvoiceResponseModel.getResponse().get(getId).getSourceId();
+                                updateInspectionRequestViewModel.styleId = Integer.parseInt(generateFinalInvoiceResponseModel.getResponse().get(getId).getStyleId());
+                                if (generateQCNameResponseModel.getResponse().get(QCNameId).getEmpNo().trim() != null) {
+                                    updateInspectionRequestViewModel.qcBy = generateQCNameResponseModel.getResponse().get(QCNameId).getEmpNo().trim();
+                                } else {
+                                    updateInspectionRequestViewModel.qcBy = "0";
+                                }
+                                updateInspectionRequestViewModel.Auth = "Bearer " + getPreferenceManager().getPrefToken().trim();
+                                updateInspectionRequestViewModel.generateUpdateInspectionRequest();
+                            } catch (Exception e) {
+                                Log.i("Exception", e.toString());
+                            }
+                        } else {
                             Toast.makeText(getApplicationContext(), "Select Inspection Date", Toast.LENGTH_SHORT).show();
-
                         }
-                    }else {
+                    } else {
                         Toast.makeText(getApplicationContext(), "Select Inspection Date", Toast.LENGTH_SHORT).show();
                     }
                 } else {
@@ -220,26 +302,23 @@ public class FinalInspectionScreen extends AppCompatActivity implements FinalInv
                 }
             }
         });
+    }
 
-        piNo = intent.getStringExtra("piNo");
-        from = intent.getStringExtra("from");
-        to = intent.getStringExtra("to");
-        SourceId = intent.getIntExtra("SourceId", 0);
-        SourceFlag = intent.getStringExtra("SourceFlag");
-        orderStatus = intent.getStringExtra("OrderStatus");
-        SeasonAuto=intent.getStringExtra("SeasonAuto");
-        SourceName=intent.getStringExtra("SourceName");
+    private void getInspectionReport() {
 
-
-        ap.Season.setText(SeasonAuto);
-        ap.Buyer.setText(SourceName);
-
-        if (!piNo.isEmpty() && !from.isEmpty() && !to.isEmpty() && !SourceFlag.isEmpty() && SourceId != 0 && !orderStatus.isEmpty()) {
-            finalInvoice();
-        }
+        getInspectionViewModel.setAuth("Bearer " + getPreferenceManager().getPrefToken());
+        getInspectionViewModel.setSeasonId(RSeasonID);
+        getInspectionViewModel.setSourceId(RSourceId);
+        getInspectionViewModel.setFrom(RFrom);
+        getInspectionViewModel.setTo(RTo);
+        getInspectionViewModel.setBrandId(RBrandId);
+        getInspectionViewModel.setSupplierCode(RSupplierCode);
+        getInspectionViewModel.setSourceFlag(RSourceFlag);
+        getInspectionViewModel.getInspectionReportCall();
     }
 
     private void finalInvoice() {
+        finalInvoiceViewModel.setAuth("Bearer " + getPreferenceManager().getPrefToken().trim());
         finalInvoiceViewModel.setPiNo(piNo);
         finalInvoiceViewModel.setFrom(from);
         finalInvoiceViewModel.setTo(to);
@@ -299,7 +378,6 @@ public class FinalInspectionScreen extends AppCompatActivity implements FinalInv
     }
 
 
-
     private void diable() {
 
         if (getId == 0) {
@@ -315,33 +393,34 @@ public class FinalInspectionScreen extends AppCompatActivity implements FinalInv
         }
 
     }
-    private void time(){
 
-        String date= ap.datetext.getText().toString();
-        Calendar calendar=Calendar.getInstance();
-        int hour=calendar.get(Calendar.HOUR);
-        int min=calendar.get(Calendar.MINUTE);
-        int sec=calendar.get(Calendar.SECOND);
-        TimePickerDialog timePickerDialog=new TimePickerDialog(FinalInspectionScreen.this,new TimePickerDialog.OnTimeSetListener() {
+    private void time() {
+
+        String date = ap.datetext.getText().toString();
+        Calendar calendar = Calendar.getInstance();
+        int hour = calendar.get(Calendar.HOUR);
+        int min = calendar.get(Calendar.MINUTE);
+        int sec = calendar.get(Calendar.SECOND);
+        TimePickerDialog timePickerDialog = new TimePickerDialog(FinalInspectionScreen.this, new TimePickerDialog.OnTimeSetListener() {
             @Override
             public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-                String hh,mm;
-                hh= String.valueOf(hourOfDay);
-                mm= String.valueOf(minute);
-                String secs=String.valueOf(sec);
-                if(hh.length()==1){
-                    hh="0"+hh;
+                String hh, mm;
+                hh = String.valueOf(hourOfDay);
+                mm = String.valueOf(minute);
+                String secs = String.valueOf(sec);
+                if (hh.length() == 1) {
+                    hh = "0" + hh;
                 }
-                if(mm.length()==1){
-                    mm="0"+mm;
+                if (mm.length() == 1) {
+                    mm = "0" + mm;
                 }
-                if(secs.length()==1){
-                    secs="0"+secs;
+                if (secs.length() == 1) {
+                    secs = "0" + secs;
                 }
-                String times=hh+":"+mm+":"+secs;
-                ap.datetext.setText(date+"T"+times);
+                String times = hh + ":" + mm + ":" + secs;
+                ap.datetext.setText(date + "T" + times);
             }
-        },hour,min,false);
+        }, hour, min, false);
 
         int positiveColor = ContextCompat.getColor(FinalInspectionScreen.this, R.color.black);
         int negativeColor = ContextCompat.getColor(FinalInspectionScreen.this, R.color.black);
@@ -444,7 +523,7 @@ public class FinalInspectionScreen extends AppCompatActivity implements FinalInv
                 }
                 if (generateFinalInvoiceResponseModel.getResponse().get(getId).getDespatchModeId() != null) {
 
-                    int id= Integer.parseInt(generateFinalInvoiceResponseModel.getResponse().get(getId).getDespatchModeId());
+                    int id = Integer.parseInt(generateFinalInvoiceResponseModel.getResponse().get(getId).getDespatchModeId());
                     shipment(id);
 
                 } else {
@@ -475,7 +554,7 @@ public class FinalInspectionScreen extends AppCompatActivity implements FinalInv
                 }
                 if (generateFinalInvoiceResponseModel.getResponse().get(getId).getStyleName() != null) {
 
-                    ap.STYLENAME.setText(generateFinalInvoiceResponseModel.getResponse().get(getId).getStyleCode().trim()+"-"+generateFinalInvoiceResponseModel.getResponse().get(getId).getStyleName().trim());
+                    ap.STYLENAME.setText(generateFinalInvoiceResponseModel.getResponse().get(getId).getStyleCode().trim() + "-" + generateFinalInvoiceResponseModel.getResponse().get(getId).getStyleName().trim());
 
                 } else {
                     ap.STYLENAME.setText("NO DATA");
@@ -529,20 +608,17 @@ public class FinalInspectionScreen extends AppCompatActivity implements FinalInv
 
     @Override
     public void generateQCNameProcessed(GenerateQCNameResponseModel generateQCNameResponseModel) {
-
+        this.generateQCNameResponseModel = generateQCNameResponseModel;
         if (!generateQCNameResponseModel.getResponse().isEmpty()) {
-            this.generateQCNameResponseModel = generateQCNameResponseModel;
             QCNameArray = new String[generateQCNameResponseModel.getResponse().size()];
             for (int i = 0; i < generateQCNameResponseModel.getResponse().size(); i++) {
                 QCNameArray[i] = generateQCNameResponseModel.getResponse().get(i).getEmpNo().trim() + generateQCNameResponseModel.getResponse().get(i).getEmpName().trim();
             }
-
             ArrayAdapterQCName = new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_spinner_dropdown_item, QCNameArray);
             ap.QCNAME.setText(QCNameArray[0]);
             ap.QCNAME.setAdapter(ArrayAdapterQCName);
         } else {
             ap.QCNAME.setText("NO DATA");
-
         }
     }
 
@@ -564,9 +640,9 @@ public class FinalInspectionScreen extends AppCompatActivity implements FinalInv
 
     @Override
     public void generateUpdateInspectionProcessed(GenerateUpdateInspectionResponseModel generateUpdateInspectionResponseModel) {
-        if( generateUpdateInspectionResponseModel.getMessage().equals("time out")){
+        if (generateUpdateInspectionResponseModel.getMessage().equals("time out")) {
             timeout();
-        }else {
+        } else {
             Toast.makeText(getApplicationContext(), "" + generateUpdateInspectionResponseModel.getMessage(), Toast.LENGTH_SHORT).show();
             finalInvoice();
         }
@@ -574,14 +650,50 @@ public class FinalInspectionScreen extends AppCompatActivity implements FinalInv
 
     @Override
     public void generateShipModeProcessed(GenerateShipModeResponseModel generateShipModeResponceModel) {
-        if(generateShipModeResponceModel!=null){
-            this.generateShipModeResponseModel=generateShipModeResponceModel;
+        if (generateShipModeResponceModel != null) {
+            this.generateShipModeResponseModel = generateShipModeResponceModel;
         }
     }
 
     private void shipment(int id) {
         ap.dispatch.setText(generateShipModeResponseModel.getResponse().get(id).getModeName());
 
+    }
+
+    @Override
+    public void GetInspectionReportProcess(GetInspectionReportResponseModel getInspectionReportResponseModel) {
+        if (getInspectionReportResponseModel.getMessage().equals("Record found")) {
+            this.getInspectionReportResponseModel = getInspectionReportResponseModel;
+            InspectionReport();
+        }
+
+    }
+
+    private void InspectionReport() {
+        ap.piNo.setText(getInspectionReportResponseModel.getDetails().get(getId).getInvoiceNo());
+        ap.piDate.setText(getInspectionReportResponseModel.getDetails().get(getId).getInvoiceDate());
+        ap.STYLENAME.setText(getInspectionReportResponseModel.getDetails().get(getId).getStyle());
+        ap.BUYER.setText(getInspectionReportResponseModel.getDetails().get(getId).getOrderNo());
+        ap.ORDERQTY.setText(getInspectionReportResponseModel.getDetails().get(getId).getOrderedQty());
+        ap.BALANCE.setText(getInspectionReportResponseModel.getDetails().get(getId).getBalanceQty());
+        ap.VENDORDELDATE.setText(getInspectionReportResponseModel.getDetails().get(getId).getVendorDel());
+        ap.vendor.setText(getInspectionReportResponseModel.getDetails().get(getId).getVendor());
+        ap.FORECASTDELDATE.setText(getInspectionReportResponseModel.getDetails().get(getId).getForeCastDelDate());
+        ap.CITY.setText(getInspectionReportResponseModel.getDetails().get(getId).getDestination());
+        ap.dispatch.setText(getInspectionReportResponseModel.getDetails().get(getId).getShipMode());
+        ap.REMARKS.setText(getInspectionReportResponseModel.getDetails().get(getId).getRemarks());
+        ap.datetext.setText(getInspectionReportResponseModel.getDetails().get(getId).getInspectionDate());
+        ap.QCRESULT.setText(getInspectionReportResponseModel.getDetails().get(getId).getResult());
+        ap.QCREMARKS.setText(getInspectionReportResponseModel.getDetails().get(getId).getQcRemarks());
+        ap.QCNAME.setText(getInspectionReportResponseModel.getDetails().get(getId).getQcBy());
+        ap.DeleveryFac.setText(getInspectionReportResponseModel.getDetails().get(getId).getDeliveryTerms());
+
+        ap.datetext.setCompoundDrawablesWithIntrinsicBounds(null,null,null,null);
+        ap.QCNAME.setCompoundDrawablesWithIntrinsicBounds(null,null,null,null);
+        ap.QCRESULT.setCompoundDrawablesWithIntrinsicBounds(null,null,null,null);
+
+        ap.QCREMARKS.setEnabled(false);
+        ap.QCREMARKS.setKeyListener(null);
     }
 
     @Override
@@ -608,7 +720,6 @@ public class FinalInspectionScreen extends AppCompatActivity implements FinalInv
         dialoglogout.setCanceledOnTouchOutside(true);
         dialoglogout.show();
         TextView textView23 = dialoglogout.findViewById(R.id.textView23);
-
 
         textView23.setOnClickListener(new View.OnClickListener() {
             @Override

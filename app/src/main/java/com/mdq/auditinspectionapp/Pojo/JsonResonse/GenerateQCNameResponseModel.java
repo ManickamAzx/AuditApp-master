@@ -7,11 +7,9 @@ import java.util.List;
 
 public class GenerateQCNameResponseModel {
 
-
-
-    @SerializedName("response")
+    @SerializedName("data")
     @Expose
-    public List<ResponseForQCName> response;
+    public List<ResponseForQCName> data;
 
     @SerializedName("message")
     @Expose
@@ -37,24 +35,12 @@ public class GenerateQCNameResponseModel {
         this.status = status;
     }
 
-    public String getDate() {
-        return date;
-    }
-
-    public void setDate(String date) {
-        this.date = date;
-    }
-
-    @SerializedName("date")
-    @Expose
-    public String date;
-
     public List<ResponseForQCName> getResponse() {
-        return response;
+        return data;
     }
 
     public void setResponse(List<ResponseForQCName> response) {
-        this.response = response;
+        this.data = response;
     }
 
 }

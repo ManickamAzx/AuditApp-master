@@ -9,16 +9,16 @@ public class GenerateBrandResponseModel {
 
     @SerializedName("status")
     @Expose
-    public Integer status;
+    public String status;
     @SerializedName("message")
     @Expose
     public String message;
 
-    public Integer getStatus() {
+    public String getStatus() {
         return status;
     }
 
-    public void setStatus(Integer status) {
+    public void setStatus(String status) {
         this.status = status;
     }
 
@@ -31,27 +31,16 @@ public class GenerateBrandResponseModel {
     }
 
     public List<ResponseForBrand> getResponse() {
-        return response;
+        return data;
     }
 
     public void setResponse(List<ResponseForBrand> response) {
-        this.response = response;
+        this.data = response;
     }
 
-    public String getDate() {
-        return date;
-    }
-
-    public void setDate(String date) {
-        this.date = date;
-    }
-
-    @SerializedName("response")
+    @SerializedName("data")
     @Expose
-    public List<ResponseForBrand> response;
-    @SerializedName("date")
-    @Expose
-    public String date;
-
+    public List<ResponseForBrand> data;
 
 }
+

@@ -4,15 +4,14 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 public class ResponseForSource {
+
     @SerializedName("sourceId")
     @Expose
     public String sourceId;
 
-
     @SerializedName("sourceName")
     @Expose
     public String sourceName;
-
 
     @SerializedName("sourceFlag")
     @Expose
@@ -41,4 +40,6 @@ public class ResponseForSource {
     public void setSourceFlag(String sourceFlag) {
         this.sourceFlag = sourceFlag;
     }
+
+
 }

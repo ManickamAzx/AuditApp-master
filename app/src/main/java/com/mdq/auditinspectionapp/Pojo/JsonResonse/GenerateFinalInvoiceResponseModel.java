@@ -9,23 +9,20 @@ import java.util.List;
 public class GenerateFinalInvoiceResponseModel implements Serializable {
 
 
-    @SerializedName("response")
-    @Expose
-    public transient List<ResponseForFinalInvoice> response;
 
     public List<ResponseForFinalInvoice> getResponse() {
-        return response;
+        return data;
     }
 
     public void setResponse(List<ResponseForFinalInvoice> response) {
-        this.response = response;
+        this.data = response;
     }
 
-    public Integer getStatus() {
+    public String getStatus() {
         return status;
     }
 
-    public void setStatus(Integer status) {
+    public void setStatus(String status) {
         this.status = status;
     }
 
@@ -37,22 +34,15 @@ public class GenerateFinalInvoiceResponseModel implements Serializable {
         this.message = message;
     }
 
-    public String getDate() {
-        return date;
-    }
-
-    public void setDate(String date) {
-        this.date = date;
-    }
 
     @SerializedName("status")
     @Expose
-    public transient Integer status;
+    public  String status;
     @SerializedName("message")
     @Expose
-    public transient  String message;
-    @SerializedName("date")
+    public   String message;
+    @SerializedName("data")
     @Expose
-    public  transient String date;
+    public  List<ResponseForFinalInvoice> data;
 
 }

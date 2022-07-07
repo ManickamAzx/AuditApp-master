@@ -5,19 +5,17 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-public class GenerateQCResultResponseModel {
-
-    @SerializedName("data")
-    @Expose
-    public List<ResponseForQCResult> data;
+public class GetInspectionReportResponseModel {
 
     @SerializedName("message")
     @Expose
     public String message;
-
     @SerializedName("status")
     @Expose
     public String status;
+    @SerializedName("details")
+    @Expose
+    public List<ResponseForGetInspectionReport> details;
 
     public String getMessage() {
         return message;
@@ -35,12 +33,11 @@ public class GenerateQCResultResponseModel {
         this.status = status;
     }
 
-    public List<ResponseForQCResult> getResponse() {
-        return data;
+    public List<ResponseForGetInspectionReport> getDetails() {
+        return details;
     }
 
-    public void setResponse(List<ResponseForQCResult> response) {
-        this.data = response;
+    public void setDetails(List<ResponseForGetInspectionReport> details) {
+        this.details = details;
     }
-
 }

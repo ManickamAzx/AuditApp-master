@@ -31,7 +31,7 @@ public class UpdateProductionRequestViewModel extends UpdateProductionBaseViewMo
         GenerateUpdateProductionRequestModel generateUpdateProductionRequestModel=new GenerateUpdateProductionRequestModel();
         generateUpdateProductionRequestModel.sourceId=getSourceId();
         generateUpdateProductionRequestModel.sourceFlag=getSourceFlag();
-        generateUpdateProductionRequestModel.updateForm="FORECAST";
+        generateUpdateProductionRequestModel.updateFrom="FORECAST";
         generateUpdateProductionRequestModel.dispatchModeId=getDispatchModeId();
         generateUpdateProductionRequestModel.foreCastDelDate=getForeCastDelDate();
         generateUpdateProductionRequestModel.custOrderNo=getCustOrderNo();
@@ -40,7 +40,7 @@ public class UpdateProductionRequestViewModel extends UpdateProductionBaseViewMo
         generateUpdateProductionRequestModel.styleId=getStyleId();
         generateUpdateProductionRequestModel.systemOrderNo=getSysOrderNo();
 
-        updateProductionDataManager.callEnqueue(ApiClass.UPDATEPRODUCTION, generateUpdateProductionRequestModel,new ResponseHandler<GenerateUpdateProductionResponseModel>() {
+        updateProductionDataManager.callEnqueue(ApiClass.UPDATEPRODUCTION, getAuth(),generateUpdateProductionRequestModel,new ResponseHandler<GenerateUpdateProductionResponseModel>() {
             @Override
             public void onSuccess(String message) {
 

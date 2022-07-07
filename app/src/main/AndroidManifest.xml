@@ -12,9 +12,7 @@
         android:roundIcon="@drawable/ic_audit_inspection"
         android:supportsRtl="true"
         android:theme="@style/Theme.AuditInspectionApp"
-        android:usesCleartextTraffic="true"
-
-        >
+        android:usesCleartextTraffic="true">
         <activity
             android:name=".Activity.ReportScreen"
             android:exported="true" />
@@ -52,6 +50,7 @@
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
+
     </application>
 
 </manifest>

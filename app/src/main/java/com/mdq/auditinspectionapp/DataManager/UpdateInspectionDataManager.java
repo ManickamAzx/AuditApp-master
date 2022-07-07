@@ -34,10 +34,10 @@ public class UpdateInspectionDataManager {
         this.apiInterface = getApp().getRetrofitInterface();
     }
 
-    public void callEnqueue(String url, GenerateUpdateInspectionRequestModel generateUpdateInspectionRequestModel, final ResponseHandler<GenerateUpdateInspectionResponseModel> dataresponse) {
+    public void callEnqueue(String url, String Auth,GenerateUpdateInspectionRequestModel generateUpdateInspectionRequestModel, final ResponseHandler<GenerateUpdateInspectionResponseModel> dataresponse) {
 
         //calling the generatePostLoginCall methode from call apiInterface
-        Call<GenerateUpdateInspectionResponseModel> userMpinCall = apiInterface.generatePostUpdateInspectionCall(url, generateUpdateInspectionRequestModel);
+        Call<GenerateUpdateInspectionResponseModel> userMpinCall = apiInterface.generatePostUpdateInspectionCall(url, Auth,generateUpdateInspectionRequestModel);
         userMpinCall.enqueue(new Callback<GenerateUpdateInspectionResponseModel>() {
 
             /**

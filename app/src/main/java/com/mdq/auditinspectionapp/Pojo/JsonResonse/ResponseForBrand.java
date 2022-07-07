@@ -9,7 +9,6 @@ public class ResponseForBrand {
     @Expose
     public String brandId;
 
-
     public String getBrandId() {
         return brandId;
     }
@@ -29,5 +28,6 @@ public class ResponseForBrand {
     @SerializedName("brandName")
     @Expose
     public String brandName;
+
 
 }

@@ -5,21 +5,9 @@ import com.google.gson.annotations.SerializedName;
 
 public class ResponseForLogin {
 
-    @SerializedName("token")
+    @SerializedName("id")
     @Expose
-    public String token;
-
-    @SerializedName("tokenExpiry")
-    @Expose
-    public String tokenExpiry;
-
-    @SerializedName("refreshToken")
-    @Expose
-    public String refreshToken;
-
-    @SerializedName("userId")
-    @Expose
-    public String userId;
+    public String id;
 
     @SerializedName("email")
     @Expose
@@ -33,52 +21,12 @@ public class ResponseForLogin {
     @Expose
     public String departmentId;
 
-    public String getDepartmentId() {
-        return departmentId;
-    }
-
-    public void setDepartmentId(String departmentId) {
-        this.departmentId = departmentId;
-    }
-
-    public String getToken() {
-        return token;
-    }
-
-    public void setToken(String token) {
-        this.token = token;
-    }
-
-    public String getTokenExpiry() {
-        return tokenExpiry;
-    }
-
-    public void setTokenExpiry(String tokenExpiry) {
-        this.tokenExpiry = tokenExpiry;
-    }
-
-    public String getRefreshToken() {
-        return refreshToken;
-    }
-
-    public void setRefreshToken(String refreshToken) {
-        this.refreshToken = refreshToken;
-    }
-
     public String getId() {
-        return userId;
+        return id;
     }
 
     public void setId(String id) {
-        this.userId = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
+        this.id = id;
     }
 
     public String getEmail() {
@@ -89,4 +37,19 @@ public class ResponseForLogin {
         this.email = email;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getDepartmentId() {
+        return departmentId;
+    }
+
+    public void setDepartmentId(String departmentId) {
+        this.departmentId = departmentId;
+    }
 }

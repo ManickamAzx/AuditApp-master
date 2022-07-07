@@ -59,7 +59,7 @@ import com.mdq.auditinspectionapp.enums.ViewType;
 import java.lang.reflect.Field;
 import java.util.Calendar;
 
-public class TransactionProductUpdate extends AppCompatActivity implements SourceResponseInterface, SeasonResponseInterface , BrandResponseInterface , SupplierResponseInterface, InvoiceResponseInterface , Interface_FinalInvoice, FinalInvoiceResponseInterface {
+public class TransactionProductUpdate extends AppCompatActivity implements SourceResponseInterface, SeasonResponseInterface, BrandResponseInterface, SupplierResponseInterface, InvoiceResponseInterface, Interface_FinalInvoice, FinalInvoiceResponseInterface {
 
     TextView ProductUpdate, submit;
     BottomSheetDialog bottomSheetDialog;
@@ -72,10 +72,10 @@ public class TransactionProductUpdate extends AppCompatActivity implements Sourc
     FinalInvoiceViewModel finalInvoiceViewModel;
     PreferenceManager preferenceManager;
     ActivityTransactionProductUpdateBinding at;
-    AutoCompleteTextView SourceAuto, SeasonAuto,BrandAuto,SupplierAuto;
-    ArrayAdapter<String> sourceAdapter, seasonAdapter,brandAdapter,supplierAdapter;
-    String[] SourceId, SourceName, sourceFlag, SeasonName, SeasonId,BrandId,BrandName,SupplierCode,SupplierName,InvoiceNo, InvoiceDate;
-    int sourceNum,SeasonNum,BrandNum,SupplierNum;
+    AutoCompleteTextView SourceAuto, SeasonAuto, BrandAuto, SupplierAuto;
+    ArrayAdapter<String> sourceAdapter, seasonAdapter, brandAdapter, supplierAdapter;
+    String[] SourceId, SourceName, sourceFlag, SeasonName, SeasonId, BrandId, BrandName, SupplierCode, SupplierName, InvoiceNo, InvoiceDate;
+    int sourceNum, SeasonNum, BrandNum, SupplierNum;
     GenerateSeasonResponseModel generateSeasonResponseModel;
     GenerateSourceResponseModel generateSourceResponseModel;
     GenerateBrandResponseModel generateBrandResponseModel;
@@ -83,8 +83,11 @@ public class TransactionProductUpdate extends AppCompatActivity implements Sourc
     GenerateInvoiceResponseModel generateInvoiceResponseModel;
     AdapterForInvoice adapter;
     ConnectivityManager connectivityManager;
-    String f,t;
+    String f, t;
     int dpid;
+    String from;
+    String fromTO;
+    boolean report=false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -98,22 +101,34 @@ public class TransactionProductUpdate extends AppCompatActivity implements Sourc
         back = findViewById(R.id.linearBack);
         SourceAuto = findViewById(R.id.SourceAuto);
         SeasonAuto = findViewById(R.id.SeasonAuto);
-        BrandAuto=findViewById(R.id.BrandAuto);
-        SupplierAuto=findViewById(R.id.SupplierAuto);
+        BrandAuto = findViewById(R.id.BrandAuto);
+        SupplierAuto = findViewById(R.id.SupplierAuto);
         ProductUpdate.setPaintFlags(ProductUpdate.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
         sourceRequestViewModel = new SourceRequestViewModel(getApplicationContext(), this);
         requestViewModel = new SeasonRequestViewModel(getApplicationContext(), this);
-        brandRequestViewModel=new BrandRequestViewModel(getApplicationContext(),this);
-        supplierRequestViewModel=new SupplierRequestViewModel(getApplicationContext(),this);
-        invoiceRequestViewModel=new InvoiceRequestViewModel(getApplicationContext(),this);
-        finalInvoiceViewModel=new FinalInvoiceViewModel(getApplicationContext(),this);
-        Intent intent=getIntent();
-        String names=intent.getStringExtra("name");
-        dpid=intent.getIntExtra("dpid",0);
-        if(dpid!=0){
+        brandRequestViewModel = new BrandRequestViewModel(getApplicationContext(), this);
+        supplierRequestViewModel = new SupplierRequestViewModel(getApplicationContext(), this);
+        invoiceRequestViewModel = new InvoiceRequestViewModel(getApplicationContext(), this);
+        finalInvoiceViewModel = new FinalInvoiceViewModel(getApplicationContext(), this);
+        Intent intent = getIntent();
+        String names = intent.getStringExtra("name");
+        dpid = intent.getIntExtra("dpid", 0);
+        from=intent.getStringExtra("from");
+        fromTO=intent.getStringExtra("FromTo");
+        if(from!=null){
+            if(from.equals("report")){
+                report=true;
+                if(fromTO.equals("Inspection")){
+                    at.textProductupdate.setText("Inspection report");
+                }else if(fromTO.equals("Production")){
+                    at.textProductupdate.setText("Production report");
+                }
+            }
+        }
+        if (dpid != 0) {
             at.textProductupdate.setText("INSPECTION UPDATE");
         }
-        at.welcomeText.setText("welcome "+getPreferenceManager().getPrefUsername());
+        at.welcomeText.setText("welcome " + getPreferenceManager().getPrefUsername());
         //making status bar color as transparent
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             getWindow().addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
@@ -147,24 +162,29 @@ public class TransactionProductUpdate extends AppCompatActivity implements Sourc
                 SourceAuto.showDropDown();
             }
         });
-
         SourceAuto.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    sourceNum=position+1;
+                sourceNum = position + 1;
             }
         });
 
         SeasonAuto.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    SeasonNum=position+1;
+                SeasonNum = position + 1;
+            }
+        });
+        SupplierAuto.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+             @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                SupplierNum = position + 1;
             }
         });
         BrandAuto.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                BrandNum=position+1;
+                BrandNum = position + 1;
             }
         });
 
@@ -178,50 +198,45 @@ public class TransactionProductUpdate extends AppCompatActivity implements Sourc
                         .getNetworkInfo(ConnectivityManager.TYPE_WIFI) != null && connectivityManager
                         .getNetworkInfo(ConnectivityManager.TYPE_WIFI)
                         .getState() == NetworkInfo.State.CONNECTED)) {
-                if(SeasonNum!=0 && sourceNum!=0){
-                    brandRequestViewModel.setAuthorization("Bearer " + getPreferenceManager().getPrefToken());
-                    brandRequestViewModel.setSeasonId(SeasonId[SeasonNum-1]);
-                    int ss=sourceNum-1;
-                    brandRequestViewModel.setSourceFlag(sourceFlag[ss]);
-                    brandRequestViewModel.setSourceId(SourceId[ss]);
-                    brandRequestViewModel.generateBrandRequest();
-                }
-                else
-                {
-                    Toast.makeText(getApplicationContext(), "Season and Source are needed", Toast.LENGTH_SHORT).show();
-                }
-                }
-                    else{
-                        Toast.makeText(getApplicationContext(), "This App Require Internet", Toast.LENGTH_SHORT).show();
+                    if (SeasonNum != 0 && sourceNum != 0) {
+                        brandRequestViewModel.setAuthorization("Bearer " + getPreferenceManager().getPrefToken());
+                        brandRequestViewModel.setSeasonId(SeasonId[SeasonNum - 1]);
+                        int ss = sourceNum - 1;
+                        brandRequestViewModel.setSourceFlag(sourceFlag[ss]);
+                        brandRequestViewModel.setSourceId(SourceId[ss]);
+                        brandRequestViewModel.generateBrandRequest();
+                    } else {
+                        Toast.makeText(getApplicationContext(), "Season and Source are needed", Toast.LENGTH_SHORT).show();
                     }
+                } else {
+                    Toast.makeText(getApplicationContext(), "This App Require Internet", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
         at.SupplierLinear.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                      if ((connectivityManager
+                if ((connectivityManager
                         .getNetworkInfo(ConnectivityManager.TYPE_MOBILE) != null && connectivityManager
                         .getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED)
                         || (connectivityManager
                         .getNetworkInfo(ConnectivityManager.TYPE_WIFI) != null && connectivityManager
                         .getNetworkInfo(ConnectivityManager.TYPE_WIFI)
                         .getState() == NetworkInfo.State.CONNECTED)) {
-                if(SeasonNum!=0 && sourceNum!=0){
-                    supplierRequestViewModel.setAuthorization("Bearer " + getPreferenceManager().getPrefToken());
-                    supplierRequestViewModel.setSeasonId(SeasonId[SeasonNum-1]);
-                    int ss=sourceNum-1;
-                    supplierRequestViewModel.setSourceFlag(sourceFlag[ss]);
-                    supplierRequestViewModel.setSourceId(SourceId[ss]);
-                    supplierRequestViewModel.generateSupplierRequest();
-                }
-                 else
-                {
-                    Toast.makeText(getApplicationContext(), "Season and Source are needed", Toast.LENGTH_SHORT).show();
-                }
-                } else{
-                        Toast.makeText(getApplicationContext(), "This App Require Internet", Toast.LENGTH_SHORT).show();
+                    if (SeasonNum != 0 && sourceNum != 0) {
+                        supplierRequestViewModel.setAuthorization("Bearer " + getPreferenceManager().getPrefToken());
+                        supplierRequestViewModel.setSeasonId(SeasonId[SeasonNum - 1]);
+                        int ss = sourceNum - 1;
+                        supplierRequestViewModel.setSourceFlag(sourceFlag[ss]);
+                        supplierRequestViewModel.setSourceId(SourceId[ss]);
+                        supplierRequestViewModel.generateSupplierRequest();
+                    } else {
+                        Toast.makeText(getApplicationContext(), "Season and Source are needed", Toast.LENGTH_SHORT).show();
                     }
+                } else {
+                    Toast.makeText(getApplicationContext(), "This App Require Internet", Toast.LENGTH_SHORT).show();
+                }
 
             }
         });
@@ -236,16 +251,17 @@ public class TransactionProductUpdate extends AppCompatActivity implements Sourc
                 DatePickerDialog datePickerDialog = new DatePickerDialog(TransactionProductUpdate.this, new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                        month=month+1;
+                        month = month + 1;
                         String dates = year + "-" + month + "-" + dayOfMonth;
-                        String months= String.valueOf(month);
-                        String day= String.valueOf(dayOfMonth);
-                        if(months.length()==1){
-                            months="0"+months;
-                        }if(day.length()==1){
-                            day="0"+day;
+                        String months = String.valueOf(month);
+                        String day = String.valueOf(dayOfMonth);
+                        if (months.length() == 1) {
+                            months = "0" + months;
                         }
-                        f=day+"/"+months+"/"+year;
+                        if (day.length() == 1) {
+                            day = "0" + day;
+                        }
+                        f = year + "-" + months + "-" + day;
                         at.from.setText(dates);
                     }
                 }, years, months, days);
@@ -255,7 +271,6 @@ public class TransactionProductUpdate extends AppCompatActivity implements Sourc
                 datePickerDialog.show();
                 datePickerDialog.getButton(DatePickerDialog.BUTTON_POSITIVE).setTextColor(positiveColor);
                 datePickerDialog.getButton(DatePickerDialog.BUTTON_NEGATIVE).setTextColor(negativeColor);
-
             }
         });
 
@@ -270,16 +285,17 @@ public class TransactionProductUpdate extends AppCompatActivity implements Sourc
                 DatePickerDialog datePickerDialog = new DatePickerDialog(TransactionProductUpdate.this, new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                        month=month+1;
+                        month = month + 1;
                         String dates = year + "-" + month + "-" + dayOfMonth;
-                        String months= String.valueOf(month);
-                        String day= String.valueOf(dayOfMonth);
-                        if(months.length()==1){
-                            months="0"+months;
-                        }if(day.length()==1){
-                            day="0"+day;
+                        String months = String.valueOf(month);
+                        String day = String.valueOf(dayOfMonth);
+                        if (months.length() == 1) {
+                            months = "0" + months;
                         }
-                        t=day+"/"+months+"/"+year;
+                        if (day.length() == 1) {
+                            day = "0" + day;
+                        }
+                        t = year + "-" + months + "-" + day;
                         at.until.setText(dates);
 
                     }
@@ -297,9 +313,9 @@ public class TransactionProductUpdate extends AppCompatActivity implements Sourc
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String ff,un;
-                ff=at.from.getText().toString();
-                un=at.until.getText().toString();
+                String ff, un;
+                ff = at.from.getText().toString();
+                un = at.until.getText().toString();
 
                 if ((connectivityManager
                         .getNetworkInfo(ConnectivityManager.TYPE_MOBILE) != null && connectivityManager
@@ -308,23 +324,57 @@ public class TransactionProductUpdate extends AppCompatActivity implements Sourc
                         .getNetworkInfo(ConnectivityManager.TYPE_WIFI) != null && connectivityManager
                         .getNetworkInfo(ConnectivityManager.TYPE_WIFI)
                         .getState() == NetworkInfo.State.CONNECTED)) {
-               if(sourceNum!=0 && SeasonNum!=0 && BrandNum!=0 && SupplierNum!=0 && !ff.isEmpty() && !un.isEmpty()){
-                   invoiceRequestViewModel.setAuthorization(getPreferenceManager().getPrefToken());
-                   invoiceRequestViewModel.setSeasonId(generateSeasonResponseModel.getResponse().get(SeasonNum-1).getSeasonId());
-                   invoiceRequestViewModel.setSourceFlag(generateSourceResponseModel.getResponse().get(sourceNum-1).getSourceFlag());
-                   invoiceRequestViewModel.setSupplierCode(generateSourceResponseModel.getResponse().get(sourceNum-1).getSourceFlag());
-                   invoiceRequestViewModel.setSourceId(generateSourceResponseModel.getResponse().get(sourceNum-1).getSourceId());
-                   invoiceRequestViewModel.setBrandId(generateBrandResponseModel.getResponse().get(BrandNum-1).getBrandId());
-                   invoiceRequestViewModel.setFrom(at.from.getText().toString());
-                   invoiceRequestViewModel.setTo(at.until.getText().toString());
-                   invoiceRequestViewModel.generateInvoiceRequest();
-               }else {
-                   Toast.makeText(getApplicationContext(), "Enter all fields", Toast.LENGTH_SHORT).show();
-               }
-               }
-                    else{
-                        Toast.makeText(getApplicationContext(), "This App Require Internet", Toast.LENGTH_SHORT).show();
+                    if (sourceNum != 0 && SeasonNum != 0 && BrandNum != 0 && SupplierNum != 0 && !ff.isEmpty() && !un.isEmpty()) {
+                        if(report){
+                            if(fromTO.equals("Inspection")) {
+                                Intent intent = new Intent(TransactionProductUpdate.this, FinalInspectionScreen.class);
+                                intent.putExtra("from", f);
+                                intent.putExtra("to", t);
+                                intent.putExtra("SeasonId", generateSeasonResponseModel.getResponse().get(SeasonNum - 1).getSeasonId().trim());
+                                intent.putExtra("SourceId", generateSourceResponseModel.getResponse().get(sourceNum - 1).getSourceId().trim());
+                                intent.putExtra("SupplierCode",generateSupplierResponseModel.getResponse().get(SupplierNum - 1).getSupplierCode().trim());
+                                intent.putExtra("SourceFlag", generateSourceResponseModel.getResponse().get(sourceNum - 1).getSourceFlag().trim());
+                                intent.putExtra("BrandID",generateBrandResponseModel.getResponse().get(BrandNum-1).brandId.trim());
+                                intent.putExtra("SeasonAuto", at.SeasonAuto.getText().toString());
+                                intent.putExtra("SourceName", generateSourceResponseModel.getResponse().get(sourceNum - 1).getSourceName());
+                                intent.putExtra("who","report");
+                                intent.putExtra("BRAND", at.BrandAuto.getText().toString());
+
+
+                                startActivity(intent);
+                            }else{
+                                Intent intent = new Intent(TransactionProductUpdate.this, FinalProductionUpdate.class);
+                                intent.putExtra("from", f);
+                                intent.putExtra("to", t);
+                                intent.putExtra("SeasonId", generateSeasonResponseModel.getResponse().get(SeasonNum - 1).getSeasonId().trim());
+                                intent.putExtra("SourceId", generateSourceResponseModel.getResponse().get(sourceNum - 1).getSourceId().trim());
+                                intent.putExtra("SupplierCode",generateSupplierResponseModel.getResponse().get(SupplierNum - 1).getSupplierCode().trim());
+                                intent.putExtra("SourceFlag", generateSourceResponseModel.getResponse().get(sourceNum - 1).getSourceFlag().trim());
+                                intent.putExtra("BrandID",generateBrandResponseModel.getResponse().get(BrandNum-1).brandId.trim());
+                                intent.putExtra("who","report");
+                                intent.putExtra("SeasonAuto", at.SeasonAuto.getText().toString());
+                                intent.putExtra("SourceName", generateSourceResponseModel.getResponse().get(sourceNum - 1).getSourceName());
+                                intent.putExtra("BRAND", at.BrandAuto.getText().toString());
+
+                                startActivity(intent);
+                            }
+                        }else {
+                            invoiceRequestViewModel.setAuthorization("Bearer " + getPreferenceManager().getPrefToken().trim());
+                            invoiceRequestViewModel.setSeasonId(generateSeasonResponseModel.getResponse().get(SeasonNum - 1).getSeasonId().trim());
+                            invoiceRequestViewModel.setSourceFlag(generateSourceResponseModel.getResponse().get(sourceNum - 1).getSourceFlag().trim());
+                            invoiceRequestViewModel.setSupplierCode(generateSupplierResponseModel.getResponse().get(SupplierNum - 1).getSupplierCode().trim());
+                            invoiceRequestViewModel.setSourceId(generateSourceResponseModel.getResponse().get(sourceNum - 1).getSourceId().trim());
+                            invoiceRequestViewModel.setBrandId(generateBrandResponseModel.getResponse().get(BrandNum - 1).getBrandId().trim());
+                            invoiceRequestViewModel.setFrom(at.from.getText().toString());
+                            invoiceRequestViewModel.setTo(at.until.getText().toString());
+                            invoiceRequestViewModel.generateInvoiceRequest();
+                        }
+                    } else {
+                        Toast.makeText(getApplicationContext(), "Enter all fields", Toast.LENGTH_SHORT).show();
                     }
+                } else {
+                    Toast.makeText(getApplicationContext(), "This App Require Internet", Toast.LENGTH_SHORT).show();
+                }
 
             }
         });
@@ -347,35 +397,30 @@ public class TransactionProductUpdate extends AppCompatActivity implements Sourc
                 .getNetworkInfo(ConnectivityManager.TYPE_WIFI) != null && connectivityManager
                 .getNetworkInfo(ConnectivityManager.TYPE_WIFI)
                 .getState() == NetworkInfo.State.CONNECTED)) {
-        if (!getPreferenceManager().getPrefToken().isEmpty()) {
-            sourceRequestViewModel.setAuthorization("Bearer " + getPreferenceManager().getPrefToken());
-            sourceRequestViewModel.generateSourceRequest();
+            if (!getPreferenceManager().getPrefToken().isEmpty()) {
+                sourceRequestViewModel.setAuthorization("Bearer " + getPreferenceManager().getPrefToken());
+                sourceRequestViewModel.generateSourceRequest();
 
-            requestViewModel.setAuthorization("Bearer " + getPreferenceManager().getPrefToken());
-            requestViewModel.generateSourceRequest();
+                requestViewModel.setAuthorization("Bearer " + getPreferenceManager().getPrefToken());
+                requestViewModel.generateSourceRequest();
+            }
+        } else {
+            Toast.makeText(getApplicationContext(), "This App Require Internet", Toast.LENGTH_SHORT).show();
         }
     }
-                    else{
-        Toast.makeText(getApplicationContext(), "This App Require Internet", Toast.LENGTH_SHORT).show();
-    }
-
-    }
-
-
 
     public void bottom() {
-
         RecyclerView recyclerView;
         RecyclerView.LayoutManager layoutManager;
-        TextView ses,ban;
+        TextView ses, ban;
         ImageView cross;
         bottomSheetDialog = new BottomSheetDialog(this, R.style.AppBottomSheetDialogTheme);
         bottomSheetDialog.setContentView(R.layout.bottomfortransaction_productupdate);
-        recyclerView=bottomSheetDialog.findViewById(R.id.rvInvoice);
-        layoutManager=new LinearLayoutManager(this);
-        ses=bottomSheetDialog.findViewById(R.id.ses);
-        ban=bottomSheetDialog.findViewById(R.id.ban);
-        cross=bottomSheetDialog.findViewById(R.id.cross);
+        recyclerView = bottomSheetDialog.findViewById(R.id.rvInvoice);
+        layoutManager = new LinearLayoutManager(this);
+        ses = bottomSheetDialog.findViewById(R.id.ses);
+        ban = bottomSheetDialog.findViewById(R.id.ban);
+        cross = bottomSheetDialog.findViewById(R.id.cross);
 
         try {
             Field behaviorField = bottomSheetDialog.getClass().getDeclaredField("behavior");
@@ -401,12 +446,12 @@ public class TransactionProductUpdate extends AppCompatActivity implements Sourc
 
         }
 
-        adapter=new AdapterForInvoice(getApplicationContext(),InvoiceNo,this);
+        adapter = new AdapterForInvoice(getApplicationContext(), InvoiceNo, this);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adapter);
 
-        ses.setText(generateSeasonResponseModel.getResponse().get(SeasonNum-1).getSeasonName());
-        ban.setText(generateBrandResponseModel.getResponse().get(BrandNum-1).getBrandName());
+        ses.setText(generateSeasonResponseModel.getResponse().get(SeasonNum - 1).getSeasonName());
+        ban.setText(generateBrandResponseModel.getResponse().get(BrandNum - 1).getBrandName());
 
 
         cross.setOnClickListener(new View.OnClickListener() {
@@ -431,42 +476,40 @@ public class TransactionProductUpdate extends AppCompatActivity implements Sourc
     public void generateSourceProcessed(GenerateSourceResponseModel generateSourceResponseModel) {
 
         if (!generateSourceResponseModel.getResponse().isEmpty()) {
-            SourceName=new String[generateSourceResponseModel.getResponse().size()];
-            SourceId=new String[generateSourceResponseModel.getResponse().size()];
-            sourceFlag=new String[generateSourceResponseModel.getResponse().size()];
+            SourceName = new String[generateSourceResponseModel.getResponse().size()];
+            SourceId = new String[generateSourceResponseModel.getResponse().size()];
+            sourceFlag = new String[generateSourceResponseModel.getResponse().size()];
             for (int i = 0; i < generateSourceResponseModel.getResponse().size(); i++) {
                 SourceName[i] = generateSourceResponseModel.getResponse().get(i).getSourceName();
                 SourceId[i] = generateSourceResponseModel.getResponse().get(i).getSourceId();
                 sourceFlag[i] = generateSourceResponseModel.getResponse().get(i).getSourceFlag();
             }
 
-            this.generateSourceResponseModel=generateSourceResponseModel;
-            sourceAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, SourceName);
+            this.generateSourceResponseModel = generateSourceResponseModel;
+            sourceAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_dropdown_item_1line, SourceName);
             SourceAuto.setText(sourceAdapter.getItem(0).toString());
             SourceAuto.setAdapter(sourceAdapter);
-            sourceNum=1;
+            sourceNum = 1;
         }
-
     }
 
     @Override
     public void generateSeasonProcessed(GenerateSeasonResponseModel generateSeasonResponseModel) {
 
         if (!generateSeasonResponseModel.getResponse().isEmpty()) {
-            SeasonName=new String[generateSeasonResponseModel.getResponse().size()];
-            SeasonId=new String[generateSeasonResponseModel.getResponse().size()];
+            SeasonName = new String[generateSeasonResponseModel.getResponse().size()];
+            SeasonId = new String[generateSeasonResponseModel.getResponse().size()];
             for (int i = 0; i < generateSeasonResponseModel.getResponse().size(); i++) {
                 SeasonName[i] = generateSeasonResponseModel.getResponse().get(i).getSeasonName();
                 SeasonId[i] = generateSeasonResponseModel.getResponse().get(i).getSeasonId();
             }
 
-            this.generateSeasonResponseModel=generateSeasonResponseModel;
+            this.generateSeasonResponseModel = generateSeasonResponseModel;
 
-            seasonAdapter = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_dropdown_item, SeasonName);
+            seasonAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_dropdown_item_1line, SeasonName);
             SeasonAuto.setText(seasonAdapter.getItem(0).toString());
             SeasonAuto.setAdapter(seasonAdapter);
-            SeasonNum=1;
-
+            SeasonNum = 1;
 
 
         }
@@ -480,40 +523,33 @@ public class TransactionProductUpdate extends AppCompatActivity implements Sourc
             for (int i = 0; i < generateBrandResponseModel.getResponse().size(); i++) {
                 BrandId[i] = generateBrandResponseModel.getResponse().get(i).getBrandId();
                 BrandName[i] = generateBrandResponseModel.getResponse().get(i).getBrandName();
-
             }
-                this.generateBrandResponseModel=generateBrandResponseModel;
-
-                brandAdapter = new ArrayAdapter<String>(this,android.R.layout.simple_dropdown_item_1line, BrandName);
-                BrandAuto.setText(brandAdapter.getItem(0).toString());
-                BrandAuto.setAdapter(brandAdapter);
-                BrandNum=1;
-
-                BrandAuto.showDropDown();
-
-        }
-        else{
+            this.generateBrandResponseModel = generateBrandResponseModel;
+            brandAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_dropdown_item_1line, BrandName);
+            BrandAuto.setText(brandAdapter.getItem(0).toString());
+            BrandAuto.setAdapter(brandAdapter);
+            BrandNum = 1;
+            BrandAuto.showDropDown();
+        } else {
             Toast.makeText(getApplicationContext(), "No data", Toast.LENGTH_LONG).show();
         }
     }
 
     @Override
     public void generateSupplierProcessed(GenerateSupplierResponseModel generateSupplierResponseModel) {
+
         if (!generateSupplierResponseModel.getResponse().isEmpty()) {
             SupplierCode = new String[generateSupplierResponseModel.getResponse().size()];
             SupplierName = new String[generateSupplierResponseModel.getResponse().size()];
             for (int i = 0; i < generateSupplierResponseModel.getResponse().size(); i++) {
                 SupplierCode[i] = generateSupplierResponseModel.getResponse().get(i).getSupplierCode();
                 SupplierName[i] = generateSupplierResponseModel.getResponse().get(i).getSupplierName();
-
             }
             this.generateSupplierResponseModel = generateSupplierResponseModel;
-
-            supplierAdapter = new ArrayAdapter<String>(this,android.R.layout.simple_dropdown_item_1line, SupplierName);
+            supplierAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_dropdown_item_1line, SupplierName);
             SupplierAuto.setText(supplierAdapter.getItem(0).toString());
             SupplierAuto.setAdapter(supplierAdapter);
             SupplierNum = 1;
-
             SupplierAuto.showDropDown();
 
         } else {
@@ -524,12 +560,12 @@ public class TransactionProductUpdate extends AppCompatActivity implements Sourc
     @Override
     public void generateInvoiceProcessed(GenerateInvoiceResponseModel generateInvoiceResponseModel) {
 
-        this.generateInvoiceResponseModel=generateInvoiceResponseModel;
-        InvoiceNo=new String[generateInvoiceResponseModel.getResponse().size()];
-        InvoiceDate =new String[generateInvoiceResponseModel.getResponse().size()];
-        for(int i=0;i<generateInvoiceResponseModel.getResponse().size();i++){
-            InvoiceDate[i]=generateInvoiceResponseModel.getResponse().get(i).getInvoidDate();
-            InvoiceNo[i]=generateInvoiceResponseModel.getResponse().get(i).getInvoidNo();
+        this.generateInvoiceResponseModel = generateInvoiceResponseModel;
+        InvoiceNo = new String[generateInvoiceResponseModel.getResponse().size()];
+        InvoiceDate = new String[generateInvoiceResponseModel.getResponse().size()];
+        for (int i = 0; i < generateInvoiceResponseModel.getResponse().size(); i++) {
+            InvoiceDate[i] = generateInvoiceResponseModel.getResponse().get(i).getInvoidDate();
+            InvoiceNo[i] = generateInvoiceResponseModel.getResponse().get(i).getInvoidNo();
         }
         bottom();
         bottomSheetDialog.show();
@@ -538,9 +574,9 @@ public class TransactionProductUpdate extends AppCompatActivity implements Sourc
 
     @Override
     public void generateFinalInvoiceProcessed(GenerateFinalInvoiceResponseModel generateFinalInvoiceResponseModel) {
-        if(generateFinalInvoiceResponseModel.response!=null){
+        if (generateFinalInvoiceResponseModel.data != null) {
             bottomSheetDialog.dismiss();
-            Intent intent=new Intent(TransactionProductUpdate.this, FinalProductionUpdate.class);
+            Intent intent = new Intent(TransactionProductUpdate.this, FinalProductionUpdate.class);
             intent.putExtra("invoice", generateFinalInvoiceResponseModel);
             startActivity(intent);
         }
@@ -566,7 +602,7 @@ public class TransactionProductUpdate extends AppCompatActivity implements Sourc
     @Override
     public void FinalInvoiceCall(int invoice) {
         bottomSheetDialog.dismiss();
-        if(dpid!=0){
+        if (dpid != 0) {
 
             Intent intent = new Intent(getApplicationContext(), FinalInspectionScreen.class);
             intent.putExtra("piNo", generateInvoiceResponseModel.getResponse().get(invoice).getInvoidNo());
@@ -576,11 +612,12 @@ public class TransactionProductUpdate extends AppCompatActivity implements Sourc
             intent.putExtra("SourceFlag", generateSourceResponseModel.getResponse().get(sourceNum - 1).getSourceFlag());
             intent.putExtra("SeasonAuto", at.SeasonAuto.getText().toString());
             intent.putExtra("OrderStatus", "OutStanding");
+            intent.putExtra("BRAND", at.BrandAuto.getText().toString());
             intent.putExtra("dpid", dpid);
             startActivity(intent);
 
 
-        }else {
+        } else {
 
             Intent intent = new Intent(TransactionProductUpdate.this, FinalProductionUpdate.class);
             intent.putExtra("piNo", generateInvoiceResponseModel.getResponse().get(invoice).getInvoidNo());
@@ -590,6 +627,7 @@ public class TransactionProductUpdate extends AppCompatActivity implements Sourc
             intent.putExtra("SourceId", Integer.valueOf(generateSourceResponseModel.getResponse().get(sourceNum - 1).getSourceId()));
             intent.putExtra("SourceName", generateSourceResponseModel.getResponse().get(sourceNum - 1).getSourceName());
             intent.putExtra("SourceFlag", generateSourceResponseModel.getResponse().get(sourceNum - 1).getSourceFlag());
+            intent.putExtra("BRAND", at.BrandAuto.getText().toString());
             intent.putExtra("OrderStatus", "OutStanding");
             startActivity(intent);
 
@@ -598,7 +636,7 @@ public class TransactionProductUpdate extends AppCompatActivity implements Sourc
 
     @Override
     public void onBackPressed() {
-        startActivity(new Intent(TransactionProductUpdate.this,welcomeSaibhavani.class));
+        startActivity(new Intent(TransactionProductUpdate.this, welcomeSaibhavani.class));
         finishAffinity();
     }
 }

@@ -109,7 +109,6 @@ public class ResponseForFinalInvoice {
     @Expose
     public String balance;
 
-
     public String getSourceFlag() {
         return sourceFlag;
     }
@@ -317,4 +316,5 @@ public class ResponseForFinalInvoice {
     public void setBalance(String balance) {
         this.balance = balance;
     }
+
 }

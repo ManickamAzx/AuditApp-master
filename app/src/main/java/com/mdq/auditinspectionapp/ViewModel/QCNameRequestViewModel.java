@@ -32,7 +32,7 @@ public class QCNameRequestViewModel extends QCNameRequestBaseViewModel implement
     private void goGenerateBrand() {
         GenerateQCNameRequestModel sourceRequestModel=new GenerateQCNameRequestModel();
         sourceRequestModel.dptid=getDptid();
-        qcNameDataManager.callEnqueue(ApiClass.QCNAME, sourceRequestModel,new ResponseHandler<GenerateQCNameResponseModel>() {
+        qcNameDataManager.callEnqueue(ApiClass.QCNAME,getAuth(), sourceRequestModel,new ResponseHandler<GenerateQCNameResponseModel>() {
             @Override
             public void onSuccess(String message) {
 
