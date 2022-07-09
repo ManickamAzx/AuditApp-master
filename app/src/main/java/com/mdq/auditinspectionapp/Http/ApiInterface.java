@@ -11,6 +11,7 @@ import com.mdq.auditinspectionapp.Pojo.JsonRequest.GenerateUpdateInspectionReque
 import com.mdq.auditinspectionapp.Pojo.JsonRequest.GenerateUpdateProductionRequestModel;
 import com.mdq.auditinspectionapp.Pojo.JsonRequest.GetInspectionReportRequestModel;
 import com.mdq.auditinspectionapp.Pojo.JsonRequest.GetProductionReportRequestModel;
+import com.mdq.auditinspectionapp.Pojo.JsonResonse.CustomerNameResponseModel;
 import com.mdq.auditinspectionapp.Pojo.JsonResonse.GenerateBrandResponseModel;
 import com.mdq.auditinspectionapp.Pojo.JsonResonse.GenerateFinalInvoiceResponseModel;
 import com.mdq.auditinspectionapp.Pojo.JsonResonse.GenerateInvoiceResponseModel;
@@ -25,6 +26,9 @@ import com.mdq.auditinspectionapp.Pojo.JsonResonse.GenerateUpdateInspectionRespo
 import com.mdq.auditinspectionapp.Pojo.JsonResonse.GenerateUpdateProductionResponseModel;
 import com.mdq.auditinspectionapp.Pojo.JsonResonse.GetInspectionReportResponseModel;
 import com.mdq.auditinspectionapp.Pojo.JsonResonse.GetProductionReportResponseModel;
+import com.mdq.auditinspectionapp.Pojo.JsonResonse.OrderStatusResponseModel;
+import com.mdq.auditinspectionapp.Pojo.JsonResonse.OrderTypeResponseModel;
+import com.mdq.auditinspectionapp.Pojo.JsonResonse.VendorNameResponseModel;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -55,6 +59,9 @@ public interface ApiInterface {
     Call<GenerateInvoiceResponseModel> generateGetInvoiceCall(@Url String url, @Header("Authorization") String Authorization, @Body GenerateInvoiceRequestModel generateInvoiceRequestModel);
 
     @POST
+    Call<GenerateInvoiceResponseModel> generateGetInvoiceListReportCall(@Url String url, @Header("Authorization") String Authorization, @Body GenerateInvoiceRequestModel generateInvoiceRequestModel);
+
+    @POST
     Call<GenerateFinalInvoiceResponseModel> generateGetFinalInvoiceCall(@Url String url, @Header("Authorization") String Authorization, @Body GenerateFinalInvoiceRequestModel generateFinalInvoiceRequestModel);
 
     @GET
@@ -72,11 +79,23 @@ public interface ApiInterface {
     @POST
     Call<GenerateUpdateInspectionResponseModel> generatePostUpdateInspectionCall(@Url String url, @Header("Authorization") String Authorization, @Body GenerateUpdateInspectionRequestModel generateUpdateInspectionRequestModel);
 
-
     @POST
     Call<GetProductionReportResponseModel> getProductionReportCall(@Url String url, @Header("Authorization") String Authorization, @Body GetProductionReportRequestModel getProductionReportRequestModel);
 
     @POST
     Call<GetInspectionReportResponseModel> getInspectionReportCall(@Url String url, @Header("Authorization") String Authorization, @Body GetInspectionReportRequestModel getInspectionReportRequestModel);
+
+    @GET
+    Call<CustomerNameResponseModel> generateCustomerNameCall(@Url String url, @Header("Authorization") String Authorization);
+
+    @GET
+    Call<VendorNameResponseModel> generateVendorNameCall(@Url String url, @Header("Authorization") String Authorization);
+
+    @GET
+    Call<OrderTypeResponseModel> generateOrderTypeCall(@Url String url, @Header("Authorization") String Authorization);
+
+
+    @GET
+    Call<OrderStatusResponseModel> generateOrderStatusCall(@Url String url, @Header("Authorization") String Authorization);
 
 }

@@ -22,6 +22,11 @@ public class ApiClass {
     public static String UPDATEINSPECTION= "update-inspectiondetails";
     public static String GETPRODUCTIONREPORT= "get-productionreport";
     public static String GETINSPECTIONREPORT= "get-inspectionreport";
+    public static String CUSTOMERNAME= "get-customername-list";
+    public static String VENDORNAME= "get-vendorname-list";
+    public static String ORDERTYPE= "get-ordertype";
+    public static String ORDERSTATUS= "get-ordertstatus";
+    public static String INVOICELISTREPORT= "get-reportinvoice-list";
 
 //    public static final String LOGIN = "account/login";
 //    public static final String SOURCE = "master/get-sources";

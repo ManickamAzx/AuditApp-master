@@ -334,13 +334,11 @@ public class TransactionProductUpdate extends AppCompatActivity implements Sourc
                                 intent.putExtra("SourceId", generateSourceResponseModel.getResponse().get(sourceNum - 1).getSourceId().trim());
                                 intent.putExtra("SupplierCode",generateSupplierResponseModel.getResponse().get(SupplierNum - 1).getSupplierCode().trim());
                                 intent.putExtra("SourceFlag", generateSourceResponseModel.getResponse().get(sourceNum - 1).getSourceFlag().trim());
-                                intent.putExtra("BrandID",generateBrandResponseModel.getResponse().get(BrandNum-1).brandId.trim());
                                 intent.putExtra("SeasonAuto", at.SeasonAuto.getText().toString());
-                                intent.putExtra("SourceName", generateSourceResponseModel.getResponse().get(sourceNum - 1).getSourceName());
+                                intent.putExtra("SourceName", at.SourceAuto.getText().toString());
                                 intent.putExtra("who","report");
-                                intent.putExtra("BRAND", at.BrandAuto.getText().toString());
-
-
+                                intent.putExtra("SupplierAuto", at.SupplierAuto.getText().toString());
+                                intent.putExtra("BRAND", at.BrandAuto.getText().toString().trim());
                                 startActivity(intent);
                             }else{
                                 Intent intent = new Intent(TransactionProductUpdate.this, FinalProductionUpdate.class);
@@ -355,6 +353,7 @@ public class TransactionProductUpdate extends AppCompatActivity implements Sourc
                                 intent.putExtra("SeasonAuto", at.SeasonAuto.getText().toString());
                                 intent.putExtra("SourceName", generateSourceResponseModel.getResponse().get(sourceNum - 1).getSourceName());
                                 intent.putExtra("BRAND", at.BrandAuto.getText().toString());
+                                intent.putExtra("SupplierAuto", at.SupplierAuto.getText().toString());
 
                                 startActivity(intent);
                             }
@@ -611,6 +610,8 @@ public class TransactionProductUpdate extends AppCompatActivity implements Sourc
             intent.putExtra("SourceId", Integer.valueOf(generateSourceResponseModel.getResponse().get(sourceNum - 1).getSourceId()));
             intent.putExtra("SourceFlag", generateSourceResponseModel.getResponse().get(sourceNum - 1).getSourceFlag());
             intent.putExtra("SeasonAuto", at.SeasonAuto.getText().toString());
+            intent.putExtra("SupplierAuto", at.SupplierAuto.getText().toString());
+            intent.putExtra("SourceName", generateSourceResponseModel.getResponse().get(sourceNum - 1).getSourceName());
             intent.putExtra("OrderStatus", "OutStanding");
             intent.putExtra("BRAND", at.BrandAuto.getText().toString());
             intent.putExtra("dpid", dpid);
@@ -624,6 +625,7 @@ public class TransactionProductUpdate extends AppCompatActivity implements Sourc
             intent.putExtra("from", f);
             intent.putExtra("to", t);
             intent.putExtra("SeasonAuto", at.SeasonAuto.getText().toString());
+            intent.putExtra("SupplierAuto", at.SupplierAuto.getText().toString());
             intent.putExtra("SourceId", Integer.valueOf(generateSourceResponseModel.getResponse().get(sourceNum - 1).getSourceId()));
             intent.putExtra("SourceName", generateSourceResponseModel.getResponse().get(sourceNum - 1).getSourceName());
             intent.putExtra("SourceFlag", generateSourceResponseModel.getResponse().get(sourceNum - 1).getSourceFlag());

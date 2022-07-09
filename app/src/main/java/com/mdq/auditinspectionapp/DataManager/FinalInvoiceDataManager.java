@@ -84,7 +84,6 @@ public class FinalInvoiceDataManager {
             @Override
             public void onFailure(Call<GenerateFinalInvoiceResponseModel> call, Throwable t) {
                 Log.d(TAG, "onTokenExpired: " + t.getMessage());
-                Toast.makeText(context, "" + t.getMessage(), Toast.LENGTH_LONG).show();
             }
         });
 

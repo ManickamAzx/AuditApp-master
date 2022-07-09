@@ -32,13 +32,15 @@ public class GetProductionReportViewModel extends GetProductionReportBaseViewMod
 
     private void goGenerateBrand() {
         GetProductionReportRequestModel getProductionReportRequestModel=new GetProductionReportRequestModel();
-        getProductionReportRequestModel.brandId=getBrandId();
-        getProductionReportRequestModel.supplierCode=getSupplierCode();
-        getProductionReportRequestModel.sourceFlag=getSourceFlag();
-        getProductionReportRequestModel.sourceId=getSourceId();
-        getProductionReportRequestModel.seasonId=getSeasonId();
+        getProductionReportRequestModel.seasonName=getSeasonName();
+        getProductionReportRequestModel.customer=getCustomer();
+        getProductionReportRequestModel.brand=getBrand();
+        getProductionReportRequestModel.invoiceNo=getInvoiceNo();
+        getProductionReportRequestModel.vendor=getVendor();
+        getProductionReportRequestModel.orderType=getOrderType();
+        getProductionReportRequestModel.orderStatus=getOrderStatus();
         getProductionReportRequestModel.from=getFrom();
-        getProductionReportRequestModel.to=getTo()  ;
+        getProductionReportRequestModel.to=getTo() ;
 
         getProductionReportDataManager.callEnqueue(ApiClass.GETPRODUCTIONREPORT,getAuth(), getProductionReportRequestModel,new ResponseHandler<GetProductionReportResponseModel>() {
             @Override

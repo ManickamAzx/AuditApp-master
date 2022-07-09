@@ -76,8 +76,9 @@ public class FinalProductionUpdate extends AppCompatActivity implements FinalInv
     String RSeasonID, RSourceId, RSourceFlag, RBrandId, RFrom, RTo, RSupplierCode;
     GetProductionReportViewModel getProductionReportViewModel;
     GetProductionReportResponseModel getProductionReportResponseModel;
-    boolean report=true;
-    String BRAND;
+    boolean report = true;
+    String BRAND,SupplierAuto;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -96,34 +97,7 @@ public class FinalProductionUpdate extends AppCompatActivity implements FinalInv
 
         Intent intent = getIntent();
         who = intent.getStringExtra("who");
-        if (who!=null) {
-            if (who.trim().equals("report")) {
-                report=false;
-                ap.saveLinear.setVisibility(View.GONE);
-                RSupplierCode = intent.getStringExtra("SupplierCode");
-                RSourceId = intent.getStringExtra("SourceId");
-                RSeasonID = intent.getStringExtra("SeasonId");
-                RFrom = intent.getStringExtra("from");
-                RFrom = RFrom + "T00:00:00";
-                RTo = intent.getStringExtra("to");
-                ap.outForeUntil.setText(RTo);
-                RTo = RTo + "T00:00:00";
-                RBrandId = intent.getStringExtra("BrandID");
-                RSourceFlag = intent.getStringExtra("SourceFlag");
-                SeasonAuto = intent.getStringExtra("SeasonAuto");
-                SourceName = intent.getStringExtra("SourceName");
-                BRAND=intent.getStringExtra("BRAND");
-                ap.Brand.setText(BRAND);
-                ap.vendors.setText(BRAND);
 
-                ap.title.setText("FINAL PRODUCTION REPORT");
-                ap.Season.setText(SeasonAuto);
-                ap.Buyer.setText(SourceName);
-
-                getProductionReport();
-            }
-        }
-        else {
             piNo = intent.getStringExtra("piNo");
             from = intent.getStringExtra("from");
             to = intent.getStringExtra("to");
@@ -132,10 +106,12 @@ public class FinalProductionUpdate extends AppCompatActivity implements FinalInv
             orderStatus = intent.getStringExtra("OrderStatus");
             SeasonAuto = intent.getStringExtra("SeasonAuto");
             SourceName = intent.getStringExtra("SourceName");
-            BRAND=intent.getStringExtra("BRAND");
+            BRAND = intent.getStringExtra("BRAND");
+            SupplierAuto = intent.getStringExtra("SupplierAuto");
+
             ap.Brand.setText(BRAND);
-            ap.vendors.setText(BRAND);
-            report=true;
+            ap.vendors.setText(SupplierAuto);
+            report = true;
             shipModeRequestViewModel = new ShipModeRequestViewModel(getApplicationContext(), this);
             shipModeRequestViewModel.setAuth("Bearer " + getPreferenceManager().getPrefToken());
             shipModeRequestViewModel.generateShipModeRequest();
@@ -149,8 +125,6 @@ public class FinalProductionUpdate extends AppCompatActivity implements FinalInv
 
             }
 
-        }
-
         shipModeRequestViewModel = new ShipModeRequestViewModel(getApplicationContext(), this);
         shipModeRequestViewModel.setAuth("Bearer " + getPreferenceManager().getPrefToken());
         shipModeRequestViewModel.generateShipModeRequest();
@@ -160,7 +134,7 @@ public class FinalProductionUpdate extends AppCompatActivity implements FinalInv
         ap.dispatch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(report) {
+                if (report) {
                     ap.dispatch.showDropDown();
                 }
             }
@@ -169,7 +143,7 @@ public class FinalProductionUpdate extends AppCompatActivity implements FinalInv
         ap.dispatch.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                ShipId = position+1;
+                ShipId = position;
             }
         });
 
@@ -189,15 +163,15 @@ public class FinalProductionUpdate extends AppCompatActivity implements FinalInv
         } else {
             ap.PREV.setClickable(true);
         }
-        if(who!=null) {
-            if (getProductionReportResponseModel.getDetails()!=null) {
+        if (who != null) {
+            if (getProductionReportResponseModel.getDetails() != null) {
                 if (getId == getProductionReportResponseModel.getDetails().size()) {
                     ap.NEXT.setClickable(false);
                 } else {
                     ap.NEXT.setClickable(true);
                 }
             }
-        }else {
+        } else {
             if (generateFinalInvoiceResponseModel.getResponse() != null) {
                 if (getId == generateFinalInvoiceResponseModel.getResponse().size()) {
                     ap.NEXT.setClickable(false);
@@ -211,12 +185,15 @@ public class FinalProductionUpdate extends AppCompatActivity implements FinalInv
         ap.PREV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(who!=null){
+                if (who != null) {
                     getId = getId - 1;
-                    if(getId>=0) {
+                    if (getId >= 0) {
+                        ap.NEXT.setClickable(true);
                         productionReport();
+                    }else{
+                        ap.PREV.setClickable(false);
                     }
-                }else {
+                } else {
                     getId = getId - 1;
                     FinalInvoice(generateFinalInvoiceResponseModel, 2);
                 }
@@ -227,12 +204,15 @@ public class FinalProductionUpdate extends AppCompatActivity implements FinalInv
         ap.NEXT.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(who!=null){
+                if (who != null) {
                     getId = getId + 1;
-                    if(getId<getProductionReportResponseModel.getDetails().size()) {
+                    if (getId < getProductionReportResponseModel.getDetails().size()) {
+                        ap.PREV.setClickable(true);
                         productionReport();
+                    }else{
+                        ap.NEXT.setClickable(false);
                     }
-                }else {
+                } else {
                     getId = getId + 1;
                     FinalInvoice(generateFinalInvoiceResponseModel, 1);
                 }
@@ -244,35 +224,38 @@ public class FinalProductionUpdate extends AppCompatActivity implements FinalInv
             @Override
             public void onClick(View v) {
 
-                Calendar calendar = Calendar.getInstance();
-                int years = calendar.get(Calendar.YEAR);
-                int months = calendar.get(Calendar.MONTH);
-                int days = calendar.get(Calendar.DAY_OF_MONTH);
+                if (report) {
+                    Calendar calendar = Calendar.getInstance();
+                    int years = calendar.get(Calendar.YEAR);
+                    int months = calendar.get(Calendar.MONTH);
+                    int days = calendar.get(Calendar.DAY_OF_MONTH);
 
-                datePickerDialog = new DatePickerDialog(FinalProductionUpdate.this, new DatePickerDialog.OnDateSetListener() {
-                    @Override
-                    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                        month = month + 1;
-                        String mm = String.valueOf(month);
-                        String dd = String.valueOf(dayOfMonth);
-                        if (mm.length() == 1) {
-                            mm = "0" + mm;
+                    datePickerDialog = new DatePickerDialog(FinalProductionUpdate.this, new DatePickerDialog.OnDateSetListener() {
+                        @Override
+                        public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                            month = month + 1;
+                            String mm = String.valueOf(month);
+                            String dd = String.valueOf(dayOfMonth);
+                            if (mm.length() == 1) {
+                                mm = "0" + mm;
+                            }
+                            if (dd.length() == 1) {
+                                dd = "0" + dd;
+                            }
+                            String dates = year + "-" + mm + "-" + dd;
+                            ap.FORECASTDELDATE.setText(dates);
+                            time();
                         }
-                        if (dd.length() == 1) {
-                            dd = "0" + dd;
-                        }
-                        String dates = year + "-" + mm + "-" + dd;
-                        ap.FORECASTDELDATE.setText(dates);
-                        time();
-                    }
 
-                }, years, months, days);
-                int positiveColor = ContextCompat.getColor(FinalProductionUpdate.this, R.color.black);
-                int negativeColor = ContextCompat.getColor(FinalProductionUpdate.this, R.color.black);
+                    }, years, months, days);
+                    int positiveColor = ContextCompat.getColor(FinalProductionUpdate.this, R.color.black);
+                    int negativeColor = ContextCompat.getColor(FinalProductionUpdate.this, R.color.black);
 
-                datePickerDialog.show();
-                datePickerDialog.getButton(DatePickerDialog.BUTTON_POSITIVE).setTextColor(positiveColor);
-                datePickerDialog.getButton(DatePickerDialog.BUTTON_NEGATIVE).setTextColor(negativeColor);
+                    datePickerDialog.show();
+                    datePickerDialog.getButton(DatePickerDialog.BUTTON_POSITIVE).setTextColor(positiveColor);
+                    datePickerDialog.getButton(DatePickerDialog.BUTTON_NEGATIVE).setTextColor(negativeColor);
+
+                }
             }
         });
 
@@ -292,8 +275,8 @@ public class FinalProductionUpdate extends AppCompatActivity implements FinalInv
                         if (!dates.equals("T00:00:00")) {
                             ap.Progress.setVisibility(View.VISIBLE);
                             updateProductionRequestViewModel.custOrderNo = generateFinalInvoiceResponseModel.getResponse().get(getId).getCustOrderNo().trim();
-                            if(ShipId>=5){
-                               ShipId=ShipId+1;
+                            if (ShipId >= 5) {
+                                ShipId = ShipId + 1;
                             }
                             updateProductionRequestViewModel.dispatchModeId = Integer.parseInt(generateShipModeResponseModel.getResponse().get(ShipId).getModeId().trim());
                             updateProductionRequestViewModel.foreCastDelDate = dates.trim();
@@ -305,7 +288,7 @@ public class FinalProductionUpdate extends AppCompatActivity implements FinalInv
                             updateProductionRequestViewModel.systemOrderNo = generateFinalInvoiceResponseModel.getResponse().get(getId).getSysOrderNo().trim();
                             updateProductionRequestViewModel.Auth = "Bearer " + getPreferenceManager().getPrefToken().trim();
                             updateProductionRequestViewModel.generateUpdateProductionRequest();
-                        }else {
+                        } else {
                             Toast.makeText(getApplicationContext(), "select date properly", Toast.LENGTH_SHORT).show();
                         }
                     } else {
@@ -318,18 +301,6 @@ public class FinalProductionUpdate extends AppCompatActivity implements FinalInv
         });
     }
 
-    private void getProductionReport() {
-
-        getProductionReportViewModel.setAuth("Bearer " + getPreferenceManager().getPrefToken());
-        getProductionReportViewModel.setSeasonId(RSeasonID);
-        getProductionReportViewModel.setSourceId(RSourceId);
-        getProductionReportViewModel.setFrom(RFrom);
-        getProductionReportViewModel.setTo(RTo);
-        getProductionReportViewModel.setBrandId(RBrandId);
-        getProductionReportViewModel.setSupplierCode(RSupplierCode);
-        getProductionReportViewModel.setSourceFlag(RSourceFlag);
-        getProductionReportViewModel.getProductionReportCall();
-    }
 
     private void finainvoice() {
         finalInvoiceViewModel.setAuth("Bearer " + getPreferenceManager().getPrefToken());
@@ -489,11 +460,11 @@ public class FinalProductionUpdate extends AppCompatActivity implements FinalInv
                 } else {
                     ap.BUYER.setText("NO DATA");
                 }
-//                if (generateFinalInvoiceResponseModel.getResponse().get(getId).getbrandId() != null) {
-//                    ap.Buyer.setText(generateFinalInvoiceResponseModel.getResponse().get(getId).getbrandId());
-//                }else{
-//                    ap.Buyer.setText("NO DATA");
-//                }
+                if (generateFinalInvoiceResponseModel.getResponse().get(getId).getDeliveryTerms() != null) {
+                    ap.DeleveryFac.setText(generateFinalInvoiceResponseModel.getResponse().get(getId).getDeliveryTerms());
+                }else{
+                    ap.DeleveryFac.setText("NO DATA");
+                }
 
                 if (generateFinalInvoiceResponseModel.getResponse().get(getId).getOrderQty() != null) {
 
@@ -671,23 +642,23 @@ public class FinalProductionUpdate extends AppCompatActivity implements FinalInv
     private void productionReport() {
         try {
             if (!getProductionReportResponseModel.getDetails().isEmpty()) {
-              ap.piDate.setText(getProductionReportResponseModel.getDetails().get(getId).getInvoiceDate());
-              ap.DeleveryFac.setText(getProductionReportResponseModel.getDetails().get(getId).getDeliveryTerms());
-              ap.piNo.setText(getProductionReportResponseModel.getDetails().get(getId).getInvoiceNo());
-              ap.vendors.setText(getProductionReportResponseModel.getDetails().get(getId).getVendor());
-              ap.STYLENAME.setText(getProductionReportResponseModel.getDetails().get(getId).getStyle());
-              ap.BUYER.setText(getProductionReportResponseModel.getDetails().get(getId).getOrderNo());
-              ap.ORDERQTY.setText(getProductionReportResponseModel.getDetails().get(getId).getOrderedQty());
-              ap.VENDORDELDATE.setText(getProductionReportResponseModel.getDetails().get(getId).getVendorDel());
-              ap.FORECASTDELDATE.setText(getProductionReportResponseModel.getDetails().get(getId).getForeCastDelDate());
-              ap.CITY.setText(getProductionReportResponseModel.getDetails().get(getId).getDestination());
-              ap.dispatch.setText(getProductionReportResponseModel.getDetails().get(getId).getShipMode());
-              ap.REMARKS.setText(getProductionReportResponseModel.getDetails().get(getId).getRemarks());
-              ap.BALANCE.setText(getProductionReportResponseModel.getDetails().get(getId).getBalanceQty());
-              ap.dispatch.setCompoundDrawablesWithIntrinsicBounds(null,null,null,null);
-              ap.FORECASTDELDATE.setCompoundDrawablesWithIntrinsicBounds(null,null,null,null);
-              ap.REMARKS.setEnabled(false);
-              ap.REMARKS.setKeyListener(null);
+                ap.piDate.setText(getProductionReportResponseModel.getDetails().get(getId).getInvoiceDate());
+                ap.DeleveryFac.setText(getProductionReportResponseModel.getDetails().get(getId).getDeliveryTerms());
+                ap.piNo.setText(getProductionReportResponseModel.getDetails().get(getId).getInvoiceNo());
+                ap.vendors.setText(getProductionReportResponseModel.getDetails().get(getId).getVendor());
+                ap.STYLENAME.setText(getProductionReportResponseModel.getDetails().get(getId).getStyle());
+                ap.BUYER.setText(getProductionReportResponseModel.getDetails().get(getId).getOrderNo());
+                ap.ORDERQTY.setText(getProductionReportResponseModel.getDetails().get(getId).getOrderedQty());
+                ap.VENDORDELDATE.setText(getProductionReportResponseModel.getDetails().get(getId).getVendorDel());
+                ap.FORECASTDELDATE.setText(getProductionReportResponseModel.getDetails().get(getId).getForeCastDelDate());
+                ap.CITY.setText(getProductionReportResponseModel.getDetails().get(getId).getDestination());
+                ap.dispatch.setText(getProductionReportResponseModel.getDetails().get(getId).getShipMode());
+                ap.REMARKS.setText(getProductionReportResponseModel.getDetails().get(getId).getRemarks());
+                ap.BALANCE.setText(getProductionReportResponseModel.getDetails().get(getId).getBalanceQty());
+                ap.dispatch.setCompoundDrawablesWithIntrinsicBounds(null, null, null, null);
+                ap.FORECASTDELDATE.setCompoundDrawablesWithIntrinsicBounds(null, null, null, null);
+                ap.REMARKS.setEnabled(false);
+                ap.REMARKS.setKeyListener(null);
             }
         } catch (Exception e) {
 

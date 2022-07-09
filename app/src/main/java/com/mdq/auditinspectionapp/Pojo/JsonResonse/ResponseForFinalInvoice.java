@@ -109,6 +109,18 @@ public class ResponseForFinalInvoice {
     @Expose
     public String balance;
 
+    public String getDeliveryTerms() {
+        return deliveryTerms;
+    }
+
+    public void setDeliveryTerms(String deliveryTerms) {
+        this.deliveryTerms = deliveryTerms;
+    }
+
+    @SerializedName("deliveryTerms")
+    @Expose
+    public String deliveryTerms;
+
     public String getSourceFlag() {
         return sourceFlag;
     }

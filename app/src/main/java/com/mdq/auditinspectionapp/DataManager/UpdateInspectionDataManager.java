@@ -85,7 +85,6 @@ public class UpdateInspectionDataManager {
             @Override
             public void onFailure(Call<GenerateUpdateInspectionResponseModel> call, Throwable t) {
                 Log.d(TAG, "onTokenExpired: " + t.getMessage());
-                Toast.makeText(context, "" + t.getMessage(), Toast.LENGTH_LONG).show();
 
                 FinalInspectionScreen finalInspectionScreen=new FinalInspectionScreen();
                 if( t.getMessage().equals("time out")) {

@@ -83,7 +83,6 @@ public class ShipModeDataManager {
             @Override
             public void onFailure(Call<GenerateShipModeResponseModel> call, Throwable t) {
                 Log.d(TAG, "onTokenExpired: " + t.getMessage());
-                Toast.makeText(context, "" + t.getMessage(), Toast.LENGTH_LONG).show();
             }
         });
     }

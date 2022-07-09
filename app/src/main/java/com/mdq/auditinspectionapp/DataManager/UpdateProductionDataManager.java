@@ -86,8 +86,6 @@ public class UpdateProductionDataManager {
             @Override
             public void onFailure(Call<GenerateUpdateProductionResponseModel> call, Throwable t) {
                 Log.d(TAG, "onTokenExpired: " + t.getMessage());
-                Toast.makeText(context, "" + t.getMessage(), Toast.LENGTH_LONG).show();
-
 
                 FinalProductionUpdate finalInspectionScreen=new FinalProductionUpdate();
                 if( t.getMessage().equals("time out")) {

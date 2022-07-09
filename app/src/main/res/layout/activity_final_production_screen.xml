@@ -314,7 +314,7 @@
                                     android:layout_height="wrap_content"
                                     android:layout_weight="1.3"
                                     android:textColor="@color/black"
-                                    android:text="HARLY DAVIDSON"
+                                    android:text=""
                                     android:textSize="9dp" />
 
                             </LinearLayout>
