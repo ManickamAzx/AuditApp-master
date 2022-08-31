@@ -1,0 +1,992 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".Activity.FinalInspectionScreen">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_marginLeft="20dp"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="20dp"
+                    android:weightSum="1"
+                    android:id="@+id/linearBack"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <ImageView
+                        android:layout_width="0dp"
+                        android:layout_weight="0.1"
+                        android:layout_height="30dp"
+                        android:src="@drawable/ic_baseline_chevron_left_24" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0.9"
+                        android:layout_marginLeft="10dp"
+                        android:text="Back"
+                        android:textColor="@color/black"
+                        android:gravity="center_vertical" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toBottomOf="@+id/linearBack"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginRight="20dp"
+                    android:id="@+id/linearWelcome"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_marginLeft="20dp"
+                    android:orientation="horizontal"
+                    android:weightSum="1">
+
+                    <ImageView
+                        android:layout_width="0dp"
+                        android:layout_weight="0.2"
+                        android:layout_height="40dp"
+                        android:src="@drawable/ic_settings" />
+
+                    <TextView
+                        android:id="@+id/names"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.8"
+                        android:gravity="end"
+                        android:layout_marginTop="5dp"
+                        android:textColor="@color/black" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="3dp"
+                    android:id="@+id/view"
+                    app:layout_constraintTop_toBottomOf="@+id/linearWelcome"
+                    android:layout_marginTop="6dp"
+                    android:background="@drawable/gradientforview" />
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginRight="30dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/view"
+                    android:layout_marginTop="10dp"
+                    app:cardElevation="20dp"
+                    android:layout_marginBottom="30dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:cardCornerRadius="20dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+
+                        <androidx.cardview.widget.CardView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:cardElevation="20dp">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical"
+                                android:background="#17060A">
+
+                                <TextView
+                                    android:id="@+id/title"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="center"
+                                    android:layout_marginTop="5dp"
+                                    android:textSize="14dp"
+                                    android:text="FINAL INSPECTION UPDATE"
+                                    android:textColor="@color/white" />
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="10dp"
+                                    android:orientation="horizontal"
+                                    android:weightSum="2"
+                                    android:layout_marginLeft="10dp"
+                                    android:textSize="9dp">
+
+                                    <TextView
+                                        android:layout_width="0dp"
+                                        android:layout_weight="1.1"
+                                        android:layout_height="wrap_content"
+                                        android:textSize="11dp"
+                                        android:textColor="@color/white"
+                                        android:gravity="end"
+                                        android:singleLine="true"
+                                        android:text="Outstanding Forecast Until : "
+                                        android:textStyle="bold" />
+
+                                    <TextView
+                                        android:layout_width="0dp"
+                                        android:layout_weight="0.9"
+                                        android:layout_height="wrap_content"
+                                        android:textSize="13dp"
+                                        android:id="@+id/outForeUntil"
+                                        android:textColor="@color/white"
+                                        android:textStyle="bold" />
+                                </LinearLayout>
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="horizontal"
+                                    android:weightSum="2"
+                                    android:layout_marginBottom="10dp"
+                                    android:layout_marginLeft="10dp"
+                                    android:textSize="9dp">
+
+                                    <TextView
+                                        android:layout_width="0dp"
+                                        android:layout_weight="1.1"
+                                        android:layout_height="wrap_content"
+                                        android:textSize="11dp"
+                                        android:textColor="@color/white"
+                                        android:gravity="end"
+                                        android:text="Proforma Invoice No : "
+                                        android:textStyle="bold" />
+
+                                    <TextView
+                                        android:layout_width="0dp"
+                                        android:layout_weight="0.9"
+                                        android:layout_height="wrap_content"
+                                        android:textSize="13dp"
+                                        android:id="@+id/piNo"
+                                        android:textColor="@color/white"
+                                        android:textStyle="bold" />
+                                </LinearLayout>
+                            </LinearLayout>
+
+                        </androidx.cardview.widget.CardView>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:id="@+id/ProformaInVoiceDate"
+                            android:orientation="horizontal"
+                            android:weightSum="2"
+                            android:layout_marginLeft="10dp"
+                            android:textSize="9dp">
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_weight="1"
+                                android:layout_height="wrap_content"
+                                android:textSize="11dp"
+                                android:textColor="@color/black"
+                                android:text="Proforma Invoice Date :"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_weight="1"
+                                android:layout_height="wrap_content"
+                                android:textSize="11dp"
+                                android:id="@+id/piDate"
+                                android:maxLength="10"
+                                android:textColor="@color/black"
+                                android:textStyle="bold" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="20dp"
+                            android:orientation="horizontal"
+                            android:weightSum="2"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginRight="10dp"
+                            android:layout_marginBottom="5dp">
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_weight="1"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal"
+                                android:weightSum="2">
+
+                                <TextView
+                                    android:layout_width="0dp"
+                                    android:layout_weight="0.7"
+                                    android:layout_height="wrap_content"
+                                    android:textSize="9dp"
+                                    android:textColor="@color/black"
+                                    android:textStyle="bold"
+                                    android:text="Buyer : " />
+
+                                <TextView
+                                    android:id="@+id/Buyer"
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1.3"
+                                    android:textColor="@color/black"
+                                    android:textSize="9dp" />
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_weight="1"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal"
+                                android:weightSum="2">
+
+                                <TextView
+                                    android:layout_width="0dp"
+                                    android:layout_weight="1"
+                                    android:layout_height="wrap_content"
+                                    android:textSize="9dp"
+                                    android:textColor="@color/black"
+                                    android:textStyle="bold"
+                                    android:text="Delivery Terms : " />
+
+                                <TextView
+                                    android:id="@+id/DeleveryFac"
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:textColor="@color/black"
+                                    android:textSize="9dp" />
+
+                            </LinearLayout>
+
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="20dp"
+                            android:orientation="horizontal"
+                            android:weightSum="2"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginRight="10dp"
+                            android:layout_marginBottom="5dp">
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_weight="1"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal"
+                                android:weightSum="2">
+
+                                <TextView
+                                    android:layout_width="0dp"
+                                    android:layout_weight="0.7"
+                                    android:layout_height="wrap_content"
+                                    android:textSize="9dp"
+                                    android:textColor="@color/black"
+                                    android:textStyle="bold"
+                                    android:text="Brand : " />
+
+                                <TextView
+                                    android:id="@+id/Brand"
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1.3"
+                                    android:textColor="@color/black"
+                                    android:textSize="9dp" />
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_weight="1"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal"
+                                android:weightSum="2">
+
+                                <TextView
+                                    android:layout_width="0dp"
+                                    android:layout_weight="0.7"
+                                    android:layout_height="wrap_content"
+                                    android:textSize="9dp"
+                                    android:textColor="@color/black"
+                                    android:textStyle="bold"
+                                    android:text="Season : " />
+
+                                <TextView
+                                    android:id="@+id/Season"
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:textSize="9dp" />
+
+                            </LinearLayout>
+
+
+                        </LinearLayout>
+
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginBottom="5dp"
+                            android:layout_height="2dp"
+                            android:src="@drawable/dotted"
+                            android:layerType="software" />
+
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="15dp"
+                            android:orientation="horizontal"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginRight="10dp"
+                            android:weightSum="1">
+
+                            <RelativeLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="0.3"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:id="@+id/VENDOR"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="0.7"
+                                    android:gravity="center_vertical"
+                                    android:text="VENDOR"
+                                    android:layout_marginLeft="2dp"
+                                    android:textColor="@color/black"
+                                    android:textSize="10sp"
+                                    android:textStyle="bold" />
+
+                                <TextView
+                                    android:id="@+id/vendor"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_below="@+id/VENDOR"
+                                    android:background="?attr/editTextBackground"
+                                    android:paddingTop="4dp"
+                                    android:textAllCaps="true"
+                                    android:textSize="9dp" />
+                            </RelativeLayout>
+
+                            <RelativeLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="0.6"
+                                android:paddingLeft="25dp">
+
+                                <TextView
+                                    android:id="@+id/STYLE"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="2dp"
+                                    android:gravity="center_vertical"
+                                    android:text="STYLE"
+                                    android:textColor="@color/black"
+                                    android:textSize="12sp"
+                                    android:textStyle="bold" />
+
+                                <TextView
+                                    android:id="@+id/STYLENAME"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_below="@+id/STYLE"
+                                    android:background="?attr/editTextBackground"
+                                    android:paddingTop="4dp"
+                                    android:textAllCaps="true"
+                                    android:textColor="@color/black"
+                                    android:textSize="9dp" />
+                            </RelativeLayout>
+
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginRight="10dp"
+                            android:weightSum="1">
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="0.3"
+                                android:orientation="vertical"
+                                android:weightSum="2">
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:text="Order NO"
+                                    android:textStyle="bold"
+                                    android:textSize="12sp"
+                                    android:layout_marginLeft="2dp"
+                                    android:gravity="center_vertical"
+                                    android:textColor="@color/black" />
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:textSize="9dp"
+                                    android:id="@+id/BUYER"
+                                    android:gravity="end"
+                                    android:paddingTop="4dp"
+                                    android:textAllCaps="true"
+                                    android:background="?attr/editTextBackground" />
+                            </LinearLayout>
+
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginRight="10dp"
+                            android:weightSum="1">
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="0.34"
+                                android:orientation="vertical"
+                                android:weightSum="2">
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:text="ORDERED OTY"
+                                    android:textSize="12sp"
+                                    android:layout_marginLeft="2dp"
+                                    android:textStyle="bold"
+                                    android:gravity="center_vertical"
+                                    android:textColor="@color/black" />
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:id="@+id/ORDER_QTY"
+                                    android:textSize="9dp"
+                                    android:gravity="end"
+                                    android:textAllCaps="true"
+                                    android:paddingTop="4dp"
+                                    android:background="?attr/editTextBackground" />
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="0.33"
+                                android:layout_marginLeft="20dp"
+                                android:orientation="vertical"
+                                android:weightSum="2">
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:text="BALANCE QTY"
+                                    android:textSize="12sp"
+                                    android:textStyle="bold"
+                                    android:layout_marginLeft="2dp"
+                                    android:gravity="center_vertical"
+                                    android:textColor="@color/black" />
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:textSize="9dp"
+                                    android:textAllCaps="true"
+                                    android:gravity="end"
+                                    android:paddingTop="4dp"
+                                    android:textColor="@color/black"
+                                    android:id="@+id/BALANCE"
+                                    android:background="?attr/editTextBackground" />
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="0.33"
+                                android:layout_marginLeft="20dp"
+                                android:orientation="vertical"
+                                android:weightSum="2">
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:text="VENDOR DEL"
+                                    android:textSize="12sp"
+                                    android:textStyle="bold"
+                                    android:layout_marginLeft="2dp"
+                                    android:gravity="center_vertical"
+                                    android:textColor="@color/black" />
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:textSize="9dp"
+                                    android:paddingTop="4dp"
+                                    android:maxLength="10"
+                                    android:id="@+id/VENDOR_DEL_DATE"
+                                    android:textColor="@color/black"
+                                    android:textAllCaps="true"
+                                    android:background="?attr/editTextBackground" />
+                            </LinearLayout>
+
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="50dp"
+                            android:orientation="horizontal"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginRight="10dp"
+                            android:layout_marginTop="10dp"
+                            android:weightSum="1">
+
+                            <RelativeLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="0.3"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:id="@+id/Forecast"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="2dp"
+                                    android:layout_weight="0.7"
+                                    android:gravity="center_vertical"
+                                    android:text="Forecast"
+                                    android:textAllCaps="true"
+                                    android:textColor="@color/black"
+                                    android:textSize="10sp"
+                                    android:textStyle="bold" />
+
+                                <TextView
+                                    android:id="@+id/FORECASTDELDATE"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_below="@+id/Forecast"
+                                    android:background="?attr/editTextBackground"
+                                    android:maxLength="10"
+                                    android:paddingTop="4dp"
+                                    android:textAllCaps="true"
+                                    android:textSize="9dp" />
+                            </RelativeLayout>
+
+                            <RelativeLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="0.7"
+                                android:paddingLeft="25dp">
+
+                                <TextView
+                                    android:id="@+id/DESTINATION"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="2dp"
+                                    android:gravity="center_vertical"
+                                    android:text="DESTINATION"
+                                    android:textColor="@color/black"
+                                    android:textSize="12sp"
+                                    android:textStyle="bold" />
+
+                                <TextView
+                                    android:id="@+id/CITY"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_below="@+id/DESTINATION"
+                                    android:background="?attr/editTextBackground"
+                                    android:paddingTop="4dp"
+                                    android:textAllCaps="true"
+                                    android:textSize="9dp" />
+                            </RelativeLayout>
+
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginRight="10dp"
+                            android:weightSum="1">
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="0.3"
+                                android:orientation="vertical"
+                                android:weightSum="2">
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:text="SHIP MODE"
+                                    android:textStyle="bold"
+                                    android:textSize="12sp"
+                                    android:layout_marginLeft="2dp"
+                                    android:gravity="center_vertical"
+                                    android:textColor="@color/black" />
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:textSize="9dp"
+                                    android:textColor="@color/black"
+                                    android:id="@+id/dispatch"
+                                    android:paddingTop="4dp"
+                                    android:background="?attr/editTextBackground" />
+                            </LinearLayout>
+
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal"
+                                android:layout_marginLeft="10dp"
+                                android:layout_marginTop="10dp"
+                                android:layout_marginRight="10dp"
+                                android:weightSum="1">
+
+                                <LinearLayout
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="0.3"
+                                    android:orientation="vertical"
+                                    android:weightSum="2">
+
+                                    <TextView
+                                        android:layout_width="match_parent"
+                                        android:layout_height="0dp"
+                                        android:layout_weight="1.8"
+                                        android:text="REmarks"
+                                        android:textSize="9dp"
+                                        android:textColor="@color/black"
+                                        android:textAllCaps="true"
+                                        android:gravity="bottom"
+                                        android:background="?attr/editTextBackground" />
+                                </LinearLayout>
+                            </LinearLayout>
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="12dp"
+                                android:id="@+id/REMARKSs"
+                                android:textSize="10dp"
+                                android:gravity="top" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginTop="20dp"
+                            android:layout_marginRight="10dp"
+                            android:weightSum="1">
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="0.39"
+                                android:orientation="vertical"
+                                android:weightSum="2">
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="15dp"
+                                    android:text="INSPECTION DATE"
+                                    android:textSize="12sp"
+                                    android:textStyle="bold"
+                                    android:layout_marginLeft="2dp"
+                                    android:gravity="center_vertical"
+                                    android:textColor="@color/black" />
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="45dp"
+                                    android:layout_weight="1"
+                                    android:textSize="9dp"
+                                    android:id="@+id/datetext"
+                                    android:drawableRight="@drawable/ic_calendar_updated"
+                                    android:drawablePadding="5dp"
+                                    android:gravity="center_vertical"
+                                    android:textAllCaps="true"
+                                    android:background="?attr/editTextBackground" />
+
+                                <ImageView
+                                    android:layout_width="50dp"
+                                    android:layout_height="50dp"
+                                    android:id="@+id/date_picker"
+                                    android:visibility="gone"
+                                    android:src="@drawable/ic_calendar_updated" />
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="0.30"
+                                android:layout_marginLeft="20dp"
+                                android:orientation="vertical"
+                                android:weightSum="2">
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:text="QC"
+                                    android:textSize="12sp"
+                                    android:textStyle="bold"
+                                    android:layout_marginLeft="2dp"
+                                    android:gravity="center_vertical"
+                                    android:textColor="@color/black" />
+
+                                <AutoCompleteTextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:textSize="9dp"
+                                    android:textAllCaps="true"
+                                    android:editable="false"
+                                    android:singleLine="true"
+                                    android:textColor="@color/black"
+                                    android:id="@+id/QCNAMES"
+                                    android:gravity="center_vertical"
+                                    android:background="?attr/editTextBackground"
+                                    android:drawableEnd="@drawable/ic_baseline_arrow_drop_down_24" />
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="0.32"
+                                android:layout_marginLeft="20dp"
+                                android:orientation="vertical"
+                                android:weightSum="2">
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:text="RESULT"
+                                    android:textSize="12sp"
+                                    android:textStyle="bold"
+                                    android:layout_marginLeft="2dp"
+                                    android:gravity="center_vertical"
+                                    android:textColor="@color/black" />
+
+                                <AutoCompleteTextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:textSize="9dp"
+                                    android:id="@+id/QCRESULT"
+                                    android:editable="false"
+                                    android:gravity="center_vertical"
+                                    android:drawableEnd="@drawable/ic_baseline_arrow_drop_down_24"
+                                    android:textAllCaps="true"
+                                    android:background="?attr/editTextBackground" />
+                            </LinearLayout>
+
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginRight="10dp"
+                            android:weightSum="1">
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:orientation="vertical"
+                                android:weightSum="2">
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:text="QC REMARKS"
+                                    android:textStyle="bold"
+                                    android:textSize="12sp"
+                                    android:layout_marginLeft="2dp"
+                                    android:gravity="center_vertical"
+                                    android:textColor="@color/black" />
+
+                                <EditText
+                                    android:layout_width="match_parent"
+                                    android:layout_height="70dp"
+                                    android:layout_weight="1"
+                                    android:background="@drawable/login"
+                                    android:gravity="start"
+                                    android:paddingLeft="5dp"
+                                    android:hint="Type to send"
+                                    android:id="@+id/QCREMARKS"
+                                    android:paddingTop="4dp"
+                                    android:textSize="9dp" />
+                            </LinearLayout>
+
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginTop="20dp"
+                            android:layout_marginBottom="20dp"
+                            android:layout_marginRight="10dp"
+                            android:weightSum="1">
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="30dp"
+                                android:layout_weight="0.34"
+                                android:orientation="vertical"
+                                android:weightSum="2">
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:text="PREV"
+                                    android:textSize="12sp"
+                                    android:textStyle="bold"
+                                    android:id="@+id/PREV"
+                                    android:enabled="false"
+                                    android:gravity="center"
+                                    android:background="@drawable/ripple_update"
+                                    android:textColor="@color/black" />
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:id="@+id/saveLinear"
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="0.33"
+                                android:layout_marginLeft="5dp"
+                                android:orientation="vertical"
+                                android:weightSum="2">
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:layout_weight="1"
+                                    android:text="SAVE"
+                                    android:id="@+id/SAVE"
+                                    android:textSize="12sp"
+                                    android:textStyle="bold"
+                                    android:layout_marginLeft="2dp"
+                                    android:gravity="center"
+                                    android:textColor="@color/white"
+                                    android:background="@drawable/ripple_for_save" />
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="0.33"
+                                android:layout_marginLeft="5dp"
+                                android:orientation="vertical"
+                                android:weightSum="2">
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:layout_weight="1"
+                                    android:text="NEXT"
+                                    android:id="@+id/NEXT"
+                                    android:textSize="12sp"
+                                    android:textStyle="bold"
+                                    android:background="@drawable/ripple_update"
+                                    android:layout_marginLeft="2dp"
+                                    android:gravity="center"
+                                    android:textColor="@color/black" />
+                            </LinearLayout>
+
+
+                        </LinearLayout>
+                    </LinearLayout>
+
+
+                </androidx.cardview.widget.CardView>
+
+                <ProgressBar
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:id="@+id/Progress"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:indeterminate="true"
+                    android:indeterminateTintMode="src_atop"
+                    android:indeterminateTint="#302F2F"
+                    />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </ScrollView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
