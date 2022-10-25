@@ -171,7 +171,6 @@ public class LoginActivity extends AppCompatActivity implements LoginResponseInt
             preferenceManager = PreferenceManager.getInstance();
             preferenceManager.initialize(getApplicationContext());
         }
-
         return preferenceManager;
     }
 }
