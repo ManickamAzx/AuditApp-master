@@ -10,6 +10,16 @@ public class InvoiceRequestBaseViewModel {
     private String from;
     private String to;
 
+    public String getDbname() {
+        return dbname;
+    }
+
+    public void setDbname(String dbname) {
+        this.dbname = dbname;
+    }
+
+    private String dbname;
+
     public String getAuthorization() {
         return Authorization;
     }

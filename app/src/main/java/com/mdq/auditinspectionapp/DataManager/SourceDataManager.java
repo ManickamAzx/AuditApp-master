@@ -32,10 +32,10 @@ public class SourceDataManager {
         this.apiInterface = getApp().getRetrofitInterface();
     }
 
-    public void callEnqueue(String url, String Authorization, final ResponseHandler<GenerateSourceResponseModel> dataresponse) {
+    public void callEnqueue(String url, String Authorization, GenerateSourceRequestModel sourceRequestModel, final ResponseHandler<GenerateSourceResponseModel> dataresponse) {
 
         //calling the generatePostLoginCall methode from call apiInterface
-        Call<GenerateSourceResponseModel> UserCall = apiInterface.generateGetSourceCall(url, Authorization);
+        Call<GenerateSourceResponseModel> UserCall = apiInterface.generateGetSourceCall(url,Authorization,sourceRequestModel);
         UserCall.enqueue(new Callback<GenerateSourceResponseModel>() {
 
             /**

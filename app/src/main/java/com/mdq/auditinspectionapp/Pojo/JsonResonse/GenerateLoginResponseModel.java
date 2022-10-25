@@ -9,11 +9,12 @@ public class GenerateLoginResponseModel {
     @SerializedName("token")
     @Expose
     public String token;
-
     @SerializedName("data")
     @Expose
-    public List<ResponseForLogin> data;
-
+    public ResponseForLogin data;
+    @SerializedName("message")
+    @Expose
+    public String message;
     @SerializedName("status")
     @Expose
     public String status;
@@ -42,18 +43,13 @@ public class GenerateLoginResponseModel {
         this.token = token;
     }
 
-    public List<ResponseForLogin> getData() {
+    public ResponseForLogin getData() {
         return data;
     }
 
-    public void setData(List<ResponseForLogin> data) {
+    public void setData(ResponseForLogin data) {
         this.data = data;
     }
-
-    @SerializedName("message")
-    @Expose
-    public String message;
-
 
 }
 

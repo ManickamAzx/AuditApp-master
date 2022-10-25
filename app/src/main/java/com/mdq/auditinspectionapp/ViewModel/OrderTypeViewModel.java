@@ -10,6 +10,7 @@ import com.mdq.auditinspectionapp.Interfaces.ViewInterface.CustomerNameRequestIn
 import com.mdq.auditinspectionapp.Interfaces.ViewInterface.OrderTypeRequestInterface;
 import com.mdq.auditinspectionapp.Interfaces.ViewResponceInterface.CustomerNameResponseInterface;
 import com.mdq.auditinspectionapp.Interfaces.ViewResponceInterface.OrderTypeResponseInterface;
+import com.mdq.auditinspectionapp.Pojo.JsonRequest.OrderTypeRequestModel;
 import com.mdq.auditinspectionapp.Pojo.JsonResonse.CustomerNameResponseModel;
 import com.mdq.auditinspectionapp.Pojo.JsonResonse.ErrorBody;
 import com.mdq.auditinspectionapp.Pojo.JsonResonse.OrderTypeResponseModel;
@@ -30,7 +31,9 @@ public class OrderTypeViewModel extends OrderTypeBaseViewModel implements OrderT
 
     private void goGenerateBrand() {
 
-        orderTypeDataManager.callEnqueue(ApiClass.ORDERTYPE,getAuthorization(),new ResponseHandler<OrderTypeResponseModel>() {
+        OrderTypeRequestModel orderTypeRequestModel =new OrderTypeRequestModel();
+        orderTypeRequestModel.dbname =getDbname();
+        orderTypeDataManager.callEnqueue(ApiClass.ORDERTYPE,orderTypeRequestModel,getAuthorization(),new ResponseHandler<OrderTypeResponseModel>() {
             @Override
             public void onSuccess(String message) {
 

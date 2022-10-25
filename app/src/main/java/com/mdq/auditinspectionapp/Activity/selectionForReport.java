@@ -143,18 +143,22 @@ public class selectionForReport extends AppCompatActivity implements SourceRespo
 
         customerRequestViewModel = new CustomerRequestViewModel(getApplicationContext(), this);
         customerRequestViewModel.setAuthorization("Bearer " + getPreferenceManager().getPrefToken());
+        customerRequestViewModel.setDbname(getPreferenceManager().getPrefDbname());
         customerRequestViewModel.generateCustomerRequest();
 
         vendorNameViewModel = new VendorNameViewModel(getApplicationContext(), this);
         vendorNameViewModel.setAuthorization("Bearer " + getPreferenceManager().getPrefToken());
+        vendorNameViewModel.setDbname(getPreferenceManager().getPrefDbname());
         vendorNameViewModel.generateCustomerRequest();
 
         orderTypeViewModel = new OrderTypeViewModel(getApplicationContext(), this);
         orderTypeViewModel.setAuthorization("Bearer " + getPreferenceManager().getPrefToken());
+        orderTypeViewModel.setDbname(getPreferenceManager().getPrefDbname());
         orderTypeViewModel.generateOrderTypeRequest();
 
         orderStatusViewModel = new OrderStatusViewModel(getApplicationContext(), this);
         orderStatusViewModel.setAuthorization("Bearer " + getPreferenceManager().getPrefToken());
+        orderStatusViewModel.setDbname(getPreferenceManager().getPrefDbname());
         orderStatusViewModel.generateOrderStatusRequest();
 
         Intent intent = getIntent();
@@ -294,6 +298,7 @@ public class selectionForReport extends AppCompatActivity implements SourceRespo
                         int ss = sourceNum - 1;
                         brandRequestViewModel.setSourceFlag(sourceFlag[ss]);
                         brandRequestViewModel.setSourceId(SourceId[ss]);
+                        brandRequestViewModel.setDbname(getPreferenceManager().getPrefDbname());
                         brandRequestViewModel.generateBrandRequest();
                     } else {
                         Toast.makeText(getApplicationContext(), "Season and Source are needed", Toast.LENGTH_SHORT).show();
@@ -326,6 +331,7 @@ public class selectionForReport extends AppCompatActivity implements SourceRespo
                         int ss = sourceNum - 1;
                         supplierRequestViewModel.setSourceFlag(sourceFlag[ss]);
                         supplierRequestViewModel.setSourceId(SourceId[ss]);
+                        supplierRequestViewModel.setDbname(getPreferenceManager().getPrefDbname());
                         supplierRequestViewModel.generateSupplierRequest();
                     } else {
                         Toast.makeText(getApplicationContext(), "Season and Source are needed", Toast.LENGTH_SHORT).show();
@@ -431,6 +437,7 @@ public class selectionForReport extends AppCompatActivity implements SourceRespo
                             invoiceRequestViewModel.setBrandId(generateBrandResponseModel.getResponse().get(BrandNum - 1).getBrandId().trim());
                             invoiceRequestViewModel.setFrom(at.from.getText().toString());
                             invoiceRequestViewModel.setTo(at.until.getText().toString());
+                            invoiceRequestViewModel.setDbname(getPreferenceManager().getPrefDbname());
                             invoiceRequestViewModel.generateInvoiceRequest();
                         }
                     } else {
@@ -462,9 +469,11 @@ public class selectionForReport extends AppCompatActivity implements SourceRespo
                 .getNetworkInfo(ConnectivityManager.TYPE_WIFI)
                 .getState() == NetworkInfo.State.CONNECTED)) {
             if (!getPreferenceManager().getPrefToken().isEmpty()) {
+                sourceRequestViewModel.setDbname(getPreferenceManager().getPrefDbname());
                 sourceRequestViewModel.setAuthorization("Bearer " + getPreferenceManager().getPrefToken());
                 sourceRequestViewModel.generateSourceRequest();
 
+                requestViewModel.setDbname(getPreferenceManager().getPrefDbname());
                 requestViewModel.setAuthorization("Bearer " + getPreferenceManager().getPrefToken());
                 requestViewModel.generateSourceRequest();
             }

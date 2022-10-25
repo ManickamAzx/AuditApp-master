@@ -5,6 +5,8 @@ public class GenerateBrandRequestModel {
     public String sourceId;
     public String sourceFlag;
     public String seasonId;
+    public String dbname;
+
 
 
 }

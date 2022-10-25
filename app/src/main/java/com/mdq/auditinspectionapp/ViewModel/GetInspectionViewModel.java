@@ -39,7 +39,8 @@ public class GetInspectionViewModel extends GetInspectionReportBaseVieModel impl
         getInspectionReportRequestModel.orderType=getOrderType();
         getInspectionReportRequestModel.orderStatus=getOrderStatus();
         getInspectionReportRequestModel.from=getFrom();
-        getInspectionReportRequestModel.to=getTo() ;
+        getInspectionReportRequestModel.to=getTo();
+        getInspectionReportRequestModel.dbname=getDbname();
 
         getInspectionReportDataManager.callEnqueue(ApiClass.GETINSPECTIONREPORT,getAuth(), getInspectionReportRequestModel,new ResponseHandler<GetInspectionReportResponseModel>() {
             @Override

@@ -74,6 +74,7 @@ public class FinalReportScreen extends AppCompatActivity implements GetInspectio
             getProductionReportViewModel.setSeasonName(Seasonname);
             getProductionReportViewModel.setFrom(from);
             getProductionReportViewModel.setTo(to);
+            getProductionReportViewModel.setDbname(getPreferenceManager().getPrefDbname());
 
             getProductionReportViewModel.getProductionReportCall();
 
@@ -88,6 +89,7 @@ public class FinalReportScreen extends AppCompatActivity implements GetInspectio
             getInspectionViewModel.setSeasonName(Seasonname);
             getInspectionViewModel.setFrom(from);
             getInspectionViewModel.setTo(to);
+            getInspectionViewModel.setDbname(getPreferenceManager().getPrefDbname());
 
             getInspectionViewModel.getInspectionReportCall();
         }

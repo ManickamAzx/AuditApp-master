@@ -9,6 +9,16 @@ public class FinalInvoiceRequestBaseViewModel {
     private String to;
     private String orderStatus;
 
+    public String getDbname() {
+        return dbname;
+    }
+
+    public void setDbname(String dbname) {
+        this.dbname = dbname;
+    }
+
+    private String dbname;
+
     public String getAuth() {
         return auth;
     }

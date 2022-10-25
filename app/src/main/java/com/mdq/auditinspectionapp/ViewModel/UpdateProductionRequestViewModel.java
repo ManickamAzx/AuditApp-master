@@ -38,6 +38,7 @@ public class UpdateProductionRequestViewModel extends UpdateProductionBaseViewMo
         generateUpdateProductionRequestModel.pgmCode=getPgmCode();
         generateUpdateProductionRequestModel.remarks=getRemarks();
         generateUpdateProductionRequestModel.styleId=getStyleId();
+        generateUpdateProductionRequestModel.dbname=getDbname();
         generateUpdateProductionRequestModel.systemOrderNo=getSysOrderNo();
 
         updateProductionDataManager.callEnqueue(ApiClass.UPDATEPRODUCTION, getAuth(),generateUpdateProductionRequestModel,new ResponseHandler<GenerateUpdateProductionResponseModel>() {

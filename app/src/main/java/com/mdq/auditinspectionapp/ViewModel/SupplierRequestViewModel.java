@@ -33,10 +33,10 @@ public class SupplierRequestViewModel extends SupplierRequestBaseViewModel imple
         supplierRequestModel.sourceId=getSourceId();
         supplierRequestModel.sourceFlag=getSourceFlag();
         supplierRequestModel.seasonId=getSeasonId();
+        supplierRequestModel.dbname=getDbname();
         supplierDataManager.callEnqueue(ApiClass.SUPPLIER, getAuthorization(), supplierRequestModel,new ResponseHandler<GenerateSupplierResponseModel>() {
             @Override
             public void onSuccess(String message) {
-
             }
 
             @Override
@@ -46,8 +46,8 @@ public class SupplierRequestViewModel extends SupplierRequestBaseViewModel imple
                     Log.i("otpRecevied", item.getMessage());
                     supplierResponseInterface.generateSupplierProcessed(item);
                 }
-
             }
+
             @Override
             public void onFailure(ErrorBody errorBody, int statusCode) {
                 if(errorBody.ErrorMessage!=null) {

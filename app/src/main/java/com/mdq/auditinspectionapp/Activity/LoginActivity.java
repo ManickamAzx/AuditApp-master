@@ -10,6 +10,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.AdapterView;
@@ -37,7 +38,8 @@ public class LoginActivity extends AppCompatActivity implements LoginResponseInt
     AutoCompleteTextView autoCompleteTextView;
     ArrayAdapter<String> adapterForDB;
     PreferenceManager preferenceManager;
-    String[] DBList = new String[]{"WMTEST", "FAImpex", "FAINEW2019", "WindmillLive"};
+    String[] DBList = new String[]{"FAI Group", "FA Impex", "Test"};
+    String[] DBListActual = new String[]{"WindmillLive", "FAImpex", "WMTest"};
     int i = 0, dpid;
 
     @Override
@@ -82,33 +84,41 @@ public class LoginActivity extends AppCompatActivity implements LoginResponseInt
         activityMainBinding.logins.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String userid, password;
-                userid = activityMainBinding.UserId.getText().toString();
-                if (i == 1) {
-                    Toast.makeText(getApplicationContext(), "To be done.", Toast.LENGTH_SHORT).show();
-                } else {
-                    ConnectivityManager connectivityManager = (ConnectivityManager) getApplicationContext()
-                            .getSystemService(Context.CONNECTIVITY_SERVICE);
 
-                    if ((connectivityManager
-                            .getNetworkInfo(ConnectivityManager.TYPE_MOBILE) != null && connectivityManager
-                            .getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED)
-                            || (connectivityManager
-                            .getNetworkInfo(ConnectivityManager.TYPE_WIFI) != null && connectivityManager
-                            .getNetworkInfo(ConnectivityManager.TYPE_WIFI)
-                            .getState() == NetworkInfo.State.CONNECTED)) {
-                        if (!activityMainBinding.UserId.getText().toString().isEmpty() && !activityMainBinding.password.getText().toString().isEmpty()) {
-                            loginRequestViewModel.setEmp_id(activityMainBinding.UserId.getText().toString());
-                            loginRequestViewModel.setPassword(activityMainBinding.password.getText().toString());
-                            loginRequestViewModel.generateLoginRequest();
-                            activityMainBinding.Progress.bringToFront();
-                            activityMainBinding.Progress.setVisibility(View.VISIBLE);
-                        } else {
-                            Toast.makeText(getApplicationContext(), "Require all fields", Toast.LENGTH_SHORT).show();
+                ConnectivityManager connectivityManager = (ConnectivityManager) getApplicationContext()
+                        .getSystemService(Context.CONNECTIVITY_SERVICE);
+                if ((connectivityManager
+                        .getNetworkInfo(ConnectivityManager.TYPE_MOBILE) != null && connectivityManager
+                        .getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED)
+                        || (connectivityManager
+                        .getNetworkInfo(ConnectivityManager.TYPE_WIFI) != null && connectivityManager
+                        .getNetworkInfo(ConnectivityManager.TYPE_WIFI)
+                        .getState() == NetworkInfo.State.CONNECTED)) {
+                    if (!activityMainBinding.UserId.getText().toString().isEmpty() && !activityMainBinding.password.getText().toString().isEmpty()) {
+                        if (activityMainBinding.autoComplete.getText().toString().trim().equals("FAI Group")) {
+                            loginRequestViewModel.setDbname(DBListActual[0]);
+                            getPreferenceManager().setPrefDbname(DBListActual[0]);
+                            Log.i("DBNAMEs", DBListActual[0]);
+                        } else if (activityMainBinding.autoComplete.getText().toString().trim().equals("FA Impex")) {
+                            loginRequestViewModel.setDbname(DBListActual[1]);
+                            getPreferenceManager().setPrefDbname(DBListActual[1]);
+                            Log.i("DBNAMEs", DBListActual[1]);
+                        } else if (activityMainBinding.autoComplete.getText().toString().trim().equals("Test")) {
+                            loginRequestViewModel.setDbname(DBListActual[2]);
+                            getPreferenceManager().setPrefDbname(DBListActual[2]);
+                            Log.i("DBNAMEs", DBListActual[2]);
                         }
+
+                        loginRequestViewModel.setEmp_id(activityMainBinding.UserId.getText().toString());
+                        loginRequestViewModel.setPassword(activityMainBinding.password.getText().toString());
+                        loginRequestViewModel.generateLoginRequest();
+                        activityMainBinding.Progress.bringToFront();
+                        activityMainBinding.Progress.setVisibility(View.VISIBLE);
                     } else {
-                        Toast.makeText(getApplicationContext(), "This App Require Internet", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), "Require all fields", Toast.LENGTH_SHORT).show();
                     }
+                } else {
+                    Toast.makeText(getApplicationContext(), "This App Require Internet", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -116,12 +126,10 @@ public class LoginActivity extends AppCompatActivity implements LoginResponseInt
 
     @Override
     public void ShowErrorMessage(MessageViewType messageViewType, String errorMessage) {
-
     }
 
     @Override
     public void ShowErrorMessage(MessageViewType messageViewType, ViewType viewType, String errorMessage) {
-
     }
 
     @Override
@@ -129,18 +137,20 @@ public class LoginActivity extends AppCompatActivity implements LoginResponseInt
         String msg = "Logged in successfully";
         String message = generateLoginResponseModel.getMessage().toString();
         activityMainBinding.Progress.setVisibility(View.GONE);
-        if (message.equals(msg)) {
-            dpid = Integer.parseInt(generateLoginResponseModel.getData().get(0).getDepartmentId());
+        if (generateLoginResponseModel.getMessage().equals("Logged in successfully")) {
+            dpid = Integer.parseInt(generateLoginResponseModel.getData().getDepartmentId());
             getPreferenceManager().setPrefToken(generateLoginResponseModel.getToken());
             Intent intent = new Intent(LoginActivity.this, welcomeSaibhavani.class);
-            intent.putExtra("name", generateLoginResponseModel.getData().get(0).getName());
+            intent.putExtra("name", generateLoginResponseModel.getData().getName());
             intent.putExtra("dpid", dpid);
             startActivity(intent);
             finishAffinity();
-            preferenceManager.setPrefUsername(generateLoginResponseModel.getData().get(0).getName());
+            preferenceManager.setPrefUsername(generateLoginResponseModel.getData().getName());
             preferenceManager.setPrefDpid(0);
-            preferenceManager.setPrefDpid(Integer.parseInt(generateLoginResponseModel.getData().get(0).getDepartmentId().toString()));
+            preferenceManager.setPrefDpid(Integer.parseInt(generateLoginResponseModel.getData().getDepartmentId().toString()));
             Toast.makeText(getApplicationContext(), "Login Successful", Toast.LENGTH_SHORT).show();
+        } else if (generateLoginResponseModel.getStatus().equals("1")) {
+            Toast.makeText(this, "" + generateLoginResponseModel.getMessage(), Toast.LENGTH_SHORT).show();
         } else {
             Toast.makeText(this, "Invalid Request", Toast.LENGTH_SHORT).show();
         }

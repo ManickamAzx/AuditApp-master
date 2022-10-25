@@ -29,11 +29,10 @@ public class SourceRequestViewModel extends SourceRequestBaseViewModel implement
 
     private void goGenerateSource() {
         GenerateSourceRequestModel sourceRequestModel=new GenerateSourceRequestModel();
-        sourceRequestModel.Authorization=getAuthorization();
-        sourceDataManager.callEnqueue(ApiClass.SOURCE, getAuthorization(), new ResponseHandler<GenerateSourceResponseModel>() {
+        sourceRequestModel.dbname=getDbname();
+        sourceDataManager.callEnqueue(ApiClass.SOURCE,getAuthorization(),sourceRequestModel, new ResponseHandler<GenerateSourceResponseModel>() {
             @Override
             public void onSuccess(String message) {
-
             }
 
             @Override

@@ -14,6 +14,16 @@ public class QCNameRequestBaseViewModel {
 
     private String Auth;
 
+    public String getDbname() {
+        return dbname;
+    }
+
+    public void setDbname(String dbname) {
+        this.dbname = dbname;
+    }
+
+    private String dbname;
+
     public int getDptid() {
         return dptid;
     }

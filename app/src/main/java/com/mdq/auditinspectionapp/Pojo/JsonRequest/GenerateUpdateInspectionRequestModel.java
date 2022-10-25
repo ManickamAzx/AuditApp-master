@@ -15,5 +15,6 @@ public class GenerateUpdateInspectionRequestModel {
     public int sourceId;
     public int styleId;
     public String customerOrderNos;
+    public String dbname;
 
 }

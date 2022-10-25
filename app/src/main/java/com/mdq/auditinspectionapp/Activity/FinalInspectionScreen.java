@@ -54,6 +54,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.List;
+import java.util.function.LongFunction;
 
 public class FinalInspectionScreen extends AppCompatActivity implements FinalInvoiceResponseInterface, QCNameResponseInterface, QCResultResponseInterface, UpdateInspectionResponseInterface, ShipModeResponseInterface, GetInspectionReportResponseInterface {
     LinearLayout back;
@@ -103,6 +104,7 @@ public class FinalInspectionScreen extends AppCompatActivity implements FinalInv
 
         shipModeRequestViewModel = new ShipModeRequestViewModel(getApplicationContext(), this);
         shipModeRequestViewModel.setAuth("Bearer " + getPreferenceManager().getPrefToken());
+        shipModeRequestViewModel.setDbname(getPreferenceManager().getPrefDbname());
         shipModeRequestViewModel.generateShipModeRequest();
 
         Intent intent = getIntent();
@@ -134,11 +136,14 @@ public class FinalInspectionScreen extends AppCompatActivity implements FinalInv
         qcResultRequestViewModel = new QCResultRequestViewModel(getApplicationContext(), this);
 
         if (getPreferenceManager().getPrefDpid() != 0) {
+
             qcNameRequestViewModel.setAuth("Bearer " + getPreferenceManager().getPrefToken().trim());
+            qcNameRequestViewModel.setDbname(getPreferenceManager().getPrefDbname());
             apiClass.QCNAME = "get-qcname-list/";
             apiClass.QCNAME = apiClass.QCNAME + getPreferenceManager().getPrefDpid();
             Log.i("wded", "" + apiClass.QCNAME);
             qcResultRequestViewModel.setAuth("Bearer " + getPreferenceManager().getPrefToken().trim());
+            qcResultRequestViewModel.setDbname(getPreferenceManager().getPrefDbname());
             qcNameRequestViewModel.generateQCNameRequest();
             qcResultRequestViewModel.generateQCResultRequest();
         }
@@ -270,6 +275,7 @@ public class FinalInspectionScreen extends AppCompatActivity implements FinalInv
                                         updateInspectionRequestViewModel.qcBy = "0";
                                     }
                                     updateInspectionRequestViewModel.Auth = "Bearer " + getPreferenceManager().getPrefToken().trim();
+                                    updateInspectionRequestViewModel.dbname = getPreferenceManager().getPrefDbname();
                                     updateInspectionRequestViewModel.generateUpdateInspectionRequest();
                                 } catch (Exception e) {
                                     Log.i("Exception", e.toString());
@@ -295,6 +301,7 @@ public class FinalInspectionScreen extends AppCompatActivity implements FinalInv
         finalInvoiceViewModel.setTo(to);
         finalInvoiceViewModel.setSourceFlag(SourceFlag);
         finalInvoiceViewModel.setSourceId(SourceId);
+        finalInvoiceViewModel.setDbname(getPreferenceManager().getPrefDbname());
         finalInvoiceViewModel.setOrderStatus(orderStatus);
         finalInvoiceViewModel.generateFinalVoiceRequest();
         ap.outForeUntil.setText(to);
@@ -436,7 +443,6 @@ public class FinalInspectionScreen extends AppCompatActivity implements FinalInv
             if (ap.NEXT.isClickable() == true) {
                 Log.i("MyButton", "Clickable is true");
             }
-
         } else if (i == 2) {
             Log.i("i", "" + i);
             ap.PREV.setClickable(true);
@@ -448,13 +454,17 @@ public class FinalInspectionScreen extends AppCompatActivity implements FinalInv
                 } else {
                     ap.datetext.setText("NO DATA");
                 }
-                if (!generateFinalInvoiceResponseModel.getResponse().get(getId).getQcRemarks().trim().equals("")) {
+                if (generateFinalInvoiceResponseModel.getResponse().get(getId).getQcRemarks()!=null) {
                     ap.QCREMARKS.setText(generateFinalInvoiceResponseModel.getResponse().get(getId).getQcRemarks());
                 } else {
                     ap.QCREMARKS.setText("NO DATA");
                 }
-                if (generateFinalInvoiceResponseModel.getResponse().get(getId).getStyleCode()!= null) {
-                    ap.STYLENAME.setText(generateFinalInvoiceResponseModel.getResponse().get(getId).getStyleCode().trim()+"-"+generateFinalInvoiceResponseModel.getResponse().get(getId).getStyleName().trim());
+                if (!generateFinalInvoiceResponseModel.getResponse().get(getId).getStyleCode().isEmpty()) {
+                    ap.STYLENAME.setText(generateFinalInvoiceResponseModel.getResponse().get(getId).getStyleCode().trim());
+                    if(generateFinalInvoiceResponseModel.getResponse().get(getId).getStyleName().trim()!=null){
+                        Log.i("finalinspection","entered");
+                        ap.STYLENAME.setText(ap.STYLENAME.getText()+"-"+generateFinalInvoiceResponseModel.getResponse().get(getId).getStyleName().trim());
+                    }
                 } else {
                     ap.STYLENAME.setText("NO DATA");
                 }
@@ -527,7 +537,7 @@ public class FinalInspectionScreen extends AppCompatActivity implements FinalInv
                 logout();
             }
         } catch (Exception e) {
-
+            Log.i("Exception_inspection",""+e);
         }
     }
 

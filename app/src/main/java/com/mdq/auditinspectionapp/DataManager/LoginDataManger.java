@@ -29,7 +29,7 @@ public class LoginDataManger {
         this.apiInterface = getApp().getRetrofitInterface();
     }
 
-    public void callEnqueue(String url, GenerateLoginRequestModel generateLoginRequestModel, final ResponseHandler<GenerateLoginResponseModel> dataresponse) {
+    public void callEnqueue(String url,  GenerateLoginRequestModel generateLoginRequestModel, final ResponseHandler<GenerateLoginResponseModel> dataresponse) {
 
         //calling the generatePostLoginCall methode from call apiInterface
         Call<GenerateLoginResponseModel> userMpinCall = apiInterface.generatePostLoginCall(url, generateLoginRequestModel);

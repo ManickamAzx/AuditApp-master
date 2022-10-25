@@ -30,7 +30,7 @@ public class ShipModeRequestViewModel extends ShipModeRequestBaseViewModel imple
 
         private void goGenerateBrand() {
         GenerateShipModeRequestModel sourceRequestModel=new GenerateShipModeRequestModel();
-
+        sourceRequestModel.dbname=getDbname();
             shipModeDataManager.callEnqueue(ApiClass.SHIPMODE,getAuth(), sourceRequestModel,new ResponseHandler<GenerateShipModeResponseModel>() {
             @Override
             public void onSuccess(String message) {

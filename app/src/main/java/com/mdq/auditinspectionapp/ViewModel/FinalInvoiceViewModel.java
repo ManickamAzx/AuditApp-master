@@ -36,6 +36,7 @@ public class FinalInvoiceViewModel extends FinalInvoiceRequestBaseViewModel impl
             finalInvoiceRequestModel.piNo=getPiNo();
             finalInvoiceRequestModel.from=getFrom();
             finalInvoiceRequestModel.to=getTo();
+            finalInvoiceRequestModel.dbname=getDbname();
             finalInvoiceRequestModel.orderStatus=getOrderStatus();
 
         finalInvoiceDataManager.callEnqueue(ApiClass.FINALINVOICE,getAuth(), finalInvoiceRequestModel,new ResponseHandler<GenerateFinalInvoiceResponseModel>() {

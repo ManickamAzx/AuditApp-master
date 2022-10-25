@@ -10,6 +10,7 @@ import com.mdq.auditinspectionapp.Interfaces.ViewInterface.OrderStatusRequestInt
 import com.mdq.auditinspectionapp.Interfaces.ViewInterface.OrderTypeRequestInterface;
 import com.mdq.auditinspectionapp.Interfaces.ViewResponceInterface.OrderStatusResponseInterface;
 import com.mdq.auditinspectionapp.Interfaces.ViewResponceInterface.OrderTypeResponseInterface;
+import com.mdq.auditinspectionapp.Pojo.JsonRequest.OrderStatusRequestModel;
 import com.mdq.auditinspectionapp.Pojo.JsonResonse.ErrorBody;
 import com.mdq.auditinspectionapp.Pojo.JsonResonse.OrderStatusResponseModel;
 import com.mdq.auditinspectionapp.Pojo.JsonResonse.OrderTypeResponseModel;
@@ -30,7 +31,10 @@ public class OrderStatusViewModel extends OrderStatusBaseViewModel implements Or
 
     private void goGenerateBrand() {
 
-        orderStatusDataManager.callEnqueue(ApiClass.ORDERSTATUS,getAuthorization(),new ResponseHandler<OrderStatusResponseModel>() {
+        OrderStatusRequestModel orderStatusRequestModel = new OrderStatusRequestModel();
+        orderStatusRequestModel.dbname = getDbname();
+
+        orderStatusDataManager.callEnqueue(ApiClass.ORDERSTATUS,orderStatusRequestModel,getAuthorization(),new ResponseHandler<OrderStatusResponseModel>() {
             @Override
             public void onSuccess(String message) {
 

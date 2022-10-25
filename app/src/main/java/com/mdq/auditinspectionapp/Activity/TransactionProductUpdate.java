@@ -204,6 +204,7 @@ public class TransactionProductUpdate extends AppCompatActivity implements Sourc
                         int ss = sourceNum - 1;
                         brandRequestViewModel.setSourceFlag(sourceFlag[ss]);
                         brandRequestViewModel.setSourceId(SourceId[ss]);
+                        brandRequestViewModel.setDbname(getPreferenceManager().getPrefDbname());
                         brandRequestViewModel.generateBrandRequest();
                     } else {
                         Toast.makeText(getApplicationContext(), "Season and Source are needed", Toast.LENGTH_SHORT).show();
@@ -230,6 +231,7 @@ public class TransactionProductUpdate extends AppCompatActivity implements Sourc
                         int ss = sourceNum - 1;
                         supplierRequestViewModel.setSourceFlag(sourceFlag[ss]);
                         supplierRequestViewModel.setSourceId(SourceId[ss]);
+                        supplierRequestViewModel.setDbname(getPreferenceManager().getPrefDbname());
                         supplierRequestViewModel.generateSupplierRequest();
                     } else {
                         Toast.makeText(getApplicationContext(), "Season and Source are needed", Toast.LENGTH_SHORT).show();
@@ -366,6 +368,7 @@ public class TransactionProductUpdate extends AppCompatActivity implements Sourc
                             invoiceRequestViewModel.setBrandId(generateBrandResponseModel.getResponse().get(BrandNum - 1).getBrandId().trim());
                             invoiceRequestViewModel.setFrom(at.from.getText().toString());
                             invoiceRequestViewModel.setTo(at.until.getText().toString());
+                            invoiceRequestViewModel.setDbname(getPreferenceManager().getPrefDbname());
                             invoiceRequestViewModel.generateInvoiceRequest();
                         }
                     } else {
@@ -397,9 +400,11 @@ public class TransactionProductUpdate extends AppCompatActivity implements Sourc
                 .getNetworkInfo(ConnectivityManager.TYPE_WIFI)
                 .getState() == NetworkInfo.State.CONNECTED)) {
             if (!getPreferenceManager().getPrefToken().isEmpty()) {
+                sourceRequestViewModel.setDbname(getPreferenceManager().getPrefDbname());
                 sourceRequestViewModel.setAuthorization("Bearer " + getPreferenceManager().getPrefToken());
                 sourceRequestViewModel.generateSourceRequest();
 
+                requestViewModel.setDbname(getPreferenceManager().getPrefDbname());
                 requestViewModel.setAuthorization("Bearer " + getPreferenceManager().getPrefToken());
                 requestViewModel.generateSourceRequest();
             }

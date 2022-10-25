@@ -12,6 +12,7 @@ public class GenerateUpdateProductionRequestModel {
     public String systemOrderNo;
     public int styleId;
     public String custOrderNo;
+    public String dbname;
 
 
 }

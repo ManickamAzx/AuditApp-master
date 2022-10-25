@@ -28,6 +28,7 @@ public class LoginRequestViewModel extends LoginRequestBaseViewModel implements 
         GenerateLoginRequestModel generateLoginRequestModel=new GenerateLoginRequestModel();
         generateLoginRequestModel.emp_id=getEmp_id();
         generateLoginRequestModel.password=getPassword();
+        generateLoginRequestModel.dbname=getDbname();
         loginDataManager.callEnqueue(ApiClass.LOGIN, generateLoginRequestModel, new ResponseHandler<GenerateLoginResponseModel>() {
             @Override
             public void onSuccess(String message) {

@@ -32,6 +32,7 @@ public class GetInvoiceListReportViewModel extends InvoiceRequestBaseViewModel i
         generateInvoiceRequestModel.brandId=getBrandId();
         generateInvoiceRequestModel.from=getFrom();
         generateInvoiceRequestModel.to=getTo();
+        generateInvoiceRequestModel.dbname=getDbname();
         invoiceDataManger.callEnqueue(ApiClass.INVOICELISTREPORT, getAuthorization(), generateInvoiceRequestModel,new ResponseHandler<GenerateInvoiceResponseModel>() {
             @Override
             public void onSuccess(String message) {

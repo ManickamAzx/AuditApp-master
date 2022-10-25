@@ -114,6 +114,7 @@ public class FinalProductionUpdate extends AppCompatActivity implements FinalInv
         report = true;
         shipModeRequestViewModel = new ShipModeRequestViewModel(getApplicationContext(), this);
         shipModeRequestViewModel.setAuth("Bearer " + getPreferenceManager().getPrefToken());
+        shipModeRequestViewModel.setDbname(getPreferenceManager().getPrefDbname());
         shipModeRequestViewModel.generateShipModeRequest();
 
         ap.Season.setText(SeasonAuto);
@@ -127,6 +128,7 @@ public class FinalProductionUpdate extends AppCompatActivity implements FinalInv
 
         shipModeRequestViewModel = new ShipModeRequestViewModel(getApplicationContext(), this);
         shipModeRequestViewModel.setAuth("Bearer " + getPreferenceManager().getPrefToken());
+        shipModeRequestViewModel.setDbname(getPreferenceManager().getPrefDbname());
         shipModeRequestViewModel.generateShipModeRequest();
 
         ap.names.setText("Welcome " + getPreferenceManager().getPrefUsername());
@@ -284,6 +286,7 @@ public class FinalProductionUpdate extends AppCompatActivity implements FinalInv
                             updateProductionRequestViewModel.styleId = Integer.parseInt(generateFinalInvoiceResponseModel.getResponse().get(getId).getStyleId().trim());
                             updateProductionRequestViewModel.systemOrderNo = generateFinalInvoiceResponseModel.getResponse().get(getId).getSysOrderNo().trim();
                             updateProductionRequestViewModel.Auth = "Bearer " + getPreferenceManager().getPrefToken().trim();
+                            updateProductionRequestViewModel.dbname = getPreferenceManager().getPrefDbname();
                             updateProductionRequestViewModel.generateUpdateProductionRequest();
                         } else {
                             Toast.makeText(getApplicationContext(), "select date properly", Toast.LENGTH_SHORT).show();
@@ -304,6 +307,7 @@ public class FinalProductionUpdate extends AppCompatActivity implements FinalInv
         finalInvoiceViewModel.setPiNo(piNo.trim());
         finalInvoiceViewModel.setFrom(from.trim());
         finalInvoiceViewModel.setTo(to.trim());
+        finalInvoiceViewModel.setDbname(getPreferenceManager().getPrefDbname());
         finalInvoiceViewModel.setSourceFlag(SourceFlag.trim());
         finalInvoiceViewModel.setSourceId(SourceId);
         finalInvoiceViewModel.setOrderStatus(orderStatus.trim());
@@ -547,9 +551,11 @@ public class FinalProductionUpdate extends AppCompatActivity implements FinalInv
         TextView textView23 = dialoglogout.findViewById(R.id.textView23);
 
         DialogInterface.OnKeyListener keylistener = new DialogInterface.OnKeyListener() {
+
             @Override
             public boolean onKey(DialogInterface dialog, int keyCode, KeyEvent KEvent) {
                 int keyaction = KEvent.getAction();
+
                 if (keyaction == KeyEvent.ACTION_DOWN) {
                     Intent intent = new Intent(getApplicationContext(), TransactionProductUpdate.class);
                     startActivity(intent);

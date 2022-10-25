@@ -4,6 +4,16 @@ public class LoginRequestBaseViewModel {
     private String emp_id;
     private String password;
 
+    public String getDbname() {
+        return dbname;
+    }
+
+    public void setDbname(String dbname) {
+        this.dbname = dbname;
+    }
+
+    private String dbname;
+
     public String getEmp_id() {
         return emp_id;
     }

@@ -10,6 +10,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 import com.mdq.auditinspectionapp.Http.ApiInterface;
 import com.mdq.auditinspectionapp.Interfaces.ResponseHandler;
+import com.mdq.auditinspectionapp.Pojo.JsonRequest.GenerateSeasonRequestModel;
 import com.mdq.auditinspectionapp.Pojo.JsonResonse.ErrorBody;
 import com.mdq.auditinspectionapp.Pojo.JsonResonse.GenerateSeasonResponseModel;
 import com.mdq.auditinspectionapp.Pojo.JsonResonse.GenerateSourceResponseModel;
@@ -30,10 +31,10 @@ public class SeasonDataManager {
         this.apiInterface = getApp().getRetrofitInterface();
     }
 
-    public void callEnqueue(String url, String Authorization, final ResponseHandler<GenerateSeasonResponseModel> dataresponse) {
+    public void callEnqueue(String url, String Authorization, GenerateSeasonRequestModel seasonRequestModel, final ResponseHandler<GenerateSeasonResponseModel> dataresponse) {
 
         //calling the generatePostLoginCall methode from call apiInterface
-        Call<GenerateSeasonResponseModel> UserCall = apiInterface.generateGetSeasonCall(url, Authorization);
+        Call<GenerateSeasonResponseModel> UserCall = apiInterface.generateGetSeasonCall(url, Authorization,seasonRequestModel);
         UserCall.enqueue(new Callback<GenerateSeasonResponseModel>() {
 
             /**

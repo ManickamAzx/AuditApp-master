@@ -13,6 +13,16 @@ public class UpdateProductionBaseViewModel {
     public int styleId;
     public String custOrderNo;
 
+    public String getDbname() {
+        return dbname;
+    }
+
+    public void setDbname(String dbname) {
+        this.dbname = dbname;
+    }
+
+    public String dbname;
+
 
     public String getAuth() {
         return Auth;

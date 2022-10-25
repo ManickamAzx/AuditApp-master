@@ -33,9 +33,9 @@ public class ShipModeDataManager {
     }
 
     public void callEnqueue(String url, String Auth, GenerateShipModeRequestModel generateShipModeRequestModel, final ResponseHandler<GenerateShipModeResponseModel> dataresponse) {
-
         //calling the generatePostLoginCall methode from call apiInterface
-        Call<GenerateShipModeResponseModel> userMpinCall = apiInterface.generateGetShipModeCall(url,Auth);
+
+        Call<GenerateShipModeResponseModel> userMpinCall = apiInterface.generateGetShipModeCall(url,Auth,generateShipModeRequestModel);
         userMpinCall.enqueue(new Callback<GenerateShipModeResponseModel>() {
 
             /**

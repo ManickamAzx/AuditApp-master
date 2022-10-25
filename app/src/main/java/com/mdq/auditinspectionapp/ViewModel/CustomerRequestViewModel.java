@@ -31,8 +31,10 @@ public class CustomerRequestViewModel extends CustomerRequestBaseViewModel imple
     }
 
     private void goGenerateBrand() {
+        CustomerNameRequestModel customerNameRequestModel =new CustomerNameRequestModel();
+        customerNameRequestModel.dbname = getDbname();
 
-        customerNameDataManager.callEnqueue(ApiClass.CUSTOMERNAME,getAuthorization(),new ResponseHandler<CustomerNameResponseModel>() {
+        customerNameDataManager.callEnqueue(ApiClass.CUSTOMERNAME,customerNameRequestModel,getAuthorization(),new ResponseHandler<CustomerNameResponseModel>() {
             @Override
             public void onSuccess(String message) {
 

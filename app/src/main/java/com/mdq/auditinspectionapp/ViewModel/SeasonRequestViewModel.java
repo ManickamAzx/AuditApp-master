@@ -29,8 +29,8 @@ public class SeasonRequestViewModel extends SeasonRequestBaseViewModel implement
 
     private void goGenerateSeason() {
         GenerateSeasonRequestModel seasonRequestModel=new GenerateSeasonRequestModel();
-        seasonRequestModel.Authorization=getAuthorization();
-        seasonDataManager.callEnqueue(ApiClass.SEASON, getAuthorization(), new ResponseHandler<GenerateSeasonResponseModel>() {
+        seasonRequestModel.dbname=getDbname();
+        seasonDataManager.callEnqueue(ApiClass.SEASON, getAuthorization(), seasonRequestModel,new ResponseHandler<GenerateSeasonResponseModel>() {
             @Override
             public void onSuccess(String message) {
 

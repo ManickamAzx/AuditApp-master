@@ -9,6 +9,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 import com.mdq.auditinspectionapp.Http.ApiInterface;
 import com.mdq.auditinspectionapp.Interfaces.ResponseHandler;
+import com.mdq.auditinspectionapp.Pojo.JsonRequest.OrderTypeRequestModel;
 import com.mdq.auditinspectionapp.Pojo.JsonResonse.CustomerNameResponseModel;
 import com.mdq.auditinspectionapp.Pojo.JsonResonse.ErrorBody;
 import com.mdq.auditinspectionapp.Pojo.JsonResonse.OrderTypeResponseModel;
@@ -29,10 +30,10 @@ public class OrderTypeDataManager {
         this.apiInterface = getApp().getRetrofitInterface();
     }
 
-    public void callEnqueue(String url, String auth, final ResponseHandler<OrderTypeResponseModel> dataresponse) {
+    public void callEnqueue(String url, OrderTypeRequestModel orderTypeRequestModel, String auth, final ResponseHandler<OrderTypeResponseModel> dataresponse) {
 
         //calling the generatePostLoginCall methode from call apiInterface
-        Call<OrderTypeResponseModel> userMpinCall = apiInterface.generateOrderTypeCall(url,auth);
+        Call<OrderTypeResponseModel> userMpinCall = apiInterface.generateOrderTypeCall(url,auth,orderTypeRequestModel);
         userMpinCall.enqueue(new Callback<OrderTypeResponseModel>() {
 
             /**

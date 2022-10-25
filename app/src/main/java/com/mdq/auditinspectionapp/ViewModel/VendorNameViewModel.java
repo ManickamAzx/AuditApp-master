@@ -9,6 +9,7 @@ import com.mdq.auditinspectionapp.Interfaces.ResponseHandler;
 import com.mdq.auditinspectionapp.Interfaces.ViewInterface.CustomerNameRequestInterface;
 import com.mdq.auditinspectionapp.Interfaces.ViewResponceInterface.CustomerNameResponseInterface;
 import com.mdq.auditinspectionapp.Interfaces.ViewResponceInterface.VendorNameResponseInterface;
+import com.mdq.auditinspectionapp.Pojo.JsonRequest.VendorNameRequestModel;
 import com.mdq.auditinspectionapp.Pojo.JsonResonse.CustomerNameResponseModel;
 import com.mdq.auditinspectionapp.Pojo.JsonResonse.ErrorBody;
 import com.mdq.auditinspectionapp.Pojo.JsonResonse.VendorNameResponseModel;
@@ -29,7 +30,10 @@ public class VendorNameViewModel extends CustomerRequestBaseViewModel implements
 
     private void goGenerateBrand() {
 
-        vendorNameDataManager.callEnqueue(ApiClass.VENDORNAME,getAuthorization(),new ResponseHandler<VendorNameResponseModel>() {
+        VendorNameRequestModel vendorNameRequestModel =new VendorNameRequestModel();
+        vendorNameRequestModel.dbname = getDbname();
+
+        vendorNameDataManager.callEnqueue(ApiClass.VENDORNAME,vendorNameRequestModel,getAuthorization(),new ResponseHandler<VendorNameResponseModel>() {
             @Override
             public void onSuccess(String message) {
 

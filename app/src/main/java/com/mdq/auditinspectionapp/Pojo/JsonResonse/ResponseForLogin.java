@@ -9,13 +9,13 @@ public class ResponseForLogin {
     @Expose
     public String id;
 
-    @SerializedName("email")
-    @Expose
-    public String email;
-
     @SerializedName("name")
     @Expose
     public String name;
+
+    @SerializedName("email")
+    @Expose
+    public String email;
 
     @SerializedName("departmentId")
     @Expose

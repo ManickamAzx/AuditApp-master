@@ -7,4 +7,5 @@ public class GenerateFinalInvoiceRequestModel {
     public String from;
     public String to;
     public String orderStatus;
+    public String dbname;
 }

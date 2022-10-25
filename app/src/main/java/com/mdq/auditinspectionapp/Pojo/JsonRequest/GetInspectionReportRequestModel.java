@@ -11,5 +11,6 @@ public class GetInspectionReportRequestModel {
     public String orderStatus;
     public String from;
     public String to;
+    public String dbname;
 
 }

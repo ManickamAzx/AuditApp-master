@@ -11,6 +11,7 @@ public class GetProductionReportBaseViewModel {
     public String orderStatus;
     public String from;
     public String to;
+    public String dbname;
 
     public String getAuth() {
         return Auth;
@@ -84,6 +85,14 @@ public class GetProductionReportBaseViewModel {
 
     public void setFrom(String from) {
         this.from = from;
+    }
+
+    public String getDbname() {
+        return dbname;
+    }
+
+    public void setDbname(String dbname) {
+        this.dbname = dbname;
     }
 
     public String getTo() {

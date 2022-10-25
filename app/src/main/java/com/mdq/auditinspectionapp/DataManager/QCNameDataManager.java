@@ -37,7 +37,7 @@ public class QCNameDataManager {
     public void callEnqueue(String url, String Auth,GenerateQCNameRequestModel generateQCNameRequestModel, final ResponseHandler<GenerateQCNameResponseModel> dataresponse) {
 
         //calling the generatePostLoginCall methode from call apiInterface
-        Call<GenerateQCNameResponseModel> userMpinCall = apiInterface.generateGetQCNameCall(url,Auth);
+        Call<GenerateQCNameResponseModel> userMpinCall = apiInterface.generateGetQCNameCall(url,Auth,generateQCNameRequestModel);
         userMpinCall.enqueue(new Callback<GenerateQCNameResponseModel>() {
 
             /**

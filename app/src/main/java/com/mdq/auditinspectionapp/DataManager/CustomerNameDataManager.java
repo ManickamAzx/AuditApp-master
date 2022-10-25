@@ -31,10 +31,10 @@ public class CustomerNameDataManager {
         this.apiInterface = getApp().getRetrofitInterface();
     }
 
-    public void callEnqueue(String url, String auth, final ResponseHandler<CustomerNameResponseModel> dataresponse) {
+    public void callEnqueue(String url, CustomerNameRequestModel customerNameRequestModel, String auth, final ResponseHandler<CustomerNameResponseModel> dataresponse) {
 
         //calling the generatePostLoginCall methode from call apiInterface
-        Call<CustomerNameResponseModel> userMpinCall = apiInterface.generateCustomerNameCall(url,auth);
+        Call<CustomerNameResponseModel> userMpinCall = apiInterface.generateCustomerNameCall(url,auth,customerNameRequestModel);
         userMpinCall.enqueue(new Callback<CustomerNameResponseModel>() {
 
             /**

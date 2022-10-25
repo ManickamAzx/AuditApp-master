@@ -41,6 +41,7 @@ public class GetProductionReportViewModel extends GetProductionReportBaseViewMod
         getProductionReportRequestModel.orderStatus=getOrderStatus();
         getProductionReportRequestModel.from=getFrom();
         getProductionReportRequestModel.to=getTo() ;
+        getProductionReportRequestModel.dbname=getDbname() ;
 
         getProductionReportDataManager.callEnqueue(ApiClass.GETPRODUCTIONREPORT,getAuth(), getProductionReportRequestModel,new ResponseHandler<GetProductionReportResponseModel>() {
             @Override

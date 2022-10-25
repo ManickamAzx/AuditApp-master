@@ -28,6 +28,16 @@ public class BrandRequestBaseViewModel {
     private String sourceId;
     private String sourceFlag;
     private String seasonId;
+
+    public String getDbname() {
+        return dbname;
+    }
+
+    public void setDbname(String dbname) {
+        this.dbname = dbname;
+    }
+
+    private String dbname;
     private String Authorization;
 
     public String getAuthorization() {

@@ -28,7 +28,10 @@ public class PreferenceManager {
 
     private static final String PREF_DPID = "PREF_DPID";
 
+    private static final String PREF_DBNAME = "PREF_DBNAME";
+
     private static PreferenceManager mInstance;
+
     public void initialize(Context context) {
         this.mContext = context;
         sharedPreferences = mContext.getSharedPreferences(PREF_NAME, mPrivateMode);
@@ -67,7 +70,16 @@ public class PreferenceManager {
     }
 
     public int getPrefDpid() {
-        return sharedPreferences.getInt(PREF_DPID,0);
+        return sharedPreferences.getInt(PREF_DPID, 0);
+    }
+
+    public void setPrefDbname(String Token) {
+        editor.putString(PREF_DBNAME, Token);
+        editor.commit();
+    }
+
+    public String getPrefDbname() {
+        return sharedPreferences.getString(PREF_DBNAME, "null");
     }
 
     public void setPrefUsername(String Token) {
@@ -79,7 +91,7 @@ public class PreferenceManager {
         return sharedPreferences.getString(PREF_USERNAME, null);
     }
 
-     public void setPrefInvoice(GenerateFinalInvoiceRequestModel Token) {
+    public void setPrefInvoice(GenerateFinalInvoiceRequestModel Token) {
 //        editor.(PREF_TOKEN, Token);
         editor.commit();
     }

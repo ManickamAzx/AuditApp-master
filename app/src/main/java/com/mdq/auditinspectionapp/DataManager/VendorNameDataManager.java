@@ -32,10 +32,10 @@ public class VendorNameDataManager {
         this.apiInterface = getApp().getRetrofitInterface();
     }
 
-    public void callEnqueue(String url, String auth, final ResponseHandler<VendorNameResponseModel> dataresponse) {
+    public void callEnqueue(String url, VendorNameRequestModel vendorNameRequestModel, String auth, final ResponseHandler<VendorNameResponseModel> dataresponse) {
 
         //calling the generatePostLoginCall methode from call apiInterface
-        Call<VendorNameResponseModel> userMpinCall = apiInterface.generateVendorNameCall(url,auth);
+        Call<VendorNameResponseModel> userMpinCall = apiInterface.generateVendorNameCall(url,auth,vendorNameRequestModel);
         userMpinCall.enqueue(new Callback<VendorNameResponseModel>() {
 
             /**

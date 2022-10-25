@@ -35,7 +35,7 @@ public class QCResultDataManager {
     public void callEnqueue(String url, String Auth,GenerateQCResultRequestModel generateQCResultRequestModel, final ResponseHandler<GenerateQCResultResponseModel> dataresponse) {
 
         //calling the generatePostLoginCall methode from call apiInterface
-        Call<GenerateQCResultResponseModel> userMpinCall = apiInterface.generateGetQCResultCall(url,Auth);
+        Call<GenerateQCResultResponseModel> userMpinCall = apiInterface.generateGetQCResultCall(url,Auth,generateQCResultRequestModel);
         userMpinCall.enqueue(new Callback<GenerateQCResultResponseModel>() {
 
             /**
