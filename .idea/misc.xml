@@ -21,12 +21,17 @@
         <entry key="..\:/Users/sanjai/AndroidStudioProjects/AuditInspectionApp/app/src/main/res/drawable/dotted.xml" value="0.17407407407407408" />
         <entry key="..\:/Users/sanjai/AndroidStudioProjects/AuditInspectionApp/app/src/main/res/drawable/gradientforview.xml" value="0.17592592592592593" />
         <entry key="..\:/Users/sanjai/AndroidStudioProjects/AuditInspectionApp/app/src/main/res/drawable/ic_audit_inspection.xml" value="0.18518518518518517" />
+        <entry key="..\:/Users/sanjai/AndroidStudioProjects/AuditInspectionApp/app/src/main/res/drawable/ic_baseline_arrow_back_24.xml" value="0.1335" />
         <entry key="..\:/Users/sanjai/AndroidStudioProjects/AuditInspectionApp/app/src/main/res/drawable/ic_baseline_arrow_drop_down_24.xml" value="0.17037037037037037" />
+        <entry key="..\:/Users/sanjai/AndroidStudioProjects/AuditInspectionApp/app/src/main/res/drawable/ic_baseline_cancel_24.xml" value="0.1335" />
         <entry key="..\:/Users/sanjai/AndroidStudioProjects/AuditInspectionApp/app/src/main/res/drawable/ic_baseline_chevron_left_24.xml" value="0.17037037037037037" />
+        <entry key="..\:/Users/sanjai/AndroidStudioProjects/AuditInspectionApp/app/src/main/res/drawable/ic_baseline_file_download_24.xml" value="0.1335" />
         <entry key="..\:/Users/sanjai/AndroidStudioProjects/AuditInspectionApp/app/src/main/res/drawable/ic_baseline_library_books_24.xml" value="0.1814814814814815" />
         <entry key="..\:/Users/sanjai/AndroidStudioProjects/AuditInspectionApp/app/src/main/res/drawable/ic_baseline_report_24.xml" value="0.18518518518518517" />
         <entry key="..\:/Users/sanjai/AndroidStudioProjects/AuditInspectionApp/app/src/main/res/drawable/ic_calendar.xml" value="0.19583333333333333" />
         <entry key="..\:/Users/sanjai/AndroidStudioProjects/AuditInspectionApp/app/src/main/res/drawable/ic_calendar_updated.xml" value="0.18518518518518517" />
+        <entry key="..\:/Users/sanjai/AndroidStudioProjects/AuditInspectionApp/app/src/main/res/drawable/ic_inspection.xml" value="0.1335" />
+        <entry key="..\:/Users/sanjai/AndroidStudioProjects/AuditInspectionApp/app/src/main/res/drawable/ic_launcher_background.xml" value="0.1335" />
         <entry key="..\:/Users/sanjai/AndroidStudioProjects/AuditInspectionApp/app/src/main/res/drawable/ic_production.xml" value="0.18518518518518517" />
         <entry key="..\:/Users/sanjai/AndroidStudioProjects/AuditInspectionApp/app/src/main/res/drawable/ic_tick_svgrepo_com.xml" value="0.17407407407407408" />
         <entry key="..\:/Users/sanjai/AndroidStudioProjects/AuditInspectionApp/app/src/main/res/drawable/login.xml" value="0.17037037037037037" />
@@ -38,14 +43,14 @@
         <entry key="..\:/Users/sanjai/AndroidStudioProjects/AuditInspectionApp/app/src/main/res/font/font.xml" value="0.18518518518518517" />
         <entry key="..\:/Users/sanjai/AndroidStudioProjects/AuditInspectionApp/app/src/main/res/font/roboto.xml" value="0.18518518518518517" />
         <entry key="..\:/Users/sanjai/AndroidStudioProjects/AuditInspectionApp/app/src/main/res/font/roboto_light.xml" value="0.11041666666666666" />
-        <entry key="..\:/Users/sanjai/AndroidStudioProjects/AuditInspectionApp/app/src/main/res/layout/activity_final_inspection_update.xml" value="0.22" />
-        <entry key="..\:/Users/sanjai/AndroidStudioProjects/AuditInspectionApp/app/src/main/res/layout/activity_final_production_screen.xml" value="0.14666666666666667" />
+        <entry key="..\:/Users/sanjai/AndroidStudioProjects/AuditInspectionApp/app/src/main/res/layout/activity_final_inspection_update.xml" value="0.16666666666666666" />
+        <entry key="..\:/Users/sanjai/AndroidStudioProjects/AuditInspectionApp/app/src/main/res/layout/activity_final_production_screen.xml" value="0.22" />
         <entry key="..\:/Users/sanjai/AndroidStudioProjects/AuditInspectionApp/app/src/main/res/layout/activity_final_report_screen.xml" value="0.16666666666666666" />
         <entry key="..\:/Users/sanjai/AndroidStudioProjects/AuditInspectionApp/app/src/main/res/layout/activity_main.xml" value="0.16666666666666666" />
         <entry key="..\:/Users/sanjai/AndroidStudioProjects/AuditInspectionApp/app/src/main/res/layout/activity_no_data.xml" value="0.14666666666666667" />
         <entry key="..\:/Users/sanjai/AndroidStudioProjects/AuditInspectionApp/app/src/main/res/layout/activity_report_screen.xml" value="0.16666666666666666" />
         <entry key="..\:/Users/sanjai/AndroidStudioProjects/AuditInspectionApp/app/src/main/res/layout/activity_selection_for_report.xml" value="0.22" />
-        <entry key="..\:/Users/sanjai/AndroidStudioProjects/AuditInspectionApp/app/src/main/res/layout/activity_transaction_product_update.xml" value="0.4466666666666667" />
+        <entry key="..\:/Users/sanjai/AndroidStudioProjects/AuditInspectionApp/app/src/main/res/layout/activity_transaction_product_update.xml" value="0.22" />
         <entry key="..\:/Users/sanjai/AndroidStudioProjects/AuditInspectionApp/app/src/main/res/layout/activity_welcome_saibhavani.xml" value="0.1" />
         <entry key="..\:/Users/sanjai/AndroidStudioProjects/AuditInspectionApp/app/src/main/res/layout/activity_welcome_screen.xml" value="0.165625" />
         <entry key="..\:/Users/sanjai/AndroidStudioProjects/AuditInspectionApp/app/src/main/res/layout/bottomfortransaction_productupdate.xml" value="0.14666666666666667" />

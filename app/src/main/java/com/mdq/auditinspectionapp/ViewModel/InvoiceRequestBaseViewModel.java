@@ -7,8 +7,8 @@ public class InvoiceRequestBaseViewModel {
     private String sourceId;
     private String seasonId;
     private String brandId;
-    private String from;
-    private String to;
+//    private String from;
+//    private String to;
 
     public String getDbname() {
         return dbname;
@@ -71,19 +71,19 @@ public class InvoiceRequestBaseViewModel {
         this.brandId = brandId;
     }
 
-    public String getFrom() {
-        return from;
-    }
-
-    public void setFrom(String from) {
-        this.from = from;
-    }
-
-    public String getTo() {
-        return to;
-    }
-
-    public void setTo(String to) {
-        this.to = to;
-    }
+//    public String getFrom() {
+//        return from;
+//    }
+//
+//    public void setFrom(String from) {
+//        this.from = from;
+//    }
+//
+//    public String getTo() {
+//        return to;
+//    }
+//
+//    public void setTo(String to) {
+//        this.to = to;
+//    }
 }

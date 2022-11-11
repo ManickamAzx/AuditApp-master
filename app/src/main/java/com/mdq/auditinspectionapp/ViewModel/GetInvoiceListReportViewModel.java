@@ -30,15 +30,14 @@ public class GetInvoiceListReportViewModel extends InvoiceRequestBaseViewModel i
         generateInvoiceRequestModel.sourceId=getSourceId();
         generateInvoiceRequestModel.seasonId=getSeasonId();
         generateInvoiceRequestModel.brandId=getBrandId();
-        generateInvoiceRequestModel.from=getFrom();
-        generateInvoiceRequestModel.to=getTo();
+//        generateInvoiceRequestModel.from=getFrom();
+//        generateInvoiceRequestModel.to=getTo();
         generateInvoiceRequestModel.dbname=getDbname();
         invoiceDataManger.callEnqueue(ApiClass.INVOICELISTREPORT, getAuthorization(), generateInvoiceRequestModel,new ResponseHandler<GenerateInvoiceResponseModel>() {
             @Override
             public void onSuccess(String message) {
 
             }
-
             @Override
             public void onSuccess(GenerateInvoiceResponseModel item, String message) {
                 Log.i("otpR","rr");
@@ -46,7 +45,6 @@ public class GetInvoiceListReportViewModel extends InvoiceRequestBaseViewModel i
                     Log.i("otpRecevied", item.getMessage());
                     invoiceResponseInterface.generateInvoiceProcessed(item);
                 }
-
             }
             @Override
             public void onFailure(ErrorBody errorBody, int statusCode) {

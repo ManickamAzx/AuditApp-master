@@ -331,6 +331,7 @@ public class selectionForReport extends AppCompatActivity implements SourceRespo
                         int ss = sourceNum - 1;
                         supplierRequestViewModel.setSourceFlag(sourceFlag[ss]);
                         supplierRequestViewModel.setSourceId(SourceId[ss]);
+                        supplierRequestViewModel.setBrandId(BrandId[ss]);
                         supplierRequestViewModel.setDbname(getPreferenceManager().getPrefDbname());
                         supplierRequestViewModel.generateSupplierRequest();
                     } else {
@@ -435,8 +436,8 @@ public class selectionForReport extends AppCompatActivity implements SourceRespo
                             invoiceRequestViewModel.setSupplierCode(generateSupplierResponseModel.getResponse().get(newSupplierNum - 1).getSupplierCode().trim());
                             invoiceRequestViewModel.setSourceId(generateSourceResponseModel.getResponse().get(sourceNum - 1).getSourceId().trim());
                             invoiceRequestViewModel.setBrandId(generateBrandResponseModel.getResponse().get(BrandNum - 1).getBrandId().trim());
-                            invoiceRequestViewModel.setFrom(at.from.getText().toString());
-                            invoiceRequestViewModel.setTo(at.until.getText().toString());
+//                            invoiceRequestViewModel.setFrom(at.from.getText().toString());
+//                            invoiceRequestViewModel.setTo(at.until.getText().toString());
                             invoiceRequestViewModel.setDbname(getPreferenceManager().getPrefDbname());
                             invoiceRequestViewModel.generateInvoiceRequest();
                         }
@@ -471,6 +472,7 @@ public class selectionForReport extends AppCompatActivity implements SourceRespo
             if (!getPreferenceManager().getPrefToken().isEmpty()) {
                 sourceRequestViewModel.setDbname(getPreferenceManager().getPrefDbname());
                 sourceRequestViewModel.setAuthorization("Bearer " + getPreferenceManager().getPrefToken());
+                sourceRequestViewModel.setUser_id(getPreferenceManager().getPrefID());
                 sourceRequestViewModel.generateSourceRequest();
 
                 requestViewModel.setDbname(getPreferenceManager().getPrefDbname());

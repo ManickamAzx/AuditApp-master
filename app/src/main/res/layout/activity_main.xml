@@ -103,6 +103,7 @@
                     android:layout_marginTop="20dp"
                     android:id="@+id/CardForHeading"
                     app:cardElevation="5dp"
+                    android:background="@color/white"
                     android:layout_marginLeft="20dp"
                     android:layout_marginRight="20dp">
 
@@ -256,9 +257,9 @@
                     android:layout_marginTop="30dp"
                     android:layout_marginBottom="30dp"
                     android:gravity="center"
-                    android:text="Version 1.11"
+                    android:text="Version 1.13"
                     android:textColor="@color/black"
-                    android:textSize="16dp"
+                    android:textSize="16sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintStart_toStartOf="parent"

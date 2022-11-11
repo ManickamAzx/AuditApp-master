@@ -29,6 +29,16 @@ public class SupplierRequestBaseViewModel {
     private String sourceFlag;
     private String seasonId;
 
+    public String getBrandId() {
+        return brandId;
+    }
+
+    public void setBrandId(String brandId) {
+        this.brandId = brandId;
+    }
+
+    private String brandId;
+
     public String getDbname() {
         return dbname;
     }

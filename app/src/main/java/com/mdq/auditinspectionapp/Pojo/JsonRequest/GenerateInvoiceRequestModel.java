@@ -7,8 +7,8 @@ public class GenerateInvoiceRequestModel {
     public String sourceFlag;
     public String seasonId;
     public String brandId;
-    public String from;
-    public String to;
+//    public String from;
+//    public String to;
     public String dbname;
 
 }

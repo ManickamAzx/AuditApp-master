@@ -6,6 +6,7 @@ public class GenerateSupplierRequestModel {
     public String sourceFlag;
     public String seasonId;
     public String dbname;
+    public String brandId;
 
 
 

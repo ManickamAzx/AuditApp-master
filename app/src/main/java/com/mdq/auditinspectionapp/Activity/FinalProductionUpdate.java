@@ -452,11 +452,13 @@ public class FinalProductionUpdate extends AppCompatActivity implements FinalInv
             if (!generateFinalInvoiceResponseModel.getResponse().isEmpty()) {
                 if (!generateFinalInvoiceResponseModel.getResponse().get(getId).getStyleCode().isEmpty()) {
                     ap.STYLENAME.setText(generateFinalInvoiceResponseModel.getResponse().get(getId).getStyleCode().trim());
-                } else {
-                    ap.STYLENAME.setText("NO DATA");
+                    if(generateFinalInvoiceResponseModel.getResponse().get(getId).getStyleName().trim()!=null){
+                        Log.i("finalinspection","entered");
+                        ap.STYLENAME.setText(ap.STYLENAME.getText()+"-"+generateFinalInvoiceResponseModel.getResponse().get(getId).getStyleName().trim());
+                    }
                 }
-                if (!generateFinalInvoiceResponseModel.getResponse().get(getId).getBuyerEtd().isEmpty()) {
-                    ap.piDate.setText(generateFinalInvoiceResponseModel.getResponse().get(getId).getBuyerEtd());
+                if (!generateFinalInvoiceResponseModel.getResponse().get(getId).getCustOrderNo().isEmpty()) {
+                    ap.piDate.setText(generateFinalInvoiceResponseModel.getResponse().get(getId).getCustOrderNo().trim());
                 } else {
                     ap.piDate.setText("NO DATA");
                 }
@@ -467,32 +469,37 @@ public class FinalProductionUpdate extends AppCompatActivity implements FinalInv
                     ap.BUYER.setText("NO DATA");
                 }
                 if (!generateFinalInvoiceResponseModel.getResponse().get(getId).getDeliveryTerms().isEmpty()) {
-                    ap.DeleveryFac.setText(generateFinalInvoiceResponseModel.getResponse().get(getId).getDeliveryTerms());
+                    ap.DeleveryFac.setText(generateFinalInvoiceResponseModel.getResponse().get(getId).getDeliveryTerms().trim());
                 } else {
                     ap.DeleveryFac.setText("NO DATA");
                 }
                 if (!generateFinalInvoiceResponseModel.getResponse().get(getId).getOrderQty().isEmpty()) {
 
-                    ap.ORDERQTY.setText(generateFinalInvoiceResponseModel.getResponse().get(getId).getOrderQty());
+                    ap.ORDERQTY.setText(generateFinalInvoiceResponseModel.getResponse().get(getId).getOrderQty().trim());
                 } else {
                     ap.ORDERQTY.setText("NO DATA");
                 }
                 if (!generateFinalInvoiceResponseModel.getResponse().get(getId).getBalance().isEmpty()) {
 
-                    ap.BALANCE.setText(generateFinalInvoiceResponseModel.getResponse().get(getId).getBalance());
+                    ap.BALANCE.setText(generateFinalInvoiceResponseModel.getResponse().get(getId).getBalance().trim());
                 } else {
                     ap.BALANCE.setText("NO DATA");
                 }
                 if (!generateFinalInvoiceResponseModel.getResponse().get(getId).getVendorDelDate().isEmpty()) {
 
-                    ap.VENDORDELDATE.setText(generateFinalInvoiceResponseModel.getResponse().get(getId).getVendorDelDate());
+                    ap.VENDORDELDATE.setText(generateFinalInvoiceResponseModel.getResponse().get(getId).getVendorDelDate().trim());
                 } else {
                     ap.VENDORDELDATE.setText("NO DATA");
+                } if (!generateFinalInvoiceResponseModel.getResponse().get(getId).getSupplierName().isEmpty()) {
+
+                    ap.vendors.setText(generateFinalInvoiceResponseModel.getResponse().get(getId).getSupplierName().trim());
+                } else {
+                    ap.vendors.setText("NO DATA");
                 }
 
                 if (!generateFinalInvoiceResponseModel.getResponse().get(getId).getForecastDelDate().isEmpty()) {
 
-                    ap.FORECASTDELDATE.setText(generateFinalInvoiceResponseModel.getResponse().get(getId).getForecastDelDate());
+                    ap.FORECASTDELDATE.setText(generateFinalInvoiceResponseModel.getResponse().get(getId).getForecastDelDate().trim());
 
                 } else {
                     ap.FORECASTDELDATE.setText("NO DATA");
@@ -500,35 +507,35 @@ public class FinalProductionUpdate extends AppCompatActivity implements FinalInv
 
                 if (!generateFinalInvoiceResponseModel.getResponse().get(getId).getCityName().isEmpty()) {
 
-                    ap.CITY.setText(generateFinalInvoiceResponseModel.getResponse().get(getId).getCityName());
+                    ap.CITY.setText(generateFinalInvoiceResponseModel.getResponse().get(getId).getCityName().trim());
                 } else {
                     ap.CITY.setText("NO DATA");
                 }
                 if (!generateFinalInvoiceResponseModel.getResponse().get(getId).getDespatchModeId().isEmpty()) {
-                    int id = Integer.parseInt(generateFinalInvoiceResponseModel.getResponse().get(getId).getDespatchModeId());
+                    int id = Integer.parseInt(generateFinalInvoiceResponseModel.getResponse().get(getId).getDespatchModeId().trim());
                     shipment(id);
                 } else {
                     ap.dispatch.setText("NO DATA");
                 }
-                if (!generateFinalInvoiceResponseModel.getResponse().get(getId).getRemarks().isEmpty()) {
-                    ap.REMARKS.setText(generateFinalInvoiceResponseModel.getResponse().get(getId).getRemarks());
+                if (!generateFinalInvoiceResponseModel.getResponse().get(getId).getInspection_Remarks().isEmpty()) {
+                    ap.REMARKS.setText(generateFinalInvoiceResponseModel.getResponse().get(getId).getInspection_Remarks().trim());
                 } else {
                     ap.REMARKS.setText("NO DATA");
                 }
                 if (!generateFinalInvoiceResponseModel.getResponse().get(getId).getInspectionDate().isEmpty()) {
-                    ap.datetext.setText(generateFinalInvoiceResponseModel.getResponse().get(getId).getInspectionDate());
+                    ap.datetext.setText(generateFinalInvoiceResponseModel.getResponse().get(getId).getInspectionDate().trim());
                 } else {
                     ap.datetext.setText("NO DATA");
                 }
                 if (!generateFinalInvoiceResponseModel.getResponse().get(getId).getQcBy().isEmpty()) {
 
-                    ap.QC.setText(generateFinalInvoiceResponseModel.getResponse().get(getId).getQcBy());
+                    ap.QC.setText(generateFinalInvoiceResponseModel.getResponse().get(getId).getQcBy().trim());
                 } else {
                     ap.QC.setText("NO DATA");
                 }
                 if (!generateFinalInvoiceResponseModel.getResponse().get(getId).getQcRemarks().isEmpty()) {
 
-                    ap.QCREMARKS.setText(generateFinalInvoiceResponseModel.getResponse().get(getId).getQcRemarks());
+                    ap.QCREMARKS.setText(generateFinalInvoiceResponseModel.getResponse().get(getId).getQcRemarks().trim());
                 } else {
                     ap.QCREMARKS.setText("NO DATA");
                 }
@@ -631,7 +638,6 @@ public class FinalProductionUpdate extends AppCompatActivity implements FinalInv
             this.getProductionReportResponseModel = getProductionReportResponseModel;
 //            productionReport();
         }
-
     }
 
 //    private void productionReport() {

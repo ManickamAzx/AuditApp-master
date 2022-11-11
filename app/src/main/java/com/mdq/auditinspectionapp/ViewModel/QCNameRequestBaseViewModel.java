@@ -2,7 +2,12 @@ package com.mdq.auditinspectionapp.ViewModel;
 
 public class QCNameRequestBaseViewModel {
 
-    private int dptid;
+
+
+    private String Auth;
+    public String dbname ;
+    public String sourceFlag ;
+    public String sourceId ;
 
     public String getAuth() {
         return Auth;
@@ -12,8 +17,6 @@ public class QCNameRequestBaseViewModel {
         Auth = auth;
     }
 
-    private String Auth;
-
     public String getDbname() {
         return dbname;
     }
@@ -22,13 +25,19 @@ public class QCNameRequestBaseViewModel {
         this.dbname = dbname;
     }
 
-    private String dbname;
-
-    public int getDptid() {
-        return dptid;
+    public String getSourceFlag() {
+        return sourceFlag;
     }
 
-    public void setDptid(int dptid) {
-        this.dptid = dptid;
+    public void setSourceFlag(String sourceFlag) {
+        this.sourceFlag = sourceFlag;
+    }
+
+    public String getSourceId() {
+        return sourceId;
+    }
+
+    public void setSourceId(String sourceId) {
+        this.sourceId = sourceId;
     }
 }

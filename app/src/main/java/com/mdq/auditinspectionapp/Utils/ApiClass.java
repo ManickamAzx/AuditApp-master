@@ -17,7 +17,7 @@ public class ApiClass {
     public static final String FINALINVOICE = "get-invoice";
     public static final String SHIPMODE= "get-shipment-modes";
     public static final String QCRESULT= "get-qcresult-list";
-    public static String QCNAME= "get-qcname-list/";
+    public static String QCNAME= "get-qcname-list";
     public static String UPDATEPRODUCTION= "update-productiondetails";
     public static String UPDATEINSPECTION= "update-inspectiondetails";
     public static String GETPRODUCTIONREPORT= "production/";

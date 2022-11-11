@@ -30,6 +30,8 @@ public class PreferenceManager {
 
     private static final String PREF_DBNAME = "PREF_DBNAME";
 
+    private static final String PREF_ID = "PREF_ID";
+
     private static PreferenceManager mInstance;
 
     public void initialize(Context context) {
@@ -71,6 +73,15 @@ public class PreferenceManager {
 
     public int getPrefDpid() {
         return sharedPreferences.getInt(PREF_DPID, 0);
+    }
+
+    public void setPrefId(String Token) {
+        editor.putString(PREF_ID, Token);
+        editor.commit();
+    }
+
+    public String getPrefID() {
+        return sharedPreferences.getString(PREF_ID, null);
     }
 
     public void setPrefDbname(String Token) {

@@ -91,6 +91,16 @@ public class UpdateInspectionRequestBaseViewModel {
     public String updateForm;
     public String pgmCode;
 
+    public String getSystemOrderNo() {
+        return systemOrderNo;
+    }
+
+    public void setSystemOrderNo(String systemOrderNo) {
+        this.systemOrderNo = systemOrderNo;
+    }
+
+    public String systemOrderNo;
+
     public String getDbname() {
         return dbname;
     }
@@ -114,7 +124,6 @@ public class UpdateInspectionRequestBaseViewModel {
     public int sourceId;
     public int styleId;
     public String customerOrderNos;
-
 
    }
 

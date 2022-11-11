@@ -40,6 +40,7 @@ public class UpdateInspectionRequestViewModel extends UpdateInspectionRequestBas
         generateUpdateInspectionRequestModel.styleId=getStyleId();
         generateUpdateInspectionRequestModel.result=getResult();
         generateUpdateInspectionRequestModel.dbname=getDbname();
+        generateUpdateInspectionRequestModel.systemOrderNo=getSystemOrderNo();
 
         updateInspectionDataManager.callEnqueue(ApiClass.UPDATEINSPECTION,getAuth(), generateUpdateInspectionRequestModel,new ResponseHandler<GenerateUpdateInspectionResponseModel>() {
             @Override

@@ -63,6 +63,7 @@ public class LoginActivity extends AppCompatActivity implements LoginResponseInt
         autoCompleteTextView.setText(adapterForDB.getItem(0).toString());
         autoCompleteTextView.setAdapter(adapterForDB);
 
+
         activityMainBinding.CardForHeading.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -80,6 +81,7 @@ public class LoginActivity extends AppCompatActivity implements LoginResponseInt
                 }
             }
         });
+
         loginRequestViewModel = new LoginRequestViewModel(getApplicationContext(), this);
         activityMainBinding.logins.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -108,12 +110,12 @@ public class LoginActivity extends AppCompatActivity implements LoginResponseInt
                             getPreferenceManager().setPrefDbname(DBListActual[2]);
                             Log.i("DBNAMEs", DBListActual[2]);
                         }
-
                         loginRequestViewModel.setEmp_id(activityMainBinding.UserId.getText().toString());
                         loginRequestViewModel.setPassword(activityMainBinding.password.getText().toString());
                         loginRequestViewModel.generateLoginRequest();
                         activityMainBinding.Progress.bringToFront();
                         activityMainBinding.Progress.setVisibility(View.VISIBLE);
+
                     } else {
                         Toast.makeText(getApplicationContext(), "Require all fields", Toast.LENGTH_SHORT).show();
                     }
@@ -140,13 +142,13 @@ public class LoginActivity extends AppCompatActivity implements LoginResponseInt
         if (generateLoginResponseModel.getMessage().equals("Logged in successfully")) {
             dpid = Integer.parseInt(generateLoginResponseModel.getData().getDepartmentId());
             getPreferenceManager().setPrefToken(generateLoginResponseModel.getToken());
+            getPreferenceManager().setPrefId(generateLoginResponseModel.getData().getId());
             Intent intent = new Intent(LoginActivity.this, welcomeSaibhavani.class);
             intent.putExtra("name", generateLoginResponseModel.getData().getName());
             intent.putExtra("dpid", dpid);
             startActivity(intent);
             finishAffinity();
             preferenceManager.setPrefUsername(generateLoginResponseModel.getData().getName());
-            preferenceManager.setPrefDpid(0);
             preferenceManager.setPrefDpid(Integer.parseInt(generateLoginResponseModel.getData().getDepartmentId().toString()));
             Toast.makeText(getApplicationContext(), "Login Successful", Toast.LENGTH_SHORT).show();
         } else if (generateLoginResponseModel.getStatus().equals("1")) {

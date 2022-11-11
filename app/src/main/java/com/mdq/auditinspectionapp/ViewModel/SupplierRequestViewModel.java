@@ -34,6 +34,8 @@ public class SupplierRequestViewModel extends SupplierRequestBaseViewModel imple
         supplierRequestModel.sourceFlag=getSourceFlag();
         supplierRequestModel.seasonId=getSeasonId();
         supplierRequestModel.dbname=getDbname();
+        supplierRequestModel.brandId=getBrandId();
+
         supplierDataManager.callEnqueue(ApiClass.SUPPLIER, getAuthorization(), supplierRequestModel,new ResponseHandler<GenerateSupplierResponseModel>() {
             @Override
             public void onSuccess(String message) {

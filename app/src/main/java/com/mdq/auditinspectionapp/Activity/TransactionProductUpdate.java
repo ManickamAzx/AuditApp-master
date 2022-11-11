@@ -229,8 +229,10 @@ public class TransactionProductUpdate extends AppCompatActivity implements Sourc
                         supplierRequestViewModel.setAuthorization("Bearer " + getPreferenceManager().getPrefToken());
                         supplierRequestViewModel.setSeasonId(SeasonId[SeasonNum - 1]);
                         int ss = sourceNum - 1;
+                        int brandNum = BrandNum - 1;
                         supplierRequestViewModel.setSourceFlag(sourceFlag[ss]);
                         supplierRequestViewModel.setSourceId(SourceId[ss]);
+                        supplierRequestViewModel.setBrandId(BrandId[brandNum]);
                         supplierRequestViewModel.setDbname(getPreferenceManager().getPrefDbname());
                         supplierRequestViewModel.generateSupplierRequest();
                     } else {
@@ -366,8 +368,8 @@ public class TransactionProductUpdate extends AppCompatActivity implements Sourc
                             invoiceRequestViewModel.setSupplierCode(generateSupplierResponseModel.getResponse().get(SupplierNum - 1).getSupplierCode().trim());
                             invoiceRequestViewModel.setSourceId(generateSourceResponseModel.getResponse().get(sourceNum - 1).getSourceId().trim());
                             invoiceRequestViewModel.setBrandId(generateBrandResponseModel.getResponse().get(BrandNum - 1).getBrandId().trim());
-                            invoiceRequestViewModel.setFrom(at.from.getText().toString());
-                            invoiceRequestViewModel.setTo(at.until.getText().toString());
+//                            invoiceRequestViewModel.setFrom(at.from.getText().toString());
+//                            invoiceRequestViewModel.setTo(at.until.getText().toString());
                             invoiceRequestViewModel.setDbname(getPreferenceManager().getPrefDbname());
                             invoiceRequestViewModel.generateInvoiceRequest();
                         }
@@ -402,6 +404,7 @@ public class TransactionProductUpdate extends AppCompatActivity implements Sourc
             if (!getPreferenceManager().getPrefToken().isEmpty()) {
                 sourceRequestViewModel.setDbname(getPreferenceManager().getPrefDbname());
                 sourceRequestViewModel.setAuthorization("Bearer " + getPreferenceManager().getPrefToken());
+                sourceRequestViewModel.setUser_id(getPreferenceManager().getPrefID());
                 sourceRequestViewModel.generateSourceRequest();
 
                 requestViewModel.setDbname(getPreferenceManager().getPrefDbname());

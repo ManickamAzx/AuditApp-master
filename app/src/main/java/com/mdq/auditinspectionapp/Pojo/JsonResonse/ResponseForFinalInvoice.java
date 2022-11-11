@@ -93,6 +93,18 @@ public class ResponseForFinalInvoice {
     @Expose
     public String qcBy;
 
+    public String getDespatchMode() {
+        return DespatchMode;
+    }
+
+    public void setDespatchMode(String despatchMode) {
+        DespatchMode = despatchMode;
+    }
+
+    @SerializedName("DespatchMode")
+    @Expose
+    public String DespatchMode;
+
     @SerializedName("qcRemarks")
     @Expose
     public String qcRemarks;
@@ -109,17 +121,26 @@ public class ResponseForFinalInvoice {
     @Expose
     public String balance;
 
+    @SerializedName("DELIVERY_TERMS")
+    @Expose
+    public String DELIVERY_TERMS;
+
+    @SerializedName("Inspection_Remarks")
+    @Expose
+    public String Inspection_Remarks;
+
+    @SerializedName("ProductionRemarks")
+    @Expose
+    public String ProductionRemarks;
+
+
     public String getDeliveryTerms() {
-        return deliveryTerms;
+        return DELIVERY_TERMS;
     }
 
     public void setDeliveryTerms(String deliveryTerms) {
-        this.deliveryTerms = deliveryTerms;
+        this.DELIVERY_TERMS = deliveryTerms;
     }
-
-    @SerializedName("deliveryTerms")
-    @Expose
-    public String deliveryTerms;
 
     public String getSourceFlag() {
         return sourceFlag;
@@ -329,4 +350,19 @@ public class ResponseForFinalInvoice {
         this.balance = balance;
     }
 
+    public String getInspection_Remarks() {
+        return Inspection_Remarks;
+    }
+
+    public void setInspection_Remarks(String inspection_Remarks) {
+        Inspection_Remarks = inspection_Remarks;
+    }
+
+    public String getProductionRemarks() {
+        return ProductionRemarks;
+    }
+
+    public void setProductionRemarks(String productionRemarks) {
+        ProductionRemarks = productionRemarks;
+    }
 }

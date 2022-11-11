@@ -34,8 +34,8 @@ public class InvoiceRequestViewModel extends InvoiceRequestBaseViewModel impleme
         generateInvoiceRequestModel.sourceId=getSourceId();
         generateInvoiceRequestModel.seasonId=getSeasonId();
         generateInvoiceRequestModel.brandId=getBrandId();
-        generateInvoiceRequestModel.from=getFrom();
-        generateInvoiceRequestModel.to=getTo();
+//        generateInvoiceRequestModel.from=getFrom();
+//        generateInvoiceRequestModel.to=getTo();
         generateInvoiceRequestModel.dbname=getDbname();
         invoiceDataManger.callEnqueue(ApiClass.INVOICE, getAuthorization(), generateInvoiceRequestModel,new ResponseHandler<GenerateInvoiceResponseModel>() {
             @Override
