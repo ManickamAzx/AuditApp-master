@@ -257,6 +257,12 @@ public class selectionForReport extends AppCompatActivity implements SourceRespo
                 CustomerNum = position + 1;
             }
         });
+        CustomerAuto.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                CustomerNum = position + 1;
+            }
+        });
         OrderTypeAuto.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -331,7 +337,7 @@ public class selectionForReport extends AppCompatActivity implements SourceRespo
                         int ss = sourceNum - 1;
                         supplierRequestViewModel.setSourceFlag(sourceFlag[ss]);
                         supplierRequestViewModel.setSourceId(SourceId[ss]);
-                        supplierRequestViewModel.setBrandId(BrandId[ss]);
+                        supplierRequestViewModel.setBrandId(BrandId[BrandNum-1]);
                         supplierRequestViewModel.setDbname(getPreferenceManager().getPrefDbname());
                         supplierRequestViewModel.generateSupplierRequest();
                     } else {

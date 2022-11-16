@@ -6,7 +6,7 @@ public class ApiClass {
 
 //    public static final String BASE_URL = "https://13.233.58.19/my-api/";
 //    public static final String BASE_URL = "https://demo.azonix.in:10555/";
-    public static final String BASE_URL = "http://demo.azonix.in:10557/audit/test/";
+    public static final String BASE_URL = "http://demo.azonix.in:10557/audit/";
 //    https://demo.azonix.in:10555/swagger/index.html
     public static final String LOGIN = "login";
     public static final String SOURCE = "get-sources";

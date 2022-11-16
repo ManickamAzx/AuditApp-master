@@ -112,6 +112,7 @@
                         android:layout_height="match_parent"
                         android:orientation="horizontal"
                         android:padding="5dp"
+                        android:background="@color/white"
                         android:id="@+id/DBSelection"
                         android:weightSum="3">
 
@@ -257,7 +258,7 @@
                     android:layout_marginTop="30dp"
                     android:layout_marginBottom="30dp"
                     android:gravity="center"
-                    android:text="Version 1.13"
+                    android:text="Version 1.15"
                     android:textColor="@color/black"
                     android:textSize="16sp"
                     app:layout_constraintBottom_toBottomOf="parent"

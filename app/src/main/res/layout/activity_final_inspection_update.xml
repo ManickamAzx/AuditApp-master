@@ -10,6 +10,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/white"
         tools:context=".Activity.FinalInspectionScreen">
 
         <ScrollView
@@ -18,6 +19,7 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
+                android:background="@color/white"
                 android:layout_height="match_parent">
 
 
@@ -103,6 +105,7 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:background="@color/white"
                         android:orientation="vertical">
 
                         <androidx.cardview.widget.CardView
@@ -242,7 +245,7 @@
                                     android:textSize="9dp"
                                     android:textColor="@color/black"
                                     android:textStyle="bold"
-                                    android:text="Buyer : " />
+                                    android:text="Source : " />
 
                                 <TextView
                                     android:id="@+id/Buyer"
@@ -340,6 +343,7 @@
                                     android:layout_width="0dp"
                                     android:layout_height="wrap_content"
                                     android:layout_weight="1"
+                                    android:textColor="@color/black"
                                     android:textSize="9dp" />
 
                             </LinearLayout>
@@ -391,6 +395,8 @@
                                     android:background="?attr/editTextBackground"
                                     android:paddingTop="4dp"
                                     android:textAllCaps="true"
+                                    android:backgroundTint="@color/black"
+                                    android:textColor="@color/black"
                                     android:textSize="9dp" />
                             </RelativeLayout>
 
@@ -419,6 +425,7 @@
                                     android:background="?attr/editTextBackground"
                                     android:paddingTop="4dp"
                                     android:textAllCaps="true"
+                                    android:backgroundTint="@color/black"
                                     android:textColor="@color/black"
                                     android:textSize="9dp" />
                             </RelativeLayout>
@@ -460,6 +467,8 @@
                                     android:textSize="9dp"
                                     android:id="@+id/BUYER"
                                     android:gravity="end"
+                                    android:backgroundTint="@color/black"
+                                    android:textColor="@color/black"
                                     android:paddingTop="4dp"
                                     android:textAllCaps="true"
                                     android:background="?attr/editTextBackground" />
@@ -501,7 +510,9 @@
                                     android:layout_weight="1"
                                     android:id="@+id/ORDER_QTY"
                                     android:textSize="9dp"
+                                    android:textColor="@color/black"
                                     android:gravity="end"
+                                    android:backgroundTint="@color/black"
                                     android:textAllCaps="true"
                                     android:paddingTop="4dp"
                                     android:background="?attr/editTextBackground" />
@@ -533,6 +544,7 @@
                                     android:textSize="9dp"
                                     android:textAllCaps="true"
                                     android:gravity="end"
+                                    android:backgroundTint="@color/black"
                                     android:paddingTop="4dp"
                                     android:textColor="@color/black"
                                     android:id="@+id/BALANCE"
@@ -566,6 +578,7 @@
                                     android:textSize="9dp"
                                     android:paddingTop="4dp"
                                     android:maxLength="10"
+                                    android:backgroundTint="@color/black"
                                     android:id="@+id/VENDOR_DEL_DATE"
                                     android:textColor="@color/black"
                                     android:textAllCaps="true"
@@ -610,8 +623,10 @@
                                     android:layout_below="@+id/Forecast"
                                     android:background="?attr/editTextBackground"
                                     android:maxLength="10"
+                                    android:backgroundTint="@color/black"
                                     android:paddingTop="4dp"
                                     android:textAllCaps="true"
+                                    android:textColor="@color/black"
                                     android:textSize="9dp" />
                             </RelativeLayout>
 
@@ -639,7 +654,9 @@
                                     android:layout_below="@+id/DESTINATION"
                                     android:background="?attr/editTextBackground"
                                     android:paddingTop="4dp"
+                                    android:backgroundTint="@color/black"
                                     android:textAllCaps="true"
+                                    android:textColor="@color/black"
                                     android:textSize="9dp" />
                             </RelativeLayout>
 
@@ -678,6 +695,7 @@
                                     android:layout_height="wrap_content"
                                     android:layout_weight="1"
                                     android:textSize="9dp"
+                                    android:backgroundTint="@color/black"
                                     android:textColor="@color/black"
                                     android:id="@+id/dispatch"
                                     android:paddingTop="4dp"
@@ -702,7 +720,7 @@
                                 android:weightSum="1">
 
                                 <LinearLayout
-                                    android:layout_width="0dp"
+                                    android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_weight="0.3"
                                     android:orientation="vertical"
@@ -712,21 +730,24 @@
                                         android:layout_width="match_parent"
                                         android:layout_height="0dp"
                                         android:layout_weight="1.8"
-                                        android:text="REmarks"
-                                        android:textSize="9dp"
-                                        android:textColor="@color/black"
+                                        android:text="PRODUCTION REMARKS"
+                                        android:textStyle="bold"
+                                        android:textSize="12sp"                                        android:textColor="@color/black"
                                         android:textAllCaps="true"
                                         android:gravity="bottom"
-                                        android:background="?attr/editTextBackground" />
+                                  />
                                 </LinearLayout>
                             </LinearLayout>
 
                             <TextView
-                                android:layout_width="match_parent"
+                                android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginLeft="12dp"
+                                android:layout_marginLeft="8dp"
                                 android:id="@+id/REMARKSs"
-                                android:textSize="10dp"
+                                android:textSize="9sp"
+                                android:background="?attr/editTextBackground"
+                                android:textColor="@color/black"
+                                android:backgroundTint="@color/black"
                                 android:gravity="top" />
 
                         </LinearLayout>
@@ -763,6 +784,8 @@
                                     android:layout_weight="1"
                                     android:textSize="9dp"
                                     android:id="@+id/datetext"
+                                    android:backgroundTint="@color/black"
+                                    android:textColor="@color/black"
                                     android:drawableRight="@drawable/ic_calendar_updated"
                                     android:drawablePadding="5dp"
                                     android:gravity="center_vertical"
@@ -804,6 +827,7 @@
                                     android:textSize="9dp"
                                     android:textAllCaps="true"
                                     android:editable="false"
+                                    android:backgroundTint="@color/black"
                                     android:singleLine="true"
                                     android:textColor="@color/black"
                                     android:id="@+id/QCNAMES"
@@ -838,6 +862,8 @@
                                     android:textSize="9dp"
                                     android:id="@+id/QCRESULT"
                                     android:editable="false"
+                                    android:backgroundTint="@color/black"
+                                    android:textColor="@color/black"
                                     android:gravity="center_vertical"
                                     android:drawableEnd="@drawable/ic_baseline_arrow_drop_down_24"
                                     android:textAllCaps="true"
@@ -880,7 +906,8 @@
                                     android:layout_weight="1"
                                     android:background="@drawable/login"
                                     android:gravity="start"
-                                    android:paddingLeft="5dp"
+                                    android:paddingLeft="10dp"
+                                    android:textColor="@color/black"
                                     android:hint="Type to send"
                                     android:id="@+id/QCREMARKS"
                                     android:paddingTop="4dp"

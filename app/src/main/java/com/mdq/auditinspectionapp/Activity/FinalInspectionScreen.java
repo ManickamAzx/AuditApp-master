@@ -452,225 +452,243 @@ public class FinalInspectionScreen extends AppCompatActivity implements FinalInv
             ap.PREV.setClickable(true);
         }
         try {
-            if (generateFinalInvoiceResponseModel.getResponse()!=null) {
-                if (generateFinalInvoiceResponseModel.getResponse().get(getId).getRemarks()!=null) {
-                    ap.REMARKSs.setText(generateFinalInvoiceResponseModel.getResponse().get(getId).getRemarks().trim());
+            if (!generateFinalInvoiceResponseModel.getResponse().isEmpty()) {
+                if (generateFinalInvoiceResponseModel.getResponse().get(getId).getProductionRemarks() != null && !generateFinalInvoiceResponseModel.getResponse().get(getId).getProductionRemarks().isEmpty()) {
+                    ap.REMARKSs.setText(generateFinalInvoiceResponseModel.getResponse().get(getId).getProductionRemarks().trim());
+                } else {
+                    ap.REMARKSs.setText("-");
+
                 }
 
-                    if (generateFinalInvoiceResponseModel.getResponse().get(getId).getDespatchMode()!=null) {
+                if (generateFinalInvoiceResponseModel.getResponse().get(getId).getDespatchMode() != null) {
+                    ap.dispatch.setText(generateFinalInvoiceResponseModel.getResponse().get(getId).getDespatchMode().trim());
+                } else {
+                    ap.dispatch.setText("-");
+                }
 
-                        ap.dispatch.setText(generateFinalInvoiceResponseModel.getResponse().get(getId).getDespatchMode().trim());
-                    }
-
-                if (!generateFinalInvoiceResponseModel.getResponse().get(getId).getInspectionDate().isEmpty() && generateFinalInvoiceResponseModel.getResponse().get(getId).getInspectionDate()!=null) {
+                if (generateFinalInvoiceResponseModel.getResponse().get(getId).getInspectionDate() != null && !generateFinalInvoiceResponseModel.getResponse().get(getId).getInspectionDate().trim().isEmpty()) {
                     ap.datetext.setText(generateFinalInvoiceResponseModel.getResponse().get(getId).getInspectionDate().trim());
                 } else {
-                    ap.datetext.setText("NO DATA");
+                    ap.datetext.setText("-");
                 }
-                if (generateFinalInvoiceResponseModel.getResponse().get(getId).getInspection_Remarks() != null) {
+
+                if (generateFinalInvoiceResponseModel.getResponse().get(getId).getInspection_Remarks() != null && !generateFinalInvoiceResponseModel.getResponse().get(getId).getInspection_Remarks().trim().isEmpty()) {
                     ap.QCREMARKS.setText(generateFinalInvoiceResponseModel.getResponse().get(getId).getInspection_Remarks().trim());
                 } else {
-                    ap.QCREMARKS.setText("NO DATA");
+                    ap.QCREMARKS.setText("-");
                 }
-                if (!generateFinalInvoiceResponseModel.getResponse().get(getId).getStyleCode().isEmpty()) {
+
+                if (generateFinalInvoiceResponseModel.getResponse().get(getId).getStyleCode() != null && !generateFinalInvoiceResponseModel.getResponse().get(getId).getStyleCode().trim().isEmpty()) {
                     ap.STYLENAME.setText(generateFinalInvoiceResponseModel.getResponse().get(getId).getStyleCode().trim());
-                    if (generateFinalInvoiceResponseModel.getResponse().get(getId).getStyleName().trim() != null) {
+                    if (generateFinalInvoiceResponseModel.getResponse().get(getId).getStyleName() != null && !generateFinalInvoiceResponseModel.getResponse().get(getId).getStyleName().trim().isEmpty()) {
                         Log.i("finalinspection", "entered");
                         ap.STYLENAME.setText(ap.STYLENAME.getText() + "-" + generateFinalInvoiceResponseModel.getResponse().get(getId).getStyleName().trim());
                     }
                 } else {
-                    ap.STYLENAME.setText("NO DATA");
+                    if (generateFinalInvoiceResponseModel.getResponse().get(getId).getStyleName() != null && !generateFinalInvoiceResponseModel.getResponse().get(getId).getStyleName().trim().isEmpty()) {
+                        Log.i("finalinspection", "entered");
+                        ap.STYLENAME.setText(ap.STYLENAME.getText() + "-" + generateFinalInvoiceResponseModel.getResponse().get(getId).getStyleName().trim());
+                    } else {
+                        ap.STYLENAME.setText("-");
+                    }
                 }
-                if (!generateFinalInvoiceResponseModel.getResponse().get(getId).getBuyerEtd().isEmpty()) {
+
+                if (generateFinalInvoiceResponseModel.getResponse().get(getId).getBuyerEtd() != null && !generateFinalInvoiceResponseModel.getResponse().get(getId).getBuyerEtd().trim().isEmpty()) {
                     ap.piDate.setText(generateFinalInvoiceResponseModel.getResponse().get(getId).getBuyerEtd().trim());
                 } else {
-                    ap.piDate.setText("NO DATA");
+                    ap.piDate.setText("-");
                 }
-                ap.DeleveryFac.setText(generateFinalInvoiceResponseModel.getResponse().get(getId).getDeliveryTerms().trim());
+
+                if (generateFinalInvoiceResponseModel.getResponse().get(getId).getDeliveryTerms() != null && !generateFinalInvoiceResponseModel.getResponse().get(getId).getBuyerEtd().trim().isEmpty()) {
+                    ap.DeleveryFac.setText(generateFinalInvoiceResponseModel.getResponse().get(getId).getDeliveryTerms().trim());
+                } else {
+                    ap.DeleveryFac.setText("-");
+                }
 
 //        ap.piDate.setText("FAI21220037HAR");
-                if (!generateFinalInvoiceResponseModel.getResponse().get(getId).getCustOrderNo().isEmpty()) {
+                if (generateFinalInvoiceResponseModel.getResponse().get(getId).getCustOrderNo() != null && !generateFinalInvoiceResponseModel.getResponse().get(getId).getCustOrderNo().isEmpty()) {
                     ap.BUYER.setText(generateFinalInvoiceResponseModel.getResponse().get(getId).getCustOrderNo().trim());
                 } else {
-                    ap.Buyer.setText("NO DATA");
+                    ap.Buyer.setText("-");
                 }
-                if (!generateFinalInvoiceResponseModel.getResponse().get(getId).getSupplierName().isEmpty()) {
+                if (generateFinalInvoiceResponseModel.getResponse().get(getId).getSupplierName() != null && !generateFinalInvoiceResponseModel.getResponse().get(getId).getSupplierName().isEmpty()) {
                     ap.vendor.setText(generateFinalInvoiceResponseModel.getResponse().get(getId).getSupplierName().trim());
                 } else {
-                    ap.vendor.setText("NO DATA");
+                    ap.vendor.setText("-");
                 }
 //                if (generateFinalInvoiceResponseModel.getResponse().get(getId).getbrandId() != null) {
 //                    ap.Buyer.setText(generateFinalInvoiceResponseModel.getResponse().get(getId).getbrandId());
 //                } else {
 //                    ap.Buyer.setText("NO DATA");
 //                }
-                if (!generateFinalInvoiceResponseModel.getResponse().get(getId).getOrderQty().isEmpty()) {
+                if (generateFinalInvoiceResponseModel.getResponse().get(getId).getOrderQty() != null && !generateFinalInvoiceResponseModel.getResponse().get(getId).getOrderQty().isEmpty()) {
 
                     ap.ORDERQTY.setText(generateFinalInvoiceResponseModel.getResponse().get(getId).getOrderQty().trim());
                 } else {
-                    ap.ORDERQTY.setText("NO DATA");
+                    ap.ORDERQTY.setText("-");
                 }
-                if (!generateFinalInvoiceResponseModel.getResponse().get(getId).getBalance().isEmpty()) {
+                if (generateFinalInvoiceResponseModel.getResponse().get(getId).getBalance() != null && !generateFinalInvoiceResponseModel.getResponse().get(getId).getBalance().isEmpty()) {
 
                     ap.BALANCE.setText(generateFinalInvoiceResponseModel.getResponse().get(getId).getBalance().trim());
                 } else {
-                    ap.BALANCE.setText("NO DATA");
+                    ap.BALANCE.setText("-");
                 }
-                if (!generateFinalInvoiceResponseModel.getResponse().get(getId).getVendorDelDate().isEmpty()) {
+                if (generateFinalInvoiceResponseModel.getResponse().get(getId).getVendorDelDate() != null && !generateFinalInvoiceResponseModel.getResponse().get(getId).getVendorDelDate().isEmpty()) {
 
                     ap.VENDORDELDATE.setText(generateFinalInvoiceResponseModel.getResponse().get(getId).getVendorDelDate().trim());
                 } else {
-                    ap.VENDORDELDATE.setText("NO DATA");
+                    ap.VENDORDELDATE.setText("-");
                 }
-                if (!generateFinalInvoiceResponseModel.getResponse().get(getId).getForecastDelDate().isEmpty()) {
+                if (generateFinalInvoiceResponseModel.getResponse().get(getId).getForecastDelDate() != null && !generateFinalInvoiceResponseModel.getResponse().get(getId).getForecastDelDate().isEmpty()) {
 
                     ap.FORECASTDELDATE.setText(generateFinalInvoiceResponseModel.getResponse().get(getId).getForecastDelDate().trim());
 
                 } else {
-                    ap.FORECASTDELDATE.setText("NO DATA");
+                    ap.FORECASTDELDATE.setText("-");
                 }
-                if (!generateFinalInvoiceResponseModel.getResponse().get(getId).getCityName().isEmpty()) {
+                if (generateFinalInvoiceResponseModel.getResponse().get(getId).getCityName() != null && !generateFinalInvoiceResponseModel.getResponse().get(getId).getCityName().isEmpty()) {
 
                     ap.CITY.setText(generateFinalInvoiceResponseModel.getResponse().get(getId).getCityName().trim());
                 } else {
-                    ap.CITY.setText("NO DATA");
+                    ap.CITY.setText("-");
                 }
-
-
-                if (!generateFinalInvoiceResponseModel.getResponse().get(getId).getQcBy().trim().equals("")) {
+                if (generateFinalInvoiceResponseModel.getResponse().get(getId).getQcBy() != null && !generateFinalInvoiceResponseModel.getResponse().get(getId).getQcBy().isEmpty()) {
                     String id = generateFinalInvoiceResponseModel.getResponse().get(getId).getQcBy().trim();
-                    Log.i("idididid", "" + id);
-                    qcName(id);
-                } else {
-                    ap.QCNAMES.setText("NO DATA");
+                    for (int j = 0; j <= generateQCNameResponseModel2.getResponse().size(); j++) {
+                        if (id.equals(generateQCNameResponseModel2.getResponse().get(j).getEmpNo().trim())) {
+                            QCNameId = j;
+                            String ss = generateQCNameResponseModel2.getResponse().get(j).getEmpName().trim();
+                            ap.QCNAMES.setText(ss);
+                            ArrayAdapterQCName = new ArrayAdapter<String>(this, android.R.layout.simple_dropdown_item_1line, QCNameArray);
+                            ap.QCNAMES.setAdapter(ArrayAdapterQCName);
+                            ap.QCNAMES.dismissDropDown();
+                        }
+                    }
+                    } else{
+                        ap.QCNAMES.setText("-");
+                    }
                 }
-            } else {
+            else {
                 logout();
+                }
+            } catch(Exception e){
+                Log.i("Exception_inspection", "" + e);
             }
-        } catch (Exception e) {
-            Log.i("Exception_inspection", "" + e);
         }
-    }
 
-    public void logout() {
-        Dialog dialoglogout = new Dialog(this, R.style.dialog_center);
-        dialoglogout.setCanceledOnTouchOutside(false);
-        dialoglogout.setContentView(R.layout.logout);
-        dialoglogout.show();
-        TextView textView23 = dialoglogout.findViewById(R.id.textView23);
+        public void logout () {
+            Dialog dialoglogout = new Dialog(this, R.style.dialog_center);
+            dialoglogout.setCanceledOnTouchOutside(false);
+            dialoglogout.setContentView(R.layout.logout);
+            dialoglogout.show();
+            TextView textView23 = dialoglogout.findViewById(R.id.textView23);
 
-        DialogInterface.OnKeyListener keylistener = new DialogInterface.OnKeyListener() {
+            DialogInterface.OnKeyListener keylistener = new DialogInterface.OnKeyListener() {
 
-            @Override
-            public boolean onKey(DialogInterface dialog, int keyCode, KeyEvent KEvent) {
-                int keyaction = KEvent.getAction();
+                @Override
+                public boolean onKey(DialogInterface dialog, int keyCode, KeyEvent KEvent) {
+                    int keyaction = KEvent.getAction();
 
-                if (keyaction == KeyEvent.ACTION_DOWN) {
+                    if (keyaction == KeyEvent.ACTION_DOWN) {
+                        Intent intent = new Intent(getApplicationContext(), TransactionProductUpdate.class);
+                        startActivity(intent);
+                        finish();
+                        return true;
+                    }
+                    return false;
+                }
+            };
+            dialoglogout.setOnKeyListener(keylistener);
+
+            textView23.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    dialoglogout.dismiss();
+
                     Intent intent = new Intent(getApplicationContext(), TransactionProductUpdate.class);
                     startActivity(intent);
                     finish();
-                    return true;
                 }
-                return false;
-            }
-        };
-        dialoglogout.setOnKeyListener(keylistener);
 
-        textView23.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialoglogout.dismiss();
+            });
 
-                Intent intent = new Intent(getApplicationContext(), TransactionProductUpdate.class);
-                startActivity(intent);
-                finish();
-            }
-
-        });
-
-    }
-
-    @Override
-    public void generateQCNameProcessed(GenerateQCNameResponseModel generateQCNameResponseModel) {
-        this.generateQCNameResponseModel = generateQCNameResponseModel;
-        this.generateQCNameResponseModel2 = generateQCNameResponseModel;
-        if (generateQCNameResponseModel.getResponse() != null) {
-            QCNameArray = new String[generateQCNameResponseModel.getResponse().size()];
-            for (int i = 0; i < generateQCNameResponseModel.getResponse().size(); i++) {
-                QCNameArray[i] = generateQCNameResponseModel.getResponse().get(i).getEmpName().trim();
-            }
-            ArrayAdapterQCName = new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_spinner_dropdown_item, QCNameArray);
-            ap.QCNAMES.setAdapter(ArrayAdapterQCName);
-        } else {
-            ap.QCNAMES.setText("NO DATA");
         }
-    }
 
-    private void qcName(String id) {
-        Log.i("isisis", "" + id);
-        for (int i = 0; i <= generateQCNameResponseModel2.getResponse().size(); i++) {
-            if (id.equals(generateQCNameResponseModel2.getResponse().get(i).getEmpNo().trim())) {
-                ap.QCNAMES.setText(generateQCNameResponseModel2.getResponse().get(i).getEmpName().trim());
-                QCNameId = i;
-                ap.QCNAMES.setSelection(ap.QCNAMES.getText().length());
-                ArrayAdapterQCName = new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_spinner_dropdown_item, QCNameArray);
+        @Override
+        public void generateQCNameProcessed (GenerateQCNameResponseModel generateQCNameResponseModel)
+        {
+            this.generateQCNameResponseModel = generateQCNameResponseModel;
+            this.generateQCNameResponseModel2 = generateQCNameResponseModel;
+            if (generateQCNameResponseModel.getResponse() != null) {
+                QCNameArray = new String[generateQCNameResponseModel.getResponse().size()];
+                for (int i = 0; i < generateQCNameResponseModel.getResponse().size(); i++) {
+                    QCNameArray[i] = generateQCNameResponseModel.getResponse().get(i).getEmpName().trim();
+                }
+                ArrayAdapterQCName = new ArrayAdapter<String>(this, android.R.layout.simple_dropdown_item_1line, QCNameArray);
                 ap.QCNAMES.setAdapter(ArrayAdapterQCName);
-                ap.QCNAMES.dismissDropDown();
-
+//            ap.QCNAMES.dismissDropDown();
             }
         }
 
-    }
+        private void qcName (String id){
+            Log.i("isisis", "" + id);
 
 
-    @Override
-    public void generateQCResultProcessed(GenerateQCResultResponseModel generateQCResultResponseModel) {
-        if (generateQCResultResponseModel.getResponse() != null) {
-            this.generateQCResultResponseModel = generateQCResultResponseModel;
-            QCResultArray = new String[generateQCResultResponseModel.getResponse().size()];
-            for (int i = 0; i < generateQCResultResponseModel.getResponse().size(); i++) {
-                QCResultArray[i] = generateQCResultResponseModel.getResponse().get(i).getResultName().trim();
-            }
-
-            arrayAdapterQCResult = new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_spinner_dropdown_item, QCResultArray);
-            ap.QCRESULT.setAdapter(arrayAdapterQCResult);
         }
-    }
 
-    @Override
-    public void generateUpdateInspectionProcessed(GenerateUpdateInspectionResponseModel generateUpdateInspectionResponseModel) {
-        if (generateUpdateInspectionResponseModel.getMessage().equals("time out")) {
-            timeout();
-        } else {
-            Toast.makeText(getApplicationContext(), "" + generateUpdateInspectionResponseModel.getMessage(), Toast.LENGTH_SHORT).show();
-            finalInvoice();
-        }
-    }
 
-    @Override
-    public void generateShipModeProcessed(GenerateShipModeResponseModel generateShipModeResponceModel) {
-        if (generateShipModeResponceModel != null) {
-            this.generateShipModeResponseModel = generateShipModeResponceModel;
-        }
-    }
+        @Override
+        public void generateQCResultProcessed (GenerateQCResultResponseModel
+        generateQCResultResponseModel){
+            if (generateQCResultResponseModel.getResponse() != null) {
+                this.generateQCResultResponseModel = generateQCResultResponseModel;
+                QCResultArray = new String[generateQCResultResponseModel.getResponse().size()];
+                for (int i = 0; i < generateQCResultResponseModel.getResponse().size(); i++) {
+                    QCResultArray[i] = generateQCResultResponseModel.getResponse().get(i).getResultName().trim();
+                }
 
-    private void shipment(int id) {
-        Log.i("isisis", "" + id);
-        for (int i = 0; i <= generateShipModeResponseModel.getResponse().size(); i++) {
-            if (id == Integer.parseInt(generateShipModeResponseModel.getResponse().get(i).getModeId())) {
-                ap.dispatch.setText(generateShipModeResponseModel.getResponse().get(i).getModeName());
+                arrayAdapterQCResult = new ArrayAdapter<>(FinalInspectionScreen.this, android.R.layout.simple_dropdown_item_1line, QCResultArray);
+                ap.QCRESULT.setAdapter(arrayAdapterQCResult);
             }
         }
-    }
 
-    @Override
-    public void GetInspectionReportProcess(GetInspectionReportResponseModel getInspectionReportResponseModel) {
-        if (getInspectionReportResponseModel.getMessage().equals("Record found")) {
-            this.getInspectionReportResponseModel = getInspectionReportResponseModel;
+        @Override
+        public void generateUpdateInspectionProcessed (GenerateUpdateInspectionResponseModel
+        generateUpdateInspectionResponseModel){
+            if (generateUpdateInspectionResponseModel.getMessage().equals("time out")) {
+                timeout();
+            } else {
+                Toast.makeText(getApplicationContext(), "" + generateUpdateInspectionResponseModel.getMessage(), Toast.LENGTH_SHORT).show();
+                finalInvoice();
+            }
+        }
+
+        @Override
+        public void generateShipModeProcessed (GenerateShipModeResponseModel
+        generateShipModeResponceModel){
+            if (generateShipModeResponceModel != null) {
+                this.generateShipModeResponseModel = generateShipModeResponceModel;
+            }
+        }
+
+        private void shipment ( int id){
+            Log.i("isisis", "" + id);
+            for (int i = 0; i <= generateShipModeResponseModel.getResponse().size(); i++) {
+                if (id == Integer.parseInt(generateShipModeResponseModel.getResponse().get(i).getModeId())) {
+                    ap.dispatch.setText(generateShipModeResponseModel.getResponse().get(i).getModeName());
+                }
+            }
+        }
+
+        @Override
+        public void GetInspectionReportProcess (GetInspectionReportResponseModel
+        getInspectionReportResponseModel){
+            if (getInspectionReportResponseModel.getMessage().equals("Record found")) {
+                this.getInspectionReportResponseModel = getInspectionReportResponseModel;
 //            InspectionReport();
-        }
+            }
 
-    }
+        }
 
 //    private void InspectionReport() {
 //        ap.piNo.setText(getInspectionReportResponseModel.getDetails().get(getId).getInvoiceNo());
@@ -699,38 +717,38 @@ public class FinalInspectionScreen extends AppCompatActivity implements FinalInv
 //        ap.QCREMARKS.setKeyListener(null);
 //    }
 
-    @Override
-    public void onFailure(ErrorBody errorBody, int statusCode) {
+        @Override
+        public void onFailure (ErrorBody errorBody,int statusCode){
 
-    }
-
-    /**
-     * @return
-     * @brief initializing the preferenceManager from shared preference for local use in this activity
-     */
-
-    public PreferenceManager getPreferenceManager() {
-        if (preferenceManager == null) {
-            preferenceManager = PreferenceManager.getInstance();
-            preferenceManager.initialize(getApplicationContext());
         }
-        return preferenceManager;
-    }
 
-    public void timeout() {
-        Dialog dialoglogout = new Dialog(this, R.style.dialog_center);
-        dialoglogout.setContentView(R.layout.time_out);
-        dialoglogout.setCanceledOnTouchOutside(true);
-        dialoglogout.show();
-        TextView textView23 = dialoglogout.findViewById(R.id.textView23);
+        /**
+         * @return
+         * @brief initializing the preferenceManager from shared preference for local use in this activity
+         */
 
-        textView23.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialoglogout.dismiss();
+        public PreferenceManager getPreferenceManager () {
+            if (preferenceManager == null) {
+                preferenceManager = PreferenceManager.getInstance();
+                preferenceManager.initialize(getApplicationContext());
             }
-        });
+            return preferenceManager;
+        }
+
+        public void timeout () {
+            Dialog dialoglogout = new Dialog(this, R.style.dialog_center);
+            dialoglogout.setContentView(R.layout.time_out);
+            dialoglogout.setCanceledOnTouchOutside(true);
+            dialoglogout.show();
+            TextView textView23 = dialoglogout.findViewById(R.id.textView23);
+
+            textView23.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    dialoglogout.dismiss();
+                }
+            });
+
+        }
 
     }
-
-}

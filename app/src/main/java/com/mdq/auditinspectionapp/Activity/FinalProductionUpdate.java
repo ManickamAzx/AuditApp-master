@@ -109,6 +109,10 @@ public class FinalProductionUpdate extends AppCompatActivity implements FinalInv
         BRAND = intent.getStringExtra("BRAND");
         SupplierAuto = intent.getStringExtra("SupplierAuto");
 
+
+
+        ap.Season.setText(SeasonAuto);
+        ap.Buyer.setText(SourceName);
         ap.Brand.setText(BRAND);
         ap.vendors.setText(SupplierAuto);
         report = true;
@@ -116,9 +120,6 @@ public class FinalProductionUpdate extends AppCompatActivity implements FinalInv
         shipModeRequestViewModel.setAuth("Bearer " + getPreferenceManager().getPrefToken());
         shipModeRequestViewModel.setDbname(getPreferenceManager().getPrefDbname());
         shipModeRequestViewModel.generateShipModeRequest();
-
-        ap.Season.setText(SeasonAuto);
-        ap.Buyer.setText(SourceName);
 
         if (!piNo.isEmpty() && !from.isEmpty() && !to.isEmpty() && !SourceFlag.isEmpty() && SourceId != 0 && !orderStatus.isEmpty()) {
 
@@ -450,98 +451,106 @@ public class FinalProductionUpdate extends AppCompatActivity implements FinalInv
 
         try {
             if (!generateFinalInvoiceResponseModel.getResponse().isEmpty()) {
-                if (!generateFinalInvoiceResponseModel.getResponse().get(getId).getStyleCode().isEmpty()) {
+                if (generateFinalInvoiceResponseModel.getResponse().get(getId).getStyleCode() != null && !generateFinalInvoiceResponseModel.getResponse().get(getId).getStyleCode().isEmpty()) {
                     ap.STYLENAME.setText(generateFinalInvoiceResponseModel.getResponse().get(getId).getStyleCode().trim());
-                    if(generateFinalInvoiceResponseModel.getResponse().get(getId).getStyleName().trim()!=null){
+                    if(generateFinalInvoiceResponseModel.getResponse().get(getId).getStyleName() != null && generateFinalInvoiceResponseModel.getResponse().get(getId).getStyleName().trim()!=null){
                         Log.i("finalinspection","entered");
                         ap.STYLENAME.setText(ap.STYLENAME.getText()+"-"+generateFinalInvoiceResponseModel.getResponse().get(getId).getStyleName().trim());
                     }
+                }else{
+                    ap.STYLENAME.setText("-");
                 }
-                if (!generateFinalInvoiceResponseModel.getResponse().get(getId).getCustOrderNo().isEmpty()) {
+                if (generateFinalInvoiceResponseModel.getResponse().get(getId).getCustOrderNo() != null && !generateFinalInvoiceResponseModel.getResponse().get(getId).getCustOrderNo().isEmpty()) {
                     ap.piDate.setText(generateFinalInvoiceResponseModel.getResponse().get(getId).getCustOrderNo().trim());
                 } else {
-                    ap.piDate.setText("NO DATA");
+                    ap.piDate.setText("-");
                 }
 //        ap.piDate.setText("FAI21220037HAR");
-                if (!generateFinalInvoiceResponseModel.getResponse().get(getId).getBuyerPo().isEmpty()) {
+                if (generateFinalInvoiceResponseModel.getResponse().get(getId).getBuyerPo() != null && !generateFinalInvoiceResponseModel.getResponse().get(getId).getBuyerPo().isEmpty()) {
                     ap.BUYER.setText(generateFinalInvoiceResponseModel.getResponse().get(getId).getBuyerPo().trim());
                 } else {
-                    ap.BUYER.setText("NO DATA");
+                    ap.BUYER.setText("-");
                 }
-                if (!generateFinalInvoiceResponseModel.getResponse().get(getId).getDeliveryTerms().isEmpty()) {
+                if (generateFinalInvoiceResponseModel.getResponse().get(getId).getDeliveryTerms() != null && !generateFinalInvoiceResponseModel.getResponse().get(getId).getDeliveryTerms().isEmpty()) {
                     ap.DeleveryFac.setText(generateFinalInvoiceResponseModel.getResponse().get(getId).getDeliveryTerms().trim());
                 } else {
-                    ap.DeleveryFac.setText("NO DATA");
+                    ap.DeleveryFac.setText("-");
                 }
-                if (!generateFinalInvoiceResponseModel.getResponse().get(getId).getOrderQty().isEmpty()) {
+                if (generateFinalInvoiceResponseModel.getResponse().get(getId).getOrderQty() != null &&  !generateFinalInvoiceResponseModel.getResponse().get(getId).getOrderQty().isEmpty()) {
 
                     ap.ORDERQTY.setText(generateFinalInvoiceResponseModel.getResponse().get(getId).getOrderQty().trim());
                 } else {
-                    ap.ORDERQTY.setText("NO DATA");
+                    ap.ORDERQTY.setText("-");
                 }
-                if (!generateFinalInvoiceResponseModel.getResponse().get(getId).getBalance().isEmpty()) {
+                if (generateFinalInvoiceResponseModel.getResponse().get(getId).getBalance() != null && !generateFinalInvoiceResponseModel.getResponse().get(getId).getBalance().isEmpty()) {
 
                     ap.BALANCE.setText(generateFinalInvoiceResponseModel.getResponse().get(getId).getBalance().trim());
                 } else {
-                    ap.BALANCE.setText("NO DATA");
+                    ap.BALANCE.setText("-");
                 }
-                if (!generateFinalInvoiceResponseModel.getResponse().get(getId).getVendorDelDate().isEmpty()) {
+                if (generateFinalInvoiceResponseModel.getResponse().get(getId).getVendorDelDate() != null && !generateFinalInvoiceResponseModel.getResponse().get(getId).getVendorDelDate().isEmpty()) {
 
                     ap.VENDORDELDATE.setText(generateFinalInvoiceResponseModel.getResponse().get(getId).getVendorDelDate().trim());
                 } else {
-                    ap.VENDORDELDATE.setText("NO DATA");
-                } if (!generateFinalInvoiceResponseModel.getResponse().get(getId).getSupplierName().isEmpty()) {
+                    ap.VENDORDELDATE.setText("-");
+                }
+
+                if (generateFinalInvoiceResponseModel.getResponse().get(getId).getInspection_Remarks() != null && !generateFinalInvoiceResponseModel.getResponse().get(getId).getInspection_Remarks().isEmpty()) {
+                    ap.inspectionREmarks.setText(generateFinalInvoiceResponseModel.getResponse().get(getId).getInspection_Remarks().trim());
+                } else {
+                    ap.inspectionREmarks.setText("-");
+                }
+
+                if (generateFinalInvoiceResponseModel.getResponse().get(getId).getSupplierName() != null && !generateFinalInvoiceResponseModel.getResponse().get(getId).getSupplierName().isEmpty()) {
 
                     ap.vendors.setText(generateFinalInvoiceResponseModel.getResponse().get(getId).getSupplierName().trim());
                 } else {
-                    ap.vendors.setText("NO DATA");
+                    ap.vendors.setText("-");
                 }
 
-                if (!generateFinalInvoiceResponseModel.getResponse().get(getId).getForecastDelDate().isEmpty()) {
+                if (generateFinalInvoiceResponseModel.getResponse().get(getId).getForecastDelDate() != null && !generateFinalInvoiceResponseModel.getResponse().get(getId).getForecastDelDate().isEmpty()) {
 
                     ap.FORECASTDELDATE.setText(generateFinalInvoiceResponseModel.getResponse().get(getId).getForecastDelDate().trim());
 
                 } else {
-                    ap.FORECASTDELDATE.setText("NO DATA");
+                    ap.FORECASTDELDATE.setText("-");
                 }
 
-                if (!generateFinalInvoiceResponseModel.getResponse().get(getId).getCityName().isEmpty()) {
+                if (generateFinalInvoiceResponseModel.getResponse().get(getId).getCityName() != null && !generateFinalInvoiceResponseModel.getResponse().get(getId).getCityName().isEmpty()) {
 
                     ap.CITY.setText(generateFinalInvoiceResponseModel.getResponse().get(getId).getCityName().trim());
                 } else {
-                    ap.CITY.setText("NO DATA");
+                    ap.CITY.setText("-");
                 }
-                if (!generateFinalInvoiceResponseModel.getResponse().get(getId).getDespatchModeId().isEmpty()) {
+                if (generateFinalInvoiceResponseModel.getResponse().get(getId).getDespatchModeId() != null && !generateFinalInvoiceResponseModel.getResponse().get(getId).getDespatchModeId().isEmpty()) {
                     int id = Integer.parseInt(generateFinalInvoiceResponseModel.getResponse().get(getId).getDespatchModeId().trim());
                     shipment(id);
                 } else {
-                    ap.dispatch.setText("NO DATA");
+                    ap.dispatch.setText("-");
                 }
-                if (!generateFinalInvoiceResponseModel.getResponse().get(getId).getInspection_Remarks().isEmpty()) {
-                    ap.REMARKS.setText(generateFinalInvoiceResponseModel.getResponse().get(getId).getInspection_Remarks().trim());
+                if (generateFinalInvoiceResponseModel.getResponse().get(getId).getProductionRemarks() != null &&  !generateFinalInvoiceResponseModel.getResponse().get(getId).getProductionRemarks().isEmpty()) {
+                    ap.REMARKS.setText(generateFinalInvoiceResponseModel.getResponse().get(getId).getProductionRemarks().trim());
                 } else {
-                    ap.REMARKS.setText("NO DATA");
+                    ap.REMARKS.setText("-");
                 }
-                if (!generateFinalInvoiceResponseModel.getResponse().get(getId).getInspectionDate().isEmpty()) {
+                if (generateFinalInvoiceResponseModel.getResponse().get(getId).getInspectionDate() != null &&  !generateFinalInvoiceResponseModel.getResponse().get(getId).getInspectionDate().isEmpty()) {
                     ap.datetext.setText(generateFinalInvoiceResponseModel.getResponse().get(getId).getInspectionDate().trim());
                 } else {
-                    ap.datetext.setText("NO DATA");
+                    ap.datetext.setText("-");
                 }
-                if (!generateFinalInvoiceResponseModel.getResponse().get(getId).getQcBy().isEmpty()) {
+                if (generateFinalInvoiceResponseModel.getResponse().get(getId).getQcBy() != null &&!generateFinalInvoiceResponseModel.getResponse().get(getId).getQcBy().isEmpty()) {
 
                     ap.QC.setText(generateFinalInvoiceResponseModel.getResponse().get(getId).getQcBy().trim());
                 } else {
-                    ap.QC.setText("NO DATA");
+                    ap.QC.setText("-");
                 }
-                if (!generateFinalInvoiceResponseModel.getResponse().get(getId).getQcRemarks().isEmpty()) {
+                if (generateFinalInvoiceResponseModel.getResponse().get(getId).getQcRemarks() != null && !generateFinalInvoiceResponseModel.getResponse().get(getId).getQcRemarks().isEmpty()) {
 
                     ap.QCREMARKS.setText(generateFinalInvoiceResponseModel.getResponse().get(getId).getQcRemarks().trim());
                 } else {
-                    ap.QCREMARKS.setText("NO DATA");
+                    ap.QCREMARKS.setText("-");
                 }
             } else {
-//                startActivity(new Intent(getApplicationContext(),NoDataActivity.class));
-//                finish();
                 logout();
             }
         } catch (Exception e) {
@@ -598,8 +607,9 @@ public class FinalProductionUpdate extends AppCompatActivity implements FinalInv
     }
 
     private void shipment(int id) {
-        arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, ShipModeArray);
+        arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_dropdown_item_1line, ShipModeArray);
         if (id != 0) {
+            ShipId = id-1;
             ap.dispatch.setText(generateShipModeResponseModel.getResponse().get(id-1).getModeName());
         }
         ap.dispatch.setAdapter(arrayAdapter);

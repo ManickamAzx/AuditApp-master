@@ -354,7 +354,7 @@ public class TransactionProductUpdate extends AppCompatActivity implements Sourc
                                 intent.putExtra("SourceFlag", generateSourceResponseModel.getResponse().get(sourceNum - 1).getSourceFlag().trim());
                                 intent.putExtra("BrandID",generateBrandResponseModel.getResponse().get(BrandNum-1).brandId.trim());
                                 intent.putExtra("who","report");
-                                intent.putExtra("SeasonAuto", at.SeasonAuto.getText().toString());
+                                intent.putExtra("SeasonAuto",  at.SeasonAuto.getText().toString());
                                 intent.putExtra("SourceName", generateSourceResponseModel.getResponse().get(sourceNum - 1).getSourceName());
                                 intent.putExtra("BRAND", at.BrandAuto.getText().toString());
                                 intent.putExtra("SupplierAuto", at.SupplierAuto.getText().toString());
