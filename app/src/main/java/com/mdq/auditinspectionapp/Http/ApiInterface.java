@@ -18,6 +18,7 @@ import com.mdq.auditinspectionapp.Pojo.JsonRequest.GetProductionReportRequestMod
 import com.mdq.auditinspectionapp.Pojo.JsonRequest.OrderStatusRequestModel;
 import com.mdq.auditinspectionapp.Pojo.JsonRequest.OrderTypeRequestModel;
 import com.mdq.auditinspectionapp.Pojo.JsonRequest.VendorNameRequestModel;
+import com.mdq.auditinspectionapp.Pojo.JsonRequest.getByUserIDRequestModel;
 import com.mdq.auditinspectionapp.Pojo.JsonResonse.CustomerNameResponseModel;
 import com.mdq.auditinspectionapp.Pojo.JsonResonse.GenerateBrandResponseModel;
 import com.mdq.auditinspectionapp.Pojo.JsonResonse.GenerateFinalInvoiceResponseModel;
@@ -36,6 +37,7 @@ import com.mdq.auditinspectionapp.Pojo.JsonResonse.GetProductionReportResponseMo
 import com.mdq.auditinspectionapp.Pojo.JsonResonse.OrderStatusResponseModel;
 import com.mdq.auditinspectionapp.Pojo.JsonResonse.OrderTypeResponseModel;
 import com.mdq.auditinspectionapp.Pojo.JsonResonse.VendorNameResponseModel;
+import com.mdq.auditinspectionapp.Pojo.JsonResonse.getByUserIDResponseModel;
 
 import java.util.HashMap;
 
@@ -108,5 +110,8 @@ public interface ApiInterface {
 
     @POST
     Call<OrderStatusResponseModel> generateOrderStatusCall(@Url String url, @Header("Authorization") String Authorization, @Body OrderStatusRequestModel statusRequestModel);
+
+    @POST
+    Call<getByUserIDResponseModel> getByUSERID(@Url String url, @Header("Authorization") String Authorization, @Body getByUserIDRequestModel getByUserIDRequestModel);
 
 }

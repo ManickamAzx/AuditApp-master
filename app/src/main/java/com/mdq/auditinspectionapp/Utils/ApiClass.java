@@ -27,6 +27,7 @@ public class ApiClass {
     public static String ORDERTYPE= "get-ordertype";
     public static String ORDERSTATUS= "get-ordertstatus";
     public static String INVOICELISTREPORT= "get-reportinvoice-list";
+    public static String GETTEAMID= "getbyuserid";
     public static String REPORTPDF= "get-reportinvoice-list";
  
 //    public static final String LOGIN = "account/login";

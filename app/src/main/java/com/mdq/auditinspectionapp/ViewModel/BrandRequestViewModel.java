@@ -34,6 +34,7 @@ public class BrandRequestViewModel extends BrandRequestBaseViewModel implements 
         sourceRequestModel.sourceFlag=getSourceFlag();
         sourceRequestModel.seasonId=getSeasonId();
         sourceRequestModel.dbname=getDbname();
+        sourceRequestModel.teamId=getTeamId();
         brandDataManager.callEnqueue(ApiClass.BRAND, getAuthorization(), sourceRequestModel,new ResponseHandler<GenerateBrandResponseModel>() {
             @Override
             public void onSuccess(String message) {

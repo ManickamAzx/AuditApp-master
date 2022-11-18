@@ -199,13 +199,18 @@ public class TransactionProductUpdate extends AppCompatActivity implements Sourc
                         .getNetworkInfo(ConnectivityManager.TYPE_WIFI)
                         .getState() == NetworkInfo.State.CONNECTED)) {
                     if (SeasonNum != 0 && sourceNum != 0) {
-                        brandRequestViewModel.setAuthorization("Bearer " + getPreferenceManager().getPrefToken());
-                        brandRequestViewModel.setSeasonId(SeasonId[SeasonNum - 1]);
-                        int ss = sourceNum - 1;
-                        brandRequestViewModel.setSourceFlag(sourceFlag[ss]);
-                        brandRequestViewModel.setSourceId(SourceId[ss]);
-                        brandRequestViewModel.setDbname(getPreferenceManager().getPrefDbname());
-                        brandRequestViewModel.generateBrandRequest();
+                        if(getPreferenceManager().getPrefTeamId()!=null) {
+                            brandRequestViewModel.setAuthorization("Bearer " + getPreferenceManager().getPrefToken());
+                            brandRequestViewModel.setSeasonId(SeasonId[SeasonNum - 1]);
+                            int ss = sourceNum - 1;
+                            brandRequestViewModel.setSourceFlag(sourceFlag[ss]);
+                            brandRequestViewModel.setSourceId(SourceId[ss]);
+                            brandRequestViewModel.setDbname(getPreferenceManager().getPrefDbname());
+                            brandRequestViewModel.setTeamId(getPreferenceManager().getPrefTeamId());
+                            brandRequestViewModel.generateBrandRequest();
+                        }else{
+                            Toast.makeText(getApplicationContext(), "Team id required", Toast.LENGTH_SHORT).show();
+                        }
                     } else {
                         Toast.makeText(getApplicationContext(), "Season and Source are needed", Toast.LENGTH_SHORT).show();
                     }
@@ -225,7 +230,7 @@ public class TransactionProductUpdate extends AppCompatActivity implements Sourc
                         .getNetworkInfo(ConnectivityManager.TYPE_WIFI) != null && connectivityManager
                         .getNetworkInfo(ConnectivityManager.TYPE_WIFI)
                         .getState() == NetworkInfo.State.CONNECTED)) {
-                    if (SeasonNum != 0 && sourceNum != 0) {
+                    if (SeasonNum != 0 && sourceNum != 0 && BrandNum != 0) {
                         supplierRequestViewModel.setAuthorization("Bearer " + getPreferenceManager().getPrefToken());
                         supplierRequestViewModel.setSeasonId(SeasonId[SeasonNum - 1]);
                         int ss = sourceNum - 1;
@@ -236,7 +241,7 @@ public class TransactionProductUpdate extends AppCompatActivity implements Sourc
                         supplierRequestViewModel.setDbname(getPreferenceManager().getPrefDbname());
                         supplierRequestViewModel.generateSupplierRequest();
                     } else {
-                        Toast.makeText(getApplicationContext(), "Season and Source are needed", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), "Season and Source Brand are needed", Toast.LENGTH_SHORT).show();
                     }
                 } else {
                     Toast.makeText(getApplicationContext(), "This App Require Internet", Toast.LENGTH_SHORT).show();

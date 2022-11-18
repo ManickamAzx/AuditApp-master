@@ -33,10 +33,10 @@ public class GetProductionReportViewModel extends GetProductionReportBaseViewMod
     private void goGenerateBrand() {
         GetProductionReportRequestModel getProductionReportRequestModel=new GetProductionReportRequestModel();
         getProductionReportRequestModel.seasonName=getSeasonName();
-        getProductionReportRequestModel.customer=getCustomer();
+//        getProductionReportRequestModel.customer=getCustomer();
         getProductionReportRequestModel.brand=getBrand();
         getProductionReportRequestModel.invoiceNo=getInvoiceNo();
-        getProductionReportRequestModel.vendor=getVendor();
+//        getProductionReportRequestModel.vendor=getVendor();
         getProductionReportRequestModel.orderType=getOrderType();
         getProductionReportRequestModel.orderStatus=getOrderStatus();
         getProductionReportRequestModel.from=getFrom();

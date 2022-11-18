@@ -75,7 +75,7 @@ import java.lang.reflect.Field;
 import java.util.Calendar;
 
 public class selectionForReport extends AppCompatActivity implements SourceResponseInterface, SeasonResponseInterface, BrandResponseInterface, SupplierResponseInterface, InvoiceResponseInterface,
-        Interface_FinalInvoice, FinalInvoiceResponseInterface, CustomerNameResponseInterface, VendorNameResponseInterface
+        Interface_FinalInvoice, FinalInvoiceResponseInterface
         , OrderTypeResponseInterface, OrderStatusResponseInterface {
 
     TextView ProductUpdate, submit;
@@ -87,16 +87,16 @@ public class selectionForReport extends AppCompatActivity implements SourceRespo
     SupplierRequestViewModel supplierRequestViewModel;
     GetInvoiceListReportViewModel invoiceRequestViewModel;
     FinalInvoiceViewModel finalInvoiceViewModel;
-    CustomerRequestViewModel customerRequestViewModel;
+//    CustomerRequestViewModel customerRequestViewModel;
     OrderTypeViewModel orderTypeViewModel;
     OrderStatusViewModel orderStatusViewModel;
-    VendorNameViewModel vendorNameViewModel;
+//    VendorNameViewModel vendorNameViewModel;
     PreferenceManager preferenceManager;
     ActivitySelectionForReportBinding at;
-    AutoCompleteTextView SourceAuto, SeasonAuto, BrandAuto, SupplierAuto, OrderStatusAuto, CustomerAuto, OrderTypeAuto, newSupplierAuto;
+    AutoCompleteTextView SourceAuto, SeasonAuto, BrandAuto, OrderStatusAuto, OrderTypeAuto, newSupplierAuto;
     ArrayAdapter<String> sourceAdapter, seasonAdapter, brandAdapter, supplierAdapter, CustomerAdapter, OrderTpeAdapter, OrderStatusAdapter, newSupplierAdapter;
-    String[] SourceId, SourceName, sourceFlag, SeasonName, SeasonId, BrandId, BrandName, SupplierCode, OrderType, OrderStatus, OrderID, SupplierName, newSupplierName, newSupplierCode, InvoiceNo, InvoiceDate, CustomerCode, CustomerID, CustomerName;
-    int sourceNum, SeasonNum, BrandNum, SupplierNum, CustomerNum, OrderTypeNum, OrderStatusNUM, newSupplierNum;
+    String[] SourceId, SourceName, sourceFlag, SeasonName, SeasonId, BrandId, BrandName,  OrderType, OrderStatus, OrderID, SupplierName, newSupplierName, newSupplierCode, InvoiceNo, InvoiceDate;
+    int sourceNum, SeasonNum, BrandNum, OrderTypeNum, OrderStatusNUM, newSupplierNum;
     GenerateSeasonResponseModel generateSeasonResponseModel;
     GenerateSourceResponseModel generateSourceResponseModel;
     GenerateBrandResponseModel generateBrandResponseModel;
@@ -129,10 +129,10 @@ public class selectionForReport extends AppCompatActivity implements SourceRespo
         SeasonAuto = findViewById(R.id.SeasonAuto);
         BrandAuto = findViewById(R.id.BrandAuto);
         newSupplierAuto = findViewById(R.id.newSupplierAuto);
-        CustomerAuto = findViewById(R.id.CustomerAuto);
+//        CustomerAuto = findViewById(R.id.CustomerAuto);
         OrderStatusAuto = findViewById(R.id.OrderStatusAuto);
         OrderTypeAuto = findViewById(R.id.OrderTypeAuto);
-        SupplierAuto = findViewById(R.id.SupplierAuto);
+//        SupplierAuto = findViewById(R.id.SupplierAuto);
         ProductUpdate.setPaintFlags(ProductUpdate.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
         sourceRequestViewModel = new SourceRequestViewModel(getApplicationContext(), this);
         requestViewModel = new SeasonRequestViewModel(getApplicationContext(), this);
@@ -141,15 +141,15 @@ public class selectionForReport extends AppCompatActivity implements SourceRespo
         invoiceRequestViewModel = new GetInvoiceListReportViewModel(    getApplicationContext(), this);
         finalInvoiceViewModel = new FinalInvoiceViewModel(getApplicationContext(), this);
 
-        customerRequestViewModel = new CustomerRequestViewModel(getApplicationContext(), this);
-        customerRequestViewModel.setAuthorization("Bearer " + getPreferenceManager().getPrefToken());
-        customerRequestViewModel.setDbname(getPreferenceManager().getPrefDbname());
-        customerRequestViewModel.generateCustomerRequest();
+//        customerRequestViewModel = new CustomerRequestViewModel(getApplicationContext(), this);
+//        customerRequestViewModel.setAuthorization("Bearer " + getPreferenceManager().getPrefToken());
+//        customerRequestViewModel.setDbname(getPreferenceManager().getPrefDbname());
+//        customerRequestViewModel.generateCustomerRequest();
 
-        vendorNameViewModel = new VendorNameViewModel(getApplicationContext(), this);
-        vendorNameViewModel.setAuthorization("Bearer " + getPreferenceManager().getPrefToken());
-        vendorNameViewModel.setDbname(getPreferenceManager().getPrefDbname());
-        vendorNameViewModel.generateCustomerRequest();
+//        vendorNameViewModel = new VendorNameViewModel(getApplicationContext(), this);
+//        vendorNameViewModel.setAuthorization("Bearer " + getPreferenceManager().getPrefToken());
+//        vendorNameViewModel.setDbname(getPreferenceManager().getPrefDbname());
+//        vendorNameViewModel.generateCustomerRequest();
 
         orderTypeViewModel = new OrderTypeViewModel(getApplicationContext(), this);
         orderTypeViewModel.setAuthorization("Bearer " + getPreferenceManager().getPrefToken());
@@ -227,12 +227,12 @@ public class selectionForReport extends AppCompatActivity implements SourceRespo
                 newSupplierAuto.showDropDown();
             }
         });
-        at.CustomerLinear.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                CustomerAuto.showDropDown();
-            }
-        });
+//        at.CustomerLinear.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                CustomerAuto.showDropDown();
+//            }
+//        });
         SourceAuto.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -251,18 +251,18 @@ public class selectionForReport extends AppCompatActivity implements SourceRespo
                 SeasonNum = position + 1;
             }
         });
-        CustomerAuto.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                CustomerNum = position + 1;
-            }
-        });
-        CustomerAuto.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                CustomerNum = position + 1;
-            }
-        });
+//        CustomerAuto.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//                CustomerNum = position + 1;
+//            }
+//        });
+//        CustomerAuto.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//                CustomerNum = position + 1;
+//            }
+//        });
         OrderTypeAuto.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -275,12 +275,12 @@ public class selectionForReport extends AppCompatActivity implements SourceRespo
                 OrderStatusNUM = position + 1;
             }
         });
-        SupplierAuto.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                SupplierNum = position + 1;
-            }
-        });
+//        SupplierAuto.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//                SupplierNum = position + 1;
+//            }
+//        });
         BrandAuto.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -299,13 +299,18 @@ public class selectionForReport extends AppCompatActivity implements SourceRespo
                         .getNetworkInfo(ConnectivityManager.TYPE_WIFI)
                         .getState() == NetworkInfo.State.CONNECTED)) {
                     if (SeasonNum != 0 && sourceNum != 0) {
-                        brandRequestViewModel.setAuthorization("Bearer " + getPreferenceManager().getPrefToken());
-                        brandRequestViewModel.setSeasonId(SeasonId[SeasonNum - 1]);
-                        int ss = sourceNum - 1;
-                        brandRequestViewModel.setSourceFlag(sourceFlag[ss]);
-                        brandRequestViewModel.setSourceId(SourceId[ss]);
-                        brandRequestViewModel.setDbname(getPreferenceManager().getPrefDbname());
-                        brandRequestViewModel.generateBrandRequest();
+                        if(getPreferenceManager().getPrefTeamId()!=null) {
+                            brandRequestViewModel.setAuthorization("Bearer " + getPreferenceManager().getPrefToken());
+                            brandRequestViewModel.setSeasonId(SeasonId[SeasonNum - 1]);
+                            int ss = sourceNum - 1;
+                            brandRequestViewModel.setSourceFlag(sourceFlag[ss]);
+                            brandRequestViewModel.setSourceId(SourceId[ss]);
+                            brandRequestViewModel.setDbname(getPreferenceManager().getPrefDbname());
+                            brandRequestViewModel.setTeamId(getPreferenceManager().getPrefTeamId());
+                            brandRequestViewModel.generateBrandRequest();
+                        }else{
+                            Toast.makeText(getApplicationContext(), "Team id required.", Toast.LENGTH_SHORT).show();
+                        }
                     } else {
                         Toast.makeText(getApplicationContext(), "Season and Source are needed", Toast.LENGTH_SHORT).show();
                     }
@@ -315,12 +320,12 @@ public class selectionForReport extends AppCompatActivity implements SourceRespo
             }
         });
 
-        at.SupplierLinear.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                SupplierAuto.showDropDown();
-            }
-        });
+//        at.SupplierLinear.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                SupplierAuto.showDropDown();
+//            }
+//        });
         at.newSupplierLinear.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -434,7 +439,7 @@ public class selectionForReport extends AppCompatActivity implements SourceRespo
                         .getNetworkInfo(ConnectivityManager.TYPE_WIFI) != null && connectivityManager
                         .getNetworkInfo(ConnectivityManager.TYPE_WIFI)
                         .getState() == NetworkInfo.State.CONNECTED)) {
-                    if (sourceNum != 0 && SeasonNum != 0 && BrandNum != 0 && SupplierNum != 0 && !ff.isEmpty() && !un.isEmpty()) {
+                    if (sourceNum != 0 && SeasonNum != 0 && BrandNum != 0 &&  !ff.isEmpty() && !un.isEmpty()) {
                         {
                             invoiceRequestViewModel.setAuthorization("Bearer " + getPreferenceManager().getPrefToken().trim());
                             invoiceRequestViewModel.setSeasonId(generateSeasonResponseModel.getResponse().get(SeasonNum - 1).getSeasonId().trim());
@@ -663,40 +668,40 @@ public class selectionForReport extends AppCompatActivity implements SourceRespo
         }
     }
 
-    @Override
-    public void generateCustomerProcessed(CustomerNameResponseModel customerNameResponseModel) {
-        if (!customerNameResponseModel.getData().isEmpty()) {
-            CustomerName = new String[customerNameResponseModel.getData().size()];
-            CustomerID = new String[customerNameResponseModel.getData().size()];
-            CustomerCode = new String[customerNameResponseModel.getData().size()];
-            for (int i = 0; i < customerNameResponseModel.getData().size(); i++) {
-                CustomerName[i] = customerNameResponseModel.getData().get(i).getCustomerName();
-                CustomerCode[i] = customerNameResponseModel.getData().get(i).getCustomerCode();
-                CustomerID[i] = customerNameResponseModel.getData().get(i).getCustomerCode();
-            }
-            this.customerNameResponseModel = customerNameResponseModel;
-            CustomerAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_dropdown_item_1line, CustomerName);
-            CustomerAuto.setAdapter(CustomerAdapter);
-        }
-    }
+//    @Override
+//    public void generateCustomerProcessed(CustomerNameResponseModel customerNameResponseModel) {
+//        if (!customerNameResponseModel.getData().isEmpty()) {
+//            CustomerName = new String[customerNameResponseModel.getData().size()];
+//            CustomerID = new String[customerNameResponseModel.getData().size()];
+//            CustomerCode = new String[customerNameResponseModel.getData().size()];
+//            for (int i = 0; i < customerNameResponseModel.getData().size(); i++) {
+//                CustomerName[i] = customerNameResponseModel.getData().get(i).getCustomerName();
+//                CustomerCode[i] = customerNameResponseModel.getData().get(i).getCustomerCode();
+//                CustomerID[i] = customerNameResponseModel.getData().get(i).getCustomerCode();
+//            }
+//            this.customerNameResponseModel = customerNameResponseModel;
+//            CustomerAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_dropdown_item_1line, CustomerName);
+//            CustomerAuto.setAdapter(CustomerAdapter);
+//        }
+//    }
 
-    @Override
-    public void generateVendorNameProcessed(VendorNameResponseModel vendorNameResponseModel) {
-        if (!vendorNameResponseModel.getData().isEmpty()) {
-            SupplierCode = new String[vendorNameResponseModel.getData().size()];
-            SupplierName = new String[vendorNameResponseModel.getData().size()];
-            for (int i = 0; i < vendorNameResponseModel.getData().size(); i++) {
-                SupplierCode[i] = vendorNameResponseModel.getData().get(i).getVendorId();
-                SupplierName[i] = vendorNameResponseModel.getData().get(i).getVendorName();
-            }
-            this.vendorNameResponseModel = vendorNameResponseModel;
-            supplierAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_dropdown_item_1line, SupplierName);
-            SupplierAuto.setAdapter(supplierAdapter);
-
-        } else {
-            Toast.makeText(getApplicationContext(), "No data", Toast.LENGTH_LONG).show();
-        }
-    }
+//    @Override
+//    public void generateVendorNameProcessed(VendorNameResponseModel vendorNameResponseModel) {
+//        if (!vendorNameResponseModel.getData().isEmpty()) {
+//            SupplierCode = new String[vendorNameResponseModel.getData().size()];
+//            SupplierName = new String[vendorNameResponseModel.getData().size()];
+//            for (int i = 0; i < vendorNameResponseModel.getData().size(); i++) {
+//                SupplierCode[i] = vendorNameResponseModel.getData().get(i).getVendorId();
+//                SupplierName[i] = vendorNameResponseModel.getData().get(i).getVendorName();
+//            }
+//            this.vendorNameResponseModel = vendorNameResponseModel;
+//            supplierAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_dropdown_item_1line, SupplierName);
+//            SupplierAuto.setAdapter(supplierAdapter);
+//
+//        } else {
+//            Toast.makeText(getApplicationContext(), "No data", Toast.LENGTH_LONG).show();
+//        }
+//    }
 
     @Override
     public void generateOrderTypeProcessed(OrderTypeResponseModel orderTypeResponseModel) {
@@ -757,8 +762,8 @@ public class selectionForReport extends AppCompatActivity implements SourceRespo
             intent.putExtra("orderType", orderTypeRequestModel.getData().get(OrderTypeNum - 1).getOrderId());
             intent.putExtra("from", f);
             intent.putExtra("to", t);
-            intent.putExtra("vendor", vendorNameResponseModel.getData().get(SupplierNum - 1).getVendorId());
-            intent.putExtra("customer", customerNameResponseModel.getData().get(CustomerNum - 1).getCustomerId());
+//            intent.putExtra("vendor", vendorNameResponseModel.getData().get(SupplierNum - 1).getVendorId());
+//            intent.putExtra("customer", customerNameResponseModel.getData().get(CustomerNum - 1).getCustomerId());
             intent.putExtra("Seasonname", generateSeasonResponseModel.getResponse().get(SeasonNum - 1).getSeasonId());
             intent.putExtra("piNo", generateInvoiceResponseModel.getResponse().get(invoice).getInvoidNo());
             intent.putExtra("SourceName", generateSourceResponseModel.getResponse().get(sourceNum - 1).getSourceName());
@@ -771,8 +776,8 @@ public class selectionForReport extends AppCompatActivity implements SourceRespo
             intent.putExtra("orderType", orderTypeRequestModel.getData().get(OrderTypeNum - 1).getOrderId());
             intent.putExtra("from", f);
             intent.putExtra("to", t);
-            intent.putExtra("vendor", vendorNameResponseModel.getData().get(SupplierNum - 1).getVendorId());
-            intent.putExtra("customer", customerNameResponseModel.getData().get(CustomerNum - 1).getCustomerId());
+//            intent.putExtra("vendor", vendorNameResponseModel.getData().get(SupplierNum - 1).getVendorId());
+//            intent.putExtra("customer", customerNameResponseModel.getData().get(CustomerNum - 1).getCustomerId());
             intent.putExtra("Seasonname", generateSeasonResponseModel.getResponse().get(SeasonNum - 1).getSeasonId());
             intent.putExtra("piNo", generateInvoiceResponseModel.getResponse().get(invoice).getInvoidNo());
             intent.putExtra("SourceName", generateSourceResponseModel.getResponse().get(sourceNum - 1).getSourceName());

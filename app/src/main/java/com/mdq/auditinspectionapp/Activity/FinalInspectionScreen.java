@@ -313,19 +313,15 @@ public class FinalInspectionScreen extends AppCompatActivity implements FinalInv
     }
 
     private void setClick() {
-
-
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 onBackPressed();
             }
         });
-
         ap.datetext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 Calendar calendar = Calendar.getInstance();
                 int years = calendar.get(Calendar.YEAR);
                 int months = calendar.get(Calendar.MONTH);

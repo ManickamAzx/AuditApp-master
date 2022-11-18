@@ -20,16 +20,19 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.mdq.auditinspectionapp.Interfaces.ViewResponceInterface.LoginResponseInterface;
+import com.mdq.auditinspectionapp.Interfaces.ViewResponceInterface.getByUserIDResponseInterface;
 import com.mdq.auditinspectionapp.Pojo.JsonResonse.ErrorBody;
 import com.mdq.auditinspectionapp.Pojo.JsonResonse.GenerateLoginResponseModel;
+import com.mdq.auditinspectionapp.Pojo.JsonResonse.getByUserIDResponseModel;
 import com.mdq.auditinspectionapp.R;
 import com.mdq.auditinspectionapp.Utils.PreferenceManager;
 import com.mdq.auditinspectionapp.ViewModel.LoginRequestViewModel;
+import com.mdq.auditinspectionapp.ViewModel.getByUserIDViewModel;
 import com.mdq.auditinspectionapp.databinding.ActivityMainBinding;
 import com.mdq.auditinspectionapp.enums.MessageViewType;
 import com.mdq.auditinspectionapp.enums.ViewType;
 
-public class LoginActivity extends AppCompatActivity implements LoginResponseInterface {
+public class LoginActivity extends AppCompatActivity implements LoginResponseInterface, getByUserIDResponseInterface {
 
     TextView forgot;
     CardView cardView;
@@ -37,6 +40,7 @@ public class LoginActivity extends AppCompatActivity implements LoginResponseInt
     LoginRequestViewModel loginRequestViewModel;
     AutoCompleteTextView autoCompleteTextView;
     ArrayAdapter<String> adapterForDB;
+    getByUserIDViewModel getByUserIDViewModels;
     PreferenceManager preferenceManager;
     String[] DBList = new String[]{"FAI Group", "FA Impex", "Test"};
     String[] DBListActual = new String[]{"WindmillLive", "FAImpex", "WMTest"};
@@ -48,6 +52,7 @@ public class LoginActivity extends AppCompatActivity implements LoginResponseInt
         activityMainBinding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(activityMainBinding.getRoot());
         autoCompleteTextView = findViewById(R.id.autoComplete);
+        getByUserIDViewModels = new getByUserIDViewModel(this, this);
         //making status bar color as transparent
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             getWindow().addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
@@ -140,6 +145,10 @@ public class LoginActivity extends AppCompatActivity implements LoginResponseInt
         String message = generateLoginResponseModel.getMessage().toString();
         activityMainBinding.Progress.setVisibility(View.GONE);
         if (generateLoginResponseModel.getMessage().equals("Logged in successfully")) {
+            getByUserIDViewModels.setUser_id(generateLoginResponseModel.getData().getId());
+            getByUserIDViewModels.setDbname(getPreferenceManager().getPrefDbname());
+            getByUserIDViewModels.setAuth("Bearer "+generateLoginResponseModel.getToken());
+            getByUserIDViewModels.generateGetByID();
             dpid = Integer.parseInt(generateLoginResponseModel.getData().getDepartmentId());
             getPreferenceManager().setPrefToken(generateLoginResponseModel.getToken());
             getPreferenceManager().setPrefId(generateLoginResponseModel.getData().getId());
@@ -148,14 +157,28 @@ public class LoginActivity extends AppCompatActivity implements LoginResponseInt
             intent.putExtra("dpid", dpid);
             startActivity(intent);
             finishAffinity();
-            preferenceManager.setPrefUsername(generateLoginResponseModel.getData().getName());
-            preferenceManager.setPrefDpid(Integer.parseInt(generateLoginResponseModel.getData().getDepartmentId().toString()));
+            getPreferenceManager().setPrefUsername(generateLoginResponseModel.getData().getName());
+            getPreferenceManager().setPrefDpid(Integer.parseInt(generateLoginResponseModel.getData().getDepartmentId().toString()));
             Toast.makeText(getApplicationContext(), "Login Successful", Toast.LENGTH_SHORT).show();
         } else if (generateLoginResponseModel.getStatus().equals("1")) {
             Toast.makeText(this, "" + generateLoginResponseModel.getMessage(), Toast.LENGTH_SHORT).show();
         } else {
             Toast.makeText(this, "Invalid Request", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    @Override
+    public void generateGETBYID(getByUserIDResponseModel getByUserIDResponseModel) {
+
+        if (getByUserIDResponseModel.getStatus().equals("0")) {
+            try {
+                getPreferenceManager().setPrefTeamId(getByUserIDResponseModel.getUsers().get(0).getTeamId());
+
+            } catch (Exception e) {
+                Log.i("ExceptionInTEAMISGET", "" + e);
+            }
+        }
+
     }
 
     @Override

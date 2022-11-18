@@ -54,8 +54,8 @@ public class FinalReportScreen extends AppCompatActivity implements GetInspectio
         orderType = intent.getStringExtra("orderType");
         from = intent.getStringExtra("from");
         to = intent.getStringExtra("to");
-        vendor = intent.getStringExtra("vendor");
-        customer = intent.getStringExtra("customer");
+//        vendor = intent.getStringExtra("vendor");
+//        customer = intent.getStringExtra("customer");
         Seasonname = intent.getStringExtra("Seasonname");
         piNo = intent.getStringExtra("piNo");
         SourceName = intent.getStringExtra("SourceName");
@@ -66,11 +66,11 @@ public class FinalReportScreen extends AppCompatActivity implements GetInspectio
         if (who.equals("production")) {
             getProductionReportViewModel.setAuth("Bearer " + getPreferenceManager().getPrefToken());
             getProductionReportViewModel.setBrand(BRAND);
-            getProductionReportViewModel.setCustomer(customer);
+//            getProductionReportViewModel.setCustomer(customer);
             getProductionReportViewModel.setInvoiceNo(piNo);
             getProductionReportViewModel.setOrderStatus(OrderStatus);
             getProductionReportViewModel.setOrderType(orderType);
-            getProductionReportViewModel.setVendor(vendor);
+//            getProductionReportViewModel.setVendor(vendor);
             getProductionReportViewModel.setSeasonName(Seasonname);
             getProductionReportViewModel.setFrom(from);
             getProductionReportViewModel.setTo(to);
@@ -81,11 +81,11 @@ public class FinalReportScreen extends AppCompatActivity implements GetInspectio
         } else if (who.equals("inspection")) {
             getInspectionViewModel.setAuth("Bearer " + getPreferenceManager().getPrefToken());
             getInspectionViewModel.setBrand(BRAND);
-            getInspectionViewModel.setCustomer(customer);
+//            getInspectionViewModel.setCustomer(customer);
             getInspectionViewModel.setInvoiceNo(piNo);
             getInspectionViewModel.setOrderStatus(OrderStatus);
             getInspectionViewModel.setOrderType(orderType);
-            getInspectionViewModel.setVendor(vendor);
+//            getInspectionViewModel.setVendor(vendor);
             getInspectionViewModel.setSeasonName(Seasonname);
             getInspectionViewModel.setFrom(from);
             getInspectionViewModel.setTo(to);
@@ -145,20 +145,24 @@ public class FinalReportScreen extends AppCompatActivity implements GetInspectio
     @Override
     public void GetInspectionReportProcess(GetInspectionReportResponseModel getInspectionReportResponseModel) {
 
-        if (!getInspectionReportResponseModel.getLink().isEmpty()) {
-            download = true;
-            this.getInspectionReportResponseModel = getInspectionReportResponseModel;
-            activityFinalReportScreenBinding.textView22.setText("Data found");
-            activityFinalReportScreenBinding.textView22.setVisibility(View.VISIBLE);
-            activityFinalReportScreenBinding.SAVE.setVisibility(View.VISIBLE);
-            activityFinalReportScreenBinding.fetching.setVisibility(View.INVISIBLE);
-            activityFinalReportScreenBinding.progress.setVisibility(View.INVISIBLE);
-        } else {
-            activityFinalReportScreenBinding.textView22.setText("Data not found");
-            activityFinalReportScreenBinding.textView22.setVisibility(View.VISIBLE);
-            activityFinalReportScreenBinding.SAVE.setVisibility(View.INVISIBLE);
-            activityFinalReportScreenBinding.fetching.setVisibility(View.INVISIBLE);
-            activityFinalReportScreenBinding.progress.setVisibility(View.INVISIBLE);
+        try {
+            if (getInspectionReportResponseModel.getLink() != null && !getInspectionReportResponseModel.getLink().isEmpty()) {
+                download = true;
+                this.getInspectionReportResponseModel = getInspectionReportResponseModel;
+                activityFinalReportScreenBinding.textView22.setText("Data found");
+                activityFinalReportScreenBinding.textView22.setVisibility(View.VISIBLE);
+                activityFinalReportScreenBinding.SAVE.setVisibility(View.VISIBLE);
+                activityFinalReportScreenBinding.fetching.setVisibility(View.INVISIBLE);
+                activityFinalReportScreenBinding.progress.setVisibility(View.INVISIBLE);
+            } else {
+                activityFinalReportScreenBinding.textView22.setText("Data not found");
+                activityFinalReportScreenBinding.textView22.setVisibility(View.VISIBLE);
+                activityFinalReportScreenBinding.SAVE.setVisibility(View.INVISIBLE);
+                activityFinalReportScreenBinding.fetching.setVisibility(View.INVISIBLE);
+                activityFinalReportScreenBinding.progress.setVisibility(View.INVISIBLE);
+            }
+        }catch (Exception e){
+
         }
     }
 

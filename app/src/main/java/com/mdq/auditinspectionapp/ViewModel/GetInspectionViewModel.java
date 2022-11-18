@@ -32,10 +32,10 @@ public class GetInspectionViewModel extends GetInspectionReportBaseVieModel impl
     private void goGenerateBrand() {
         GetInspectionReportRequestModel getInspectionReportRequestModel=new GetInspectionReportRequestModel();
         getInspectionReportRequestModel.seasonName=getSeasonName();
-        getInspectionReportRequestModel.customer=getCustomer();
+//        getInspectionReportRequestModel.customer=getCustomer();
         getInspectionReportRequestModel.brand=getBrand();
         getInspectionReportRequestModel.invoiceNo=getInvoiceNo();
-        getInspectionReportRequestModel.vendor=getVendor();
+//        getInspectionReportRequestModel.vendor=getVendor();
         getInspectionReportRequestModel.orderType=getOrderType();
         getInspectionReportRequestModel.orderStatus=getOrderStatus();
         getInspectionReportRequestModel.from=getFrom();

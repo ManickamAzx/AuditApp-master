@@ -29,6 +29,16 @@ public class BrandRequestBaseViewModel {
     private String sourceFlag;
     private String seasonId;
 
+    public String getTeamId() {
+        return teamId;
+    }
+
+    public void setTeamId(String teamId) {
+        this.teamId = teamId;
+    }
+
+    private String teamId;
+
     public String getDbname() {
         return dbname;
     }

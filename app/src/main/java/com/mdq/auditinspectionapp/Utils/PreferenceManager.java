@@ -32,6 +32,8 @@ public class PreferenceManager {
 
     private static final String PREF_ID = "PREF_ID";
 
+    private static final String PREF_TEAM_ID = "PREF_TEAM_ID";
+
     private static PreferenceManager mInstance;
 
     public void initialize(Context context) {
@@ -100,6 +102,15 @@ public class PreferenceManager {
 
     public String getPrefUsername() {
         return sharedPreferences.getString(PREF_USERNAME, null);
+    }
+
+    public void setPrefTeamId(String Token) {
+        editor.putString(PREF_TEAM_ID, Token);
+        editor.commit();
+    }
+
+    public String getPrefTeamId() {
+        return sharedPreferences.getString(PREF_TEAM_ID, null);
     }
 
     public void setPrefInvoice(GenerateFinalInvoiceRequestModel Token) {

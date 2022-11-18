@@ -3,10 +3,10 @@ package com.mdq.auditinspectionapp.ViewModel;
 public class GetInspectionReportBaseVieModel {
 
     public String seasonName;
-    public String customer;
+//    public String customer;
     public String brand;
     public String invoiceNo;
-    public String vendor;
+//    public String vendor;
     public String orderType;
     public String orderStatus;
     public String from;
@@ -40,13 +40,13 @@ public class GetInspectionReportBaseVieModel {
         this.seasonName = seasonName;
     }
 
-    public String getCustomer() {
-        return customer;
-    }
+//    public String getCustomer() {
+//        return customer;
+//    }
 
-    public void setCustomer(String customer) {
-        this.customer = customer;
-    }
+//    public void setCustomer(String customer) {
+//        this.customer = customer;
+//    }
 
     public String getBrand() {
         return brand;
@@ -64,13 +64,13 @@ public class GetInspectionReportBaseVieModel {
         this.invoiceNo = invoiceNo;
     }
 
-    public String getVendor() {
-        return vendor;
-    }
+//    public String getVendor() {
+//        return vendor;
+//    }
 
-    public void setVendor(String vendor) {
-        this.vendor = vendor;
-    }
+//    public void setVendor(String vendor) {
+//        this.vendor = vendor;
+//    }
 
     public String getOrderType() {
         return orderType;

@@ -3,14 +3,22 @@ package com.mdq.auditinspectionapp.Pojo.JsonResonse;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class GenerateUpdateProductionResponseModel {
+import java.util.List;
+
+public class getByUserIDResponseModel {
+
 
     @SerializedName("message")
     @Expose
     public String message;
+
     @SerializedName("status")
     @Expose
     public String status;
+
+    @SerializedName("users")
+    @Expose
+    public List<ResonseForUserId> users;
 
     public String getMessage() {
         return message;
@@ -28,4 +36,11 @@ public class GenerateUpdateProductionResponseModel {
         this.status = status;
     }
 
+    public List<ResonseForUserId> getUsers() {
+        return users;
+    }
+
+    public void setUsers(List<ResonseForUserId> users) {
+        this.users = users;
+    }
 }

@@ -122,9 +122,7 @@ public class FinalProductionUpdate extends AppCompatActivity implements FinalInv
         shipModeRequestViewModel.generateShipModeRequest();
 
         if (!piNo.isEmpty() && !from.isEmpty() && !to.isEmpty() && !SourceFlag.isEmpty() && SourceId != 0 && !orderStatus.isEmpty()) {
-
             finainvoice();
-
         }
 
         shipModeRequestViewModel = new ShipModeRequestViewModel(getApplicationContext(), this);
@@ -146,7 +144,10 @@ public class FinalProductionUpdate extends AppCompatActivity implements FinalInv
         ap.dispatch.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                ShipId = position;
+//                Toast.makeText(FinalProductionUpdate.this, ""+position, Toast.LENGTH_SHORT).show();
+                ShipId = position+1;
+//                Toast.makeText(FinalProductionUpdate.this, ""+
+//                        generateShipModeResponseModel.getResponse().get(ShipId-1).getModeId().trim(), Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -278,7 +279,7 @@ public class FinalProductionUpdate extends AppCompatActivity implements FinalInv
                         if (!dates.equals("T00:00:00")) {
                             ap.Progress.setVisibility(View.VISIBLE);
                             updateProductionRequestViewModel.custOrderNo = generateFinalInvoiceResponseModel.getResponse().get(getId).getCustOrderNo().trim();
-                            updateProductionRequestViewModel.dispatchModeId = Integer.parseInt(generateShipModeResponseModel.getResponse().get(ShipId).getModeId().trim());
+                            updateProductionRequestViewModel.dispatchModeId = Integer.parseInt(generateShipModeResponseModel.getResponse().get(ShipId-1).getModeId().trim());
                             updateProductionRequestViewModel.foreCastDelDate = dates.trim();
                             updateProductionRequestViewModel.pgmCode = generateFinalInvoiceResponseModel.getResponse().get(getId).getPgmCode().trim();
                             updateProductionRequestViewModel.remarks = ap.REMARKS.getText().toString().trim();
@@ -609,7 +610,7 @@ public class FinalProductionUpdate extends AppCompatActivity implements FinalInv
     private void shipment(int id) {
         arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_dropdown_item_1line, ShipModeArray);
         if (id != 0) {
-            ShipId = id-1;
+            ShipId = id;
             ap.dispatch.setText(generateShipModeResponseModel.getResponse().get(id-1).getModeName());
         }
         ap.dispatch.setAdapter(arrayAdapter);
