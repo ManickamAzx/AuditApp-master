@@ -620,6 +620,7 @@ public class TransactionProductUpdate extends AppCompatActivity implements Sourc
             intent.putExtra("piNo", generateInvoiceResponseModel.getResponse().get(invoice).getInvoidNo());
             intent.putExtra("from", f);
             intent.putExtra("to", t);
+            intent.putExtra("perfrmaInVoiceDate", generateInvoiceResponseModel.getResponse().get(invoice).getInvoidDate());
             intent.putExtra("SourceId", Integer.valueOf(generateSourceResponseModel.getResponse().get(sourceNum - 1).getSourceId()));
             intent.putExtra("SourceFlag", generateSourceResponseModel.getResponse().get(sourceNum - 1).getSourceFlag());
             intent.putExtra("SeasonAuto", at.SeasonAuto.getText().toString());
@@ -637,6 +638,7 @@ public class TransactionProductUpdate extends AppCompatActivity implements Sourc
             intent.putExtra("piNo", generateInvoiceResponseModel.getResponse().get(invoice).getInvoidNo());
             intent.putExtra("from", f);
             intent.putExtra("to", t);
+            intent.putExtra("perfrmaInVoiceDate", generateInvoiceResponseModel.getResponse().get(invoice).getInvoidDate());
             intent.putExtra("SeasonAuto", at.SeasonAuto.getText().toString());
             intent.putExtra("SupplierAuto", at.SupplierAuto.getText().toString());
             intent.putExtra("SourceId", Integer.valueOf(generateSourceResponseModel.getResponse().get(sourceNum - 1).getSourceId()));

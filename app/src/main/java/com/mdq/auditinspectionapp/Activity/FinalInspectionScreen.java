@@ -86,6 +86,7 @@ public class FinalInspectionScreen extends AppCompatActivity implements FinalInv
     GetInspectionReportResponseModel getInspectionReportResponseModel;
     boolean InReport = true;
     String SupplierAuto;
+    String perfrmaInVoiceDate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -120,7 +121,8 @@ public class FinalInspectionScreen extends AppCompatActivity implements FinalInv
         SourceName = intent.getStringExtra("SourceName");
         BRAND = intent.getStringExtra("BRAND");
         SupplierAuto = intent.getStringExtra("SupplierAuto");
-
+        perfrmaInVoiceDate = intent.getStringExtra("perfrmaInVoiceDate");
+        ap.piDate.setText(perfrmaInVoiceDate);
         ap.Season.setText(SeasonAuto);
         ap.Buyer.setText(SourceName);
         ap.Brand.setText(BRAND);
@@ -489,11 +491,11 @@ public class FinalInspectionScreen extends AppCompatActivity implements FinalInv
                     }
                 }
 
-                if (generateFinalInvoiceResponseModel.getResponse().get(getId).getBuyerEtd() != null && !generateFinalInvoiceResponseModel.getResponse().get(getId).getBuyerEtd().trim().isEmpty()) {
-                    ap.piDate.setText(generateFinalInvoiceResponseModel.getResponse().get(getId).getBuyerEtd().trim());
-                } else {
-                    ap.piDate.setText("-");
-                }
+//                if (generateFinalInvoiceResponseModel.getResponse().get(getId).getVendorDelDate() != null && !generateFinalInvoiceResponseModel.getResponse().get(getId).getBuyerEtd().trim().isEmpty()) {
+//                    ap.piDate.setText(generateFinalInvoiceResponseModel.getResponse().get(getId).getBuyerEtd().trim());
+//                } else {
+//                    ap.piDate.setText("-");
+//                }
 
                 if (generateFinalInvoiceResponseModel.getResponse().get(getId).getDeliveryTerms() != null && !generateFinalInvoiceResponseModel.getResponse().get(getId).getBuyerEtd().trim().isEmpty()) {
                     ap.DeleveryFac.setText(generateFinalInvoiceResponseModel.getResponse().get(getId).getDeliveryTerms().trim());

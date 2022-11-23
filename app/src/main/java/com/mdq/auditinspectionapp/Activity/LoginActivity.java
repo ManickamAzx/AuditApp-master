@@ -68,7 +68,6 @@ public class LoginActivity extends AppCompatActivity implements LoginResponseInt
         autoCompleteTextView.setText(adapterForDB.getItem(0).toString());
         autoCompleteTextView.setAdapter(adapterForDB);
 
-
         activityMainBinding.CardForHeading.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -141,8 +140,7 @@ public class LoginActivity extends AppCompatActivity implements LoginResponseInt
 
     @Override
     public void generateLoginProcessed(GenerateLoginResponseModel generateLoginResponseModel) {
-        String msg = "Logged in successfully";
-        String message = generateLoginResponseModel.getMessage().toString();
+
         activityMainBinding.Progress.setVisibility(View.GONE);
         if (generateLoginResponseModel.getMessage().equals("Logged in successfully")) {
             getByUserIDViewModels.setUser_id(generateLoginResponseModel.getData().getId());
@@ -161,9 +159,9 @@ public class LoginActivity extends AppCompatActivity implements LoginResponseInt
             getPreferenceManager().setPrefDpid(Integer.parseInt(generateLoginResponseModel.getData().getDepartmentId().toString()));
             Toast.makeText(getApplicationContext(), "Login Successful", Toast.LENGTH_SHORT).show();
         } else if (generateLoginResponseModel.getStatus().equals("1")) {
-            Toast.makeText(this, "" + generateLoginResponseModel.getMessage(), Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), "" + generateLoginResponseModel.getMessage(), Toast.LENGTH_LONG).show();
         } else {
-            Toast.makeText(this, "Invalid Request", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), "Invalid Request", Toast.LENGTH_LONG).show();
         }
     }
 

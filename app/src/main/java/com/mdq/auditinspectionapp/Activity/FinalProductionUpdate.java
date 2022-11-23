@@ -77,7 +77,7 @@ public class FinalProductionUpdate extends AppCompatActivity implements FinalInv
     GetProductionReportViewModel getProductionReportViewModel;
     GetProductionReportResponseModel getProductionReportResponseModel;
     boolean report = true;
-    String BRAND, SupplierAuto;
+    String BRAND, SupplierAuto,perfrmaInVoiceDate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -108,7 +108,8 @@ public class FinalProductionUpdate extends AppCompatActivity implements FinalInv
         SourceName = intent.getStringExtra("SourceName");
         BRAND = intent.getStringExtra("BRAND");
         SupplierAuto = intent.getStringExtra("SupplierAuto");
-
+        perfrmaInVoiceDate = intent.getStringExtra("perfrmaInVoiceDate");
+        ap.piDate.setText(perfrmaInVoiceDate);
 
 
         ap.Season.setText(SeasonAuto);
@@ -461,11 +462,11 @@ public class FinalProductionUpdate extends AppCompatActivity implements FinalInv
                 }else{
                     ap.STYLENAME.setText("-");
                 }
-                if (generateFinalInvoiceResponseModel.getResponse().get(getId).getCustOrderNo() != null && !generateFinalInvoiceResponseModel.getResponse().get(getId).getCustOrderNo().isEmpty()) {
-                    ap.piDate.setText(generateFinalInvoiceResponseModel.getResponse().get(getId).getCustOrderNo().trim());
-                } else {
-                    ap.piDate.setText("-");
-                }
+//                if (generateFinalInvoiceResponseModel.getResponse().get(getId).getCustOrderNo() != null && !generateFinalInvoiceResponseModel.getResponse().get(getId).getCustOrderNo().isEmpty()) {
+//                    ap.piDate.setText(generateFinalInvoiceResponseModel.getResponse().get(getId).getCustOrderNo().trim());
+//                } else {
+//                    ap.piDate.setText("-");
+//                }
 //        ap.piDate.setText("FAI21220037HAR");
                 if (generateFinalInvoiceResponseModel.getResponse().get(getId).getBuyerPo() != null && !generateFinalInvoiceResponseModel.getResponse().get(getId).getBuyerPo().isEmpty()) {
                     ap.BUYER.setText(generateFinalInvoiceResponseModel.getResponse().get(getId).getBuyerPo().trim());

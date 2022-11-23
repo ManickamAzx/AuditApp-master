@@ -336,7 +336,7 @@ public class selectionForReport extends AppCompatActivity implements SourceRespo
                         .getNetworkInfo(ConnectivityManager.TYPE_WIFI) != null && connectivityManager
                         .getNetworkInfo(ConnectivityManager.TYPE_WIFI)
                         .getState() == NetworkInfo.State.CONNECTED)) {
-                    if (SeasonNum != 0 && sourceNum != 0) {
+                    if (SeasonNum != 0 && sourceNum != 0 && BrandNum !=0) {
                         supplierRequestViewModel.setAuthorization("Bearer " + getPreferenceManager().getPrefToken());
                         supplierRequestViewModel.setSeasonId(SeasonId[SeasonNum - 1]);
                         int ss = sourceNum - 1;
@@ -346,7 +346,7 @@ public class selectionForReport extends AppCompatActivity implements SourceRespo
                         supplierRequestViewModel.setDbname(getPreferenceManager().getPrefDbname());
                         supplierRequestViewModel.generateSupplierRequest();
                     } else {
-                        Toast.makeText(getApplicationContext(), "Season and Source are needed", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), "Season , Source and Brand are needed", Toast.LENGTH_SHORT).show();
                     }
                 } else {
                     Toast.makeText(getApplicationContext(), "This App Require Internet", Toast.LENGTH_SHORT).show();
