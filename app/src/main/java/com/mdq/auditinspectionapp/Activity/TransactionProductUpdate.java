@@ -373,8 +373,6 @@ public class TransactionProductUpdate extends AppCompatActivity implements Sourc
                             invoiceRequestViewModel.setSupplierCode(generateSupplierResponseModel.getResponse().get(SupplierNum - 1).getSupplierCode().trim());
                             invoiceRequestViewModel.setSourceId(generateSourceResponseModel.getResponse().get(sourceNum - 1).getSourceId().trim());
                             invoiceRequestViewModel.setBrandId(generateBrandResponseModel.getResponse().get(BrandNum - 1).getBrandId().trim());
-//                            invoiceRequestViewModel.setFrom(at.from.getText().toString());
-//                            invoiceRequestViewModel.setTo(at.until.getText().toString());
                             invoiceRequestViewModel.setDbname(getPreferenceManager().getPrefDbname());
                             invoiceRequestViewModel.generateInvoiceRequest();
                         }

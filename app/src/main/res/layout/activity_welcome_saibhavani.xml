@@ -20,7 +20,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginLeft="100dp"
             android:layout_marginRight="100dp"
-            android:src="@drawable/ic_audit_inspection"
+            android:src="@drawable/ic_audit_inspection_logo"
             android:id="@+id/image"
             app:layout_constraintStart_toStartOf="parent" />
 

@@ -144,8 +144,6 @@ public class FinalInspectionScreen extends AppCompatActivity implements FinalInv
             qcNameRequestViewModel.setSourceFlag(SourceFlag);
             qcNameRequestViewModel.setSourceId(String.valueOf(SourceId));
             qcNameRequestViewModel.setDbname(getPreferenceManager().getPrefDbname());
-//            apiClass.QCNAME = "get-qcname-list/";
-//            apiClass.QCNAME = apiClass.QCNAME + getPreferenceManager().getPrefDpid();
             Log.i("wded", "" + apiClass.QCNAME);
             qcResultRequestViewModel.setAuth("Bearer " + getPreferenceManager().getPrefToken().trim());
             qcResultRequestViewModel.setDbname(getPreferenceManager().getPrefDbname());
@@ -212,18 +210,8 @@ public class FinalInspectionScreen extends AppCompatActivity implements FinalInv
         ap.PREV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                if (who != null) {
-//                    getId = getId - 1;
-//                    if (getId >= 0) {
-//                        ap.NEXT.setClickable(true);
-//                        InspectionReport();
-//                    } else {
-//                        ap.PREV.setClickable(false);
-//                    }
-//                } else {
                 getId = getId - 1;
                 FinalInvoice(generateFinalInvoiceResponseModel, 2);
-//                }
                 diable();
             }
         });
@@ -231,18 +219,8 @@ public class FinalInspectionScreen extends AppCompatActivity implements FinalInv
         ap.NEXT.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                if (who != null) {
-//                    getId = getId + 1;
-//                    if (getId < getInspectionReportResponseModel.getDetails().size()) {
-//                        ap.PREV.setClickable(true);
-//                        InspectionReport();
-//                    } else {
-//                        ap.NEXT.setClickable(true);
-//                    }
-//                } else {
                 getId = getId + 1;
                 FinalInvoice(generateFinalInvoiceResponseModel, 1);
-//                }
                 diable();
 
             }
@@ -491,19 +469,12 @@ public class FinalInspectionScreen extends AppCompatActivity implements FinalInv
                     }
                 }
 
-//                if (generateFinalInvoiceResponseModel.getResponse().get(getId).getVendorDelDate() != null && !generateFinalInvoiceResponseModel.getResponse().get(getId).getBuyerEtd().trim().isEmpty()) {
-//                    ap.piDate.setText(generateFinalInvoiceResponseModel.getResponse().get(getId).getBuyerEtd().trim());
-//                } else {
-//                    ap.piDate.setText("-");
-//                }
-
                 if (generateFinalInvoiceResponseModel.getResponse().get(getId).getDeliveryTerms() != null && !generateFinalInvoiceResponseModel.getResponse().get(getId).getBuyerEtd().trim().isEmpty()) {
                     ap.DeleveryFac.setText(generateFinalInvoiceResponseModel.getResponse().get(getId).getDeliveryTerms().trim());
                 } else {
                     ap.DeleveryFac.setText("-");
                 }
 
-//        ap.piDate.setText("FAI21220037HAR");
                 if (generateFinalInvoiceResponseModel.getResponse().get(getId).getCustOrderNo() != null && !generateFinalInvoiceResponseModel.getResponse().get(getId).getCustOrderNo().isEmpty()) {
                     ap.BUYER.setText(generateFinalInvoiceResponseModel.getResponse().get(getId).getCustOrderNo().trim());
                 } else {
@@ -514,11 +485,6 @@ public class FinalInspectionScreen extends AppCompatActivity implements FinalInv
                 } else {
                     ap.vendor.setText("-");
                 }
-//                if (generateFinalInvoiceResponseModel.getResponse().get(getId).getbrandId() != null) {
-//                    ap.Buyer.setText(generateFinalInvoiceResponseModel.getResponse().get(getId).getbrandId());
-//                } else {
-//                    ap.Buyer.setText("NO DATA");
-//                }
                 if (generateFinalInvoiceResponseModel.getResponse().get(getId).getOrderQty() != null && !generateFinalInvoiceResponseModel.getResponse().get(getId).getOrderQty().isEmpty()) {
 
                     ap.ORDERQTY.setText(generateFinalInvoiceResponseModel.getResponse().get(getId).getOrderQty().trim());
@@ -624,7 +590,6 @@ public class FinalInspectionScreen extends AppCompatActivity implements FinalInv
                 }
                 ArrayAdapterQCName = new ArrayAdapter<String>(this, android.R.layout.simple_dropdown_item_1line, QCNameArray);
                 ap.QCNAMES.setAdapter(ArrayAdapterQCName);
-//            ap.QCNAMES.dismissDropDown();
             }
         }
 
@@ -683,37 +648,9 @@ public class FinalInspectionScreen extends AppCompatActivity implements FinalInv
         getInspectionReportResponseModel){
             if (getInspectionReportResponseModel.getMessage().equals("Record found")) {
                 this.getInspectionReportResponseModel = getInspectionReportResponseModel;
-//            InspectionReport();
             }
 
         }
-
-//    private void InspectionReport() {
-//        ap.piNo.setText(getInspectionReportResponseModel.getDetails().get(getId).getInvoiceNo());
-//        ap.piDate.setText(getInspectionReportResponseModel.getDetails().get(getId).getInvoiceDate());
-//        ap.STYLENAME.setText(getInspectionReportResponseModel.getDetails().get(getId).getStyle());
-//        ap.BUYER.setText(getInspectionReportResponseModel.getDetails().get(getId).getOrderNo());
-//        ap.ORDERQTY.setText(getInspectionReportResponseModel.getDetails().get(getId).getOrderedQty());
-//        ap.BALANCE.setText(getInspectionReportResponseModel.getDetails().get(getId).getBalanceQty());
-//        ap.VENDORDELDATE.setText(getInspectionReportResponseModel.getDetails().get(getId).getVendorDel());
-//        ap.vendor.setText(getInspectionReportResponseModel.getDetails().get(getId).getVendor());
-//        ap.FORECASTDELDATE.setText(getInspectionReportResponseModel.getDetails().get(getId).getForeCastDelDate());
-//        ap.CITY.setText(getInspectionReportResponseModel.getDetails().get(getId).getDestination());
-//        ap.dispatch.setText(getInspectionReportResponseModel.getDetails().get(getId).getShipMode());
-//        ap.REMARKS.setText(getInspectionReportResponseModel.getDetails().get(getId).getRemarks());
-//        ap.datetext.setText(getInspectionReportResponseModel.getDetails().get(getId).getInspectionDate());
-//        ap.QCRESULT.setText(getInspectionReportResponseModel.getDetails().get(getId).getResult());
-//        ap.QCREMARKS.setText(getInspectionReportResponseModel.getDetails().get(getId).getQcRemarks());
-//        ap.QCNAME.setText(getInspectionReportResponseModel.getDetails().get(getId).getQcBy());
-//        ap.DeleveryFac.setText(getInspectionReportResponseModel.getDetails().get(getId).getDeliveryTerms());
-//
-//        ap.datetext.setCompoundDrawablesWithIntrinsicBounds(null, null, null, null);
-//        ap.QCNAME.setCompoundDrawablesWithIntrinsicBounds(null, null, null, null);
-//        ap.QCRESULT.setCompoundDrawablesWithIntrinsicBounds(null, null, null, null);
-//
-//        ap.QCREMARKS.setEnabled(false);
-//        ap.QCREMARKS.setKeyListener(null);
-//    }
 
         @Override
         public void onFailure (ErrorBody errorBody,int statusCode){

@@ -145,10 +145,7 @@ public class FinalProductionUpdate extends AppCompatActivity implements FinalInv
         ap.dispatch.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//                Toast.makeText(FinalProductionUpdate.this, ""+position, Toast.LENGTH_SHORT).show();
                 ShipId = position+1;
-//                Toast.makeText(FinalProductionUpdate.this, ""+
-//                        generateShipModeResponseModel.getResponse().get(ShipId-1).getModeId().trim(), Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -168,40 +165,22 @@ public class FinalProductionUpdate extends AppCompatActivity implements FinalInv
         } else {
             ap.PREV.setClickable(true);
         }
-//        if (who != null) {
-//            if (getProductionReportResponseModel.getDetails() != null) {
-//                if (getId == getProductionReportResponseModel.getDetails().size()) {
-//                    ap.NEXT.setClickable(false);
-//                } else {
-//                    ap.NEXT.setClickable(true);
-//                }
-//            }
-//        } else {
+
         if (generateFinalInvoiceResponseModel.getResponse() != null) {
             if (getId == generateFinalInvoiceResponseModel.getResponse().size()) {
                 ap.NEXT.setClickable(false);
             } else {
                 ap.NEXT.setClickable(true);
             }
-//            }
         }
 
 
         ap.PREV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                if (who != null) {
-//                    getId = getId - 1;
-//                    if (getId >= 0) {
-//                        ap.NEXT.setClickable(true);
-////                        productionReport();
-//                    }else{
-//                        ap.PREV.setClickable(false);
-//                    }
-//                } else {
+
                 getId = getId - 1;
                 FinalInvoice(generateFinalInvoiceResponseModel, 2);
-//                }
                 diable();
             }
         });
@@ -209,18 +188,9 @@ public class FinalProductionUpdate extends AppCompatActivity implements FinalInv
         ap.NEXT.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                if (who != null) {
-//                    getId = getId + 1;
-//                    if (getId < getProductionReportResponseModel.getDetails().size()) {
-//                        ap.PREV.setClickable(true);
-////                        productionReport();
-//                    }else{
-//                        ap.NEXT.setClickable(false);
-//                    }
-//                } else {
+
                 getId = getId + 1;
                 FinalInvoice(generateFinalInvoiceResponseModel, 1);
-//                }
                 diable();
             }
         });
@@ -462,12 +432,6 @@ public class FinalProductionUpdate extends AppCompatActivity implements FinalInv
                 }else{
                     ap.STYLENAME.setText("-");
                 }
-//                if (generateFinalInvoiceResponseModel.getResponse().get(getId).getCustOrderNo() != null && !generateFinalInvoiceResponseModel.getResponse().get(getId).getCustOrderNo().isEmpty()) {
-//                    ap.piDate.setText(generateFinalInvoiceResponseModel.getResponse().get(getId).getCustOrderNo().trim());
-//                } else {
-//                    ap.piDate.setText("-");
-//                }
-//        ap.piDate.setText("FAI21220037HAR");
                 if (generateFinalInvoiceResponseModel.getResponse().get(getId).getBuyerPo() != null && !generateFinalInvoiceResponseModel.getResponse().get(getId).getBuyerPo().isEmpty()) {
                     ap.BUYER.setText(generateFinalInvoiceResponseModel.getResponse().get(getId).getBuyerPo().trim());
                 } else {
@@ -648,35 +612,8 @@ public class FinalProductionUpdate extends AppCompatActivity implements FinalInv
 
         if (getProductionReportResponseModel.getMessage().equals("Record found")) {
             this.getProductionReportResponseModel = getProductionReportResponseModel;
-//            productionReport();
         }
     }
-
-//    private void productionReport() {
-//        try {
-//            if (!getProductionReportResponseModel.getDetails().isEmpty()) {
-//                ap.piDate.setText(getProductionReportResponseModel.getDetails().get(getId).getInvoiceDate());
-//                ap.DeleveryFac.setText(getProductionReportResponseModel.getDetails().get(getId).getDeliveryTerms());
-//                ap.piNo.setText(getProductionReportResponseModel.getDetails().get(getId).getInvoiceNo());
-//                ap.vendors.setText(getProductionReportResponseModel.getDetails().get(getId).getVendor());
-//                ap.STYLENAME.setText(getProductionReportResponseModel.getDetails().get(getId).getStyle());
-//                ap.BUYER.setText(getProductionReportResponseModel.getDetails().get(getId).getOrderNo());
-//                ap.ORDERQTY.setText(getProductionReportResponseModel.getDetails().get(getId).getOrderedQty());
-//                ap.VENDORDELDATE.setText(getProductionReportResponseModel.getDetails().get(getId).getVendorDel());
-//                ap.FORECASTDELDATE.setText(getProductionReportResponseModel.getDetails().get(getId).getForeCastDelDate());
-//                ap.CITY.setText(getProductionReportResponseModel.getDetails().get(getId).getDestination());
-//                ap.dispatch.setText(getProductionReportResponseModel.getDetails().get(getId).getShipMode());
-//                ap.REMARKS.setText(getProductionReportResponseModel.getDetails().get(getId).getRemarks());
-//                ap.BALANCE.setText(getProductionReportResponseModel.getDetails().get(getId).getBalanceQty());
-//                ap.dispatch.setCompoundDrawablesWithIntrinsicBounds(null, null, null, null);
-//                ap.FORECASTDELDATE.setCompoundDrawablesWithIntrinsicBounds(null, null, null, null);
-//                ap.REMARKS.setEnabled(false);
-//                ap.REMARKS.setKeyListener(null);
-//            }
-//        } catch (Exception e) {
-//
-//        }
-//    }
 
     @Override
     public void onFailure(ErrorBody errorBody, int statusCode) {
@@ -716,7 +653,6 @@ public class FinalProductionUpdate extends AppCompatActivity implements FinalInv
                     return result.equals(value);
                 } catch (DateTimeParseException e2) {
                     // Debugging purposes
-                    //e2.printStackTrace();
                 }
             }
         }

@@ -5,11 +5,14 @@ import androidx.cardview.widget.CardView;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.text.method.LinkMovementMethod;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
@@ -45,6 +48,7 @@ public class LoginActivity extends AppCompatActivity implements LoginResponseInt
     String[] DBList = new String[]{"FAI Group", "FA Impex", "Test"};
     String[] DBListActual = new String[]{"WindmillLive", "FAImpex", "WMTest"};
     int i = 0, dpid;
+    String name;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,6 +71,18 @@ public class LoginActivity extends AppCompatActivity implements LoginResponseInt
         adapterForDB = new ArrayAdapter<String>(this, android.R.layout.simple_dropdown_item_1line, DBList);
         autoCompleteTextView.setText(adapterForDB.getItem(0).toString());
         autoCompleteTextView.setAdapter(adapterForDB);
+
+        TextView linkTextView = findViewById(R.id.link);
+        linkTextView.setPaintFlags(linkTextView.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
+        linkTextView.setMovementMethod(LinkMovementMethod.getInstance());
+        linkTextView.setLinkTextColor(Color.BLUE);
+        linkTextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.azonix.in/"));
+                startActivity(browserIntent);
+            }
+        });
 
         activityMainBinding.CardForHeading.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -145,19 +161,14 @@ public class LoginActivity extends AppCompatActivity implements LoginResponseInt
         if (generateLoginResponseModel.getMessage().equals("Logged in successfully")) {
             getByUserIDViewModels.setUser_id(generateLoginResponseModel.getData().getId());
             getByUserIDViewModels.setDbname(getPreferenceManager().getPrefDbname());
-            getByUserIDViewModels.setAuth("Bearer "+generateLoginResponseModel.getToken());
+            getByUserIDViewModels.setAuth("Bearer " + generateLoginResponseModel.getToken());
             getByUserIDViewModels.generateGetByID();
             dpid = Integer.parseInt(generateLoginResponseModel.getData().getDepartmentId());
             getPreferenceManager().setPrefToken(generateLoginResponseModel.getToken());
             getPreferenceManager().setPrefId(generateLoginResponseModel.getData().getId());
-            Intent intent = new Intent(LoginActivity.this, welcomeSaibhavani.class);
-            intent.putExtra("name", generateLoginResponseModel.getData().getName());
-            intent.putExtra("dpid", dpid);
-            startActivity(intent);
-            finishAffinity();
+            name = generateLoginResponseModel.getData().getName();
             getPreferenceManager().setPrefUsername(generateLoginResponseModel.getData().getName());
             getPreferenceManager().setPrefDpid(Integer.parseInt(generateLoginResponseModel.getData().getDepartmentId().toString()));
-            Toast.makeText(getApplicationContext(), "Login Successful", Toast.LENGTH_SHORT).show();
         } else if (generateLoginResponseModel.getStatus().equals("1")) {
             Toast.makeText(getApplicationContext(), "" + generateLoginResponseModel.getMessage(), Toast.LENGTH_LONG).show();
         } else {
@@ -167,14 +178,20 @@ public class LoginActivity extends AppCompatActivity implements LoginResponseInt
 
     @Override
     public void generateGETBYID(getByUserIDResponseModel getByUserIDResponseModel) {
-
         if (getByUserIDResponseModel.getStatus().equals("0")) {
             try {
                 getPreferenceManager().setPrefTeamId(getByUserIDResponseModel.getUsers().get(0).getTeamId());
-
+                Intent intent = new Intent(LoginActivity.this, welcomeSaibhavani.class);
+                intent.putExtra("name", name);
+                intent.putExtra("dpid", dpid);
+                startActivity(intent);
+                finishAffinity();
+                Toast.makeText(getApplicationContext(), "Login Successful", Toast.LENGTH_SHORT).show();
             } catch (Exception e) {
                 Log.i("ExceptionInTEAMISGET", "" + e);
             }
+        }else{
+            Toast.makeText(this, "User Team ID Not Found.", Toast.LENGTH_SHORT).show();
         }
 
     }
@@ -182,7 +199,6 @@ public class LoginActivity extends AppCompatActivity implements LoginResponseInt
     @Override
     public void onFailure(ErrorBody errorBody, int statusCode) {
         activityMainBinding.Progress.setVisibility(View.GONE);
-
     }
 
     /**

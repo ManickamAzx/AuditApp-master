@@ -33,7 +33,7 @@ public class welcomeScreen extends AppCompatActivity {
                 startActivity(intent);
                 finish();
             }
-        },3000);    }
-
+        },3000);
+    }
 
 }

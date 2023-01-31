@@ -74,9 +74,7 @@ import com.mdq.auditinspectionapp.enums.ViewType;
 import java.lang.reflect.Field;
 import java.util.Calendar;
 
-public class selectionForReport extends AppCompatActivity implements SourceResponseInterface, SeasonResponseInterface, BrandResponseInterface, SupplierResponseInterface, InvoiceResponseInterface,
-        Interface_FinalInvoice, FinalInvoiceResponseInterface
-        , OrderTypeResponseInterface, OrderStatusResponseInterface {
+public class selectionForReport extends AppCompatActivity implements SourceResponseInterface, SeasonResponseInterface, BrandResponseInterface, SupplierResponseInterface, InvoiceResponseInterface, Interface_FinalInvoice, FinalInvoiceResponseInterface, OrderTypeResponseInterface, OrderStatusResponseInterface {
 
     TextView ProductUpdate, submit;
     BottomSheetDialog bottomSheetDialog;
@@ -87,15 +85,13 @@ public class selectionForReport extends AppCompatActivity implements SourceRespo
     SupplierRequestViewModel supplierRequestViewModel;
     GetInvoiceListReportViewModel invoiceRequestViewModel;
     FinalInvoiceViewModel finalInvoiceViewModel;
-//    CustomerRequestViewModel customerRequestViewModel;
     OrderTypeViewModel orderTypeViewModel;
     OrderStatusViewModel orderStatusViewModel;
-//    VendorNameViewModel vendorNameViewModel;
     PreferenceManager preferenceManager;
     ActivitySelectionForReportBinding at;
     AutoCompleteTextView SourceAuto, SeasonAuto, BrandAuto, OrderStatusAuto, OrderTypeAuto, newSupplierAuto;
     ArrayAdapter<String> sourceAdapter, seasonAdapter, brandAdapter, supplierAdapter, CustomerAdapter, OrderTpeAdapter, OrderStatusAdapter, newSupplierAdapter;
-    String[] SourceId, SourceName, sourceFlag, SeasonName, SeasonId, BrandId, BrandName,  OrderType, OrderStatus, OrderID, SupplierName, newSupplierName, newSupplierCode, InvoiceNo, InvoiceDate;
+    String[] SourceId, SourceName, sourceFlag, SeasonName, SeasonId, BrandId, BrandName, OrderType, OrderStatus, OrderID, SupplierName, newSupplierName, newSupplierCode, InvoiceNo, InvoiceDate;
     int sourceNum, SeasonNum, BrandNum, OrderTypeNum, OrderStatusNUM, newSupplierNum;
     GenerateSeasonResponseModel generateSeasonResponseModel;
     GenerateSourceResponseModel generateSourceResponseModel;
@@ -120,8 +116,7 @@ public class selectionForReport extends AppCompatActivity implements SourceRespo
         at = ActivitySelectionForReportBinding.inflate(getLayoutInflater());
         setContentView(at.getRoot());
 
-        connectivityManager = (ConnectivityManager) getApplicationContext()
-                .getSystemService(Context.CONNECTIVITY_SERVICE);
+        connectivityManager = (ConnectivityManager) getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
         ProductUpdate = findViewById(R.id.textProductupdate);
         submit = findViewById(R.id.submit);
         back = findViewById(R.id.linearBack);
@@ -138,18 +133,8 @@ public class selectionForReport extends AppCompatActivity implements SourceRespo
         requestViewModel = new SeasonRequestViewModel(getApplicationContext(), this);
         brandRequestViewModel = new BrandRequestViewModel(getApplicationContext(), this);
         supplierRequestViewModel = new SupplierRequestViewModel(getApplicationContext(), this);
-        invoiceRequestViewModel = new GetInvoiceListReportViewModel(    getApplicationContext(), this);
+        invoiceRequestViewModel = new GetInvoiceListReportViewModel(getApplicationContext(), this);
         finalInvoiceViewModel = new FinalInvoiceViewModel(getApplicationContext(), this);
-
-//        customerRequestViewModel = new CustomerRequestViewModel(getApplicationContext(), this);
-//        customerRequestViewModel.setAuthorization("Bearer " + getPreferenceManager().getPrefToken());
-//        customerRequestViewModel.setDbname(getPreferenceManager().getPrefDbname());
-//        customerRequestViewModel.generateCustomerRequest();
-
-//        vendorNameViewModel = new VendorNameViewModel(getApplicationContext(), this);
-//        vendorNameViewModel.setAuthorization("Bearer " + getPreferenceManager().getPrefToken());
-//        vendorNameViewModel.setDbname(getPreferenceManager().getPrefDbname());
-//        vendorNameViewModel.generateCustomerRequest();
 
         orderTypeViewModel = new OrderTypeViewModel(getApplicationContext(), this);
         orderTypeViewModel.setAuthorization("Bearer " + getPreferenceManager().getPrefToken());
@@ -227,12 +212,6 @@ public class selectionForReport extends AppCompatActivity implements SourceRespo
                 newSupplierAuto.showDropDown();
             }
         });
-//        at.CustomerLinear.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                CustomerAuto.showDropDown();
-//            }
-//        });
         SourceAuto.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -251,18 +230,7 @@ public class selectionForReport extends AppCompatActivity implements SourceRespo
                 SeasonNum = position + 1;
             }
         });
-//        CustomerAuto.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//                CustomerNum = position + 1;
-//            }
-//        });
-//        CustomerAuto.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//                CustomerNum = position + 1;
-//            }
-//        });
+
         OrderTypeAuto.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -275,12 +243,7 @@ public class selectionForReport extends AppCompatActivity implements SourceRespo
                 OrderStatusNUM = position + 1;
             }
         });
-//        SupplierAuto.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//                SupplierNum = position + 1;
-//            }
-//        });
+
         BrandAuto.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -291,15 +254,9 @@ public class selectionForReport extends AppCompatActivity implements SourceRespo
         at.BrandLinear.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if ((connectivityManager
-                        .getNetworkInfo(ConnectivityManager.TYPE_MOBILE) != null && connectivityManager
-                        .getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED)
-                        || (connectivityManager
-                        .getNetworkInfo(ConnectivityManager.TYPE_WIFI) != null && connectivityManager
-                        .getNetworkInfo(ConnectivityManager.TYPE_WIFI)
-                        .getState() == NetworkInfo.State.CONNECTED)) {
+                if ((connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE) != null && connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED) || (connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI) != null && connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() == NetworkInfo.State.CONNECTED)) {
                     if (SeasonNum != 0 && sourceNum != 0) {
-                        if(getPreferenceManager().getPrefTeamId()!=null) {
+                        if (getPreferenceManager().getPrefTeamId() != null) {
                             brandRequestViewModel.setAuthorization("Bearer " + getPreferenceManager().getPrefToken());
                             brandRequestViewModel.setSeasonId(SeasonId[SeasonNum - 1]);
                             int ss = sourceNum - 1;
@@ -308,7 +265,7 @@ public class selectionForReport extends AppCompatActivity implements SourceRespo
                             brandRequestViewModel.setDbname(getPreferenceManager().getPrefDbname());
                             brandRequestViewModel.setTeamId(getPreferenceManager().getPrefTeamId());
                             brandRequestViewModel.generateBrandRequest();
-                        }else{
+                        } else {
                             Toast.makeText(getApplicationContext(), "Team id required.", Toast.LENGTH_SHORT).show();
                         }
                     } else {
@@ -320,29 +277,17 @@ public class selectionForReport extends AppCompatActivity implements SourceRespo
             }
         });
 
-//        at.SupplierLinear.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                SupplierAuto.showDropDown();
-//            }
-//        });
         at.newSupplierLinear.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if ((connectivityManager
-                        .getNetworkInfo(ConnectivityManager.TYPE_MOBILE) != null && connectivityManager
-                        .getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED)
-                        || (connectivityManager
-                        .getNetworkInfo(ConnectivityManager.TYPE_WIFI) != null && connectivityManager
-                        .getNetworkInfo(ConnectivityManager.TYPE_WIFI)
-                        .getState() == NetworkInfo.State.CONNECTED)) {
-                    if (SeasonNum != 0 && sourceNum != 0 && BrandNum !=0) {
+                if ((connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE) != null && connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED) || (connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI) != null && connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() == NetworkInfo.State.CONNECTED)) {
+                    if (SeasonNum != 0 && sourceNum != 0 && BrandNum != 0) {
                         supplierRequestViewModel.setAuthorization("Bearer " + getPreferenceManager().getPrefToken());
                         supplierRequestViewModel.setSeasonId(SeasonId[SeasonNum - 1]);
                         int ss = sourceNum - 1;
                         supplierRequestViewModel.setSourceFlag(sourceFlag[ss]);
                         supplierRequestViewModel.setSourceId(SourceId[ss]);
-                        supplierRequestViewModel.setBrandId(BrandId[BrandNum-1]);
+                        supplierRequestViewModel.setBrandId(BrandId[BrandNum - 1]);
                         supplierRequestViewModel.setDbname(getPreferenceManager().getPrefDbname());
                         supplierRequestViewModel.generateSupplierRequest();
                     } else {
@@ -432,14 +377,8 @@ public class selectionForReport extends AppCompatActivity implements SourceRespo
                 ff = at.from.getText().toString();
                 un = at.until.getText().toString();
 
-                if ((connectivityManager
-                        .getNetworkInfo(ConnectivityManager.TYPE_MOBILE) != null && connectivityManager
-                        .getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED)
-                        || (connectivityManager
-                        .getNetworkInfo(ConnectivityManager.TYPE_WIFI) != null && connectivityManager
-                        .getNetworkInfo(ConnectivityManager.TYPE_WIFI)
-                        .getState() == NetworkInfo.State.CONNECTED)) {
-                    if (sourceNum != 0 && SeasonNum != 0 && BrandNum != 0 &&  !ff.isEmpty() && !un.isEmpty()) {
+                if ((connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE) != null && connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED) || (connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI) != null && connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() == NetworkInfo.State.CONNECTED)) {
+                    if (sourceNum != 0 && SeasonNum != 0 && BrandNum != 0 && !ff.isEmpty() && !un.isEmpty()) {
                         {
                             invoiceRequestViewModel.setAuthorization("Bearer " + getPreferenceManager().getPrefToken().trim());
                             invoiceRequestViewModel.setSeasonId(generateSeasonResponseModel.getResponse().get(SeasonNum - 1).getSeasonId().trim());
@@ -447,8 +386,6 @@ public class selectionForReport extends AppCompatActivity implements SourceRespo
                             invoiceRequestViewModel.setSupplierCode(generateSupplierResponseModel.getResponse().get(newSupplierNum - 1).getSupplierCode().trim());
                             invoiceRequestViewModel.setSourceId(generateSourceResponseModel.getResponse().get(sourceNum - 1).getSourceId().trim());
                             invoiceRequestViewModel.setBrandId(generateBrandResponseModel.getResponse().get(BrandNum - 1).getBrandId().trim());
-//                            invoiceRequestViewModel.setFrom(at.from.getText().toString());
-//                            invoiceRequestViewModel.setTo(at.until.getText().toString());
                             invoiceRequestViewModel.setDbname(getPreferenceManager().getPrefDbname());
                             invoiceRequestViewModel.generateInvoiceRequest();
                         }
@@ -473,13 +410,7 @@ public class selectionForReport extends AppCompatActivity implements SourceRespo
 
     private void calingApi() {
 
-        if ((connectivityManager
-                .getNetworkInfo(ConnectivityManager.TYPE_MOBILE) != null && connectivityManager
-                .getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED)
-                || (connectivityManager
-                .getNetworkInfo(ConnectivityManager.TYPE_WIFI) != null && connectivityManager
-                .getNetworkInfo(ConnectivityManager.TYPE_WIFI)
-                .getState() == NetworkInfo.State.CONNECTED)) {
+        if ((connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE) != null && connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED) || (connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI) != null && connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() == NetworkInfo.State.CONNECTED)) {
             if (!getPreferenceManager().getPrefToken().isEmpty()) {
                 sourceRequestViewModel.setDbname(getPreferenceManager().getPrefDbname());
                 sourceRequestViewModel.setAuthorization("Bearer " + getPreferenceManager().getPrefToken());
@@ -668,41 +599,6 @@ public class selectionForReport extends AppCompatActivity implements SourceRespo
         }
     }
 
-//    @Override
-//    public void generateCustomerProcessed(CustomerNameResponseModel customerNameResponseModel) {
-//        if (!customerNameResponseModel.getData().isEmpty()) {
-//            CustomerName = new String[customerNameResponseModel.getData().size()];
-//            CustomerID = new String[customerNameResponseModel.getData().size()];
-//            CustomerCode = new String[customerNameResponseModel.getData().size()];
-//            for (int i = 0; i < customerNameResponseModel.getData().size(); i++) {
-//                CustomerName[i] = customerNameResponseModel.getData().get(i).getCustomerName();
-//                CustomerCode[i] = customerNameResponseModel.getData().get(i).getCustomerCode();
-//                CustomerID[i] = customerNameResponseModel.getData().get(i).getCustomerCode();
-//            }
-//            this.customerNameResponseModel = customerNameResponseModel;
-//            CustomerAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_dropdown_item_1line, CustomerName);
-//            CustomerAuto.setAdapter(CustomerAdapter);
-//        }
-//    }
-
-//    @Override
-//    public void generateVendorNameProcessed(VendorNameResponseModel vendorNameResponseModel) {
-//        if (!vendorNameResponseModel.getData().isEmpty()) {
-//            SupplierCode = new String[vendorNameResponseModel.getData().size()];
-//            SupplierName = new String[vendorNameResponseModel.getData().size()];
-//            for (int i = 0; i < vendorNameResponseModel.getData().size(); i++) {
-//                SupplierCode[i] = vendorNameResponseModel.getData().get(i).getVendorId();
-//                SupplierName[i] = vendorNameResponseModel.getData().get(i).getVendorName();
-//            }
-//            this.vendorNameResponseModel = vendorNameResponseModel;
-//            supplierAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_dropdown_item_1line, SupplierName);
-//            SupplierAuto.setAdapter(supplierAdapter);
-//
-//        } else {
-//            Toast.makeText(getApplicationContext(), "No data", Toast.LENGTH_LONG).show();
-//        }
-//    }
-
     @Override
     public void generateOrderTypeProcessed(OrderTypeResponseModel orderTypeResponseModel) {
         if (!orderTypeResponseModel.getData().isEmpty()) {
@@ -762,8 +658,6 @@ public class selectionForReport extends AppCompatActivity implements SourceRespo
             intent.putExtra("orderType", orderTypeRequestModel.getData().get(OrderTypeNum - 1).getOrderId());
             intent.putExtra("from", f);
             intent.putExtra("to", t);
-//            intent.putExtra("vendor", vendorNameResponseModel.getData().get(SupplierNum - 1).getVendorId());
-//            intent.putExtra("customer", customerNameResponseModel.getData().get(CustomerNum - 1).getCustomerId());
             intent.putExtra("Seasonname", generateSeasonResponseModel.getResponse().get(SeasonNum - 1).getSeasonId());
             intent.putExtra("piNo", generateInvoiceResponseModel.getResponse().get(invoice).getInvoidNo());
             intent.putExtra("SourceName", generateSourceResponseModel.getResponse().get(sourceNum - 1).getSourceName());
@@ -776,8 +670,6 @@ public class selectionForReport extends AppCompatActivity implements SourceRespo
             intent.putExtra("orderType", orderTypeRequestModel.getData().get(OrderTypeNum - 1).getOrderId());
             intent.putExtra("from", f);
             intent.putExtra("to", t);
-//            intent.putExtra("vendor", vendorNameResponseModel.getData().get(SupplierNum - 1).getVendorId());
-//            intent.putExtra("customer", customerNameResponseModel.getData().get(CustomerNum - 1).getCustomerId());
             intent.putExtra("Seasonname", generateSeasonResponseModel.getResponse().get(SeasonNum - 1).getSeasonId());
             intent.putExtra("piNo", generateInvoiceResponseModel.getResponse().get(invoice).getInvoidNo());
             intent.putExtra("SourceName", generateSourceResponseModel.getResponse().get(sourceNum - 1).getSourceName());

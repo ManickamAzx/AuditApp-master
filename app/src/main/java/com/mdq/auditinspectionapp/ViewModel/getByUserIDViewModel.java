@@ -30,12 +30,12 @@ public class getByUserIDViewModel extends getByUserIDBaseViewModel implements ge
     }
 
     private void goGenerateBrand() {
-        getByUserIDRequestModel getByUserIDRequestModel=new getByUserIDRequestModel();
-        getByUserIDRequestModel.user_id=getUser_id();
-        getByUserIDRequestModel.dbname=getDbname();
+        getByUserIDRequestModel getByUserIDRequestModel = new getByUserIDRequestModel();
+        getByUserIDRequestModel.user_id = getUser_id();
+        getByUserIDRequestModel.dbname = getDbname();
 
 
-        getByUserIdDataManager.callEnqueue(ApiClass.GETTEAMID,getAuth(), getByUserIDRequestModel,new ResponseHandler<getByUserIDResponseModel>() {
+        getByUserIdDataManager.callEnqueue(ApiClass.GETTEAMID, getAuth(), getByUserIDRequestModel, new ResponseHandler<getByUserIDResponseModel>() {
             @Override
             public void onSuccess(String message) {
 
@@ -43,18 +43,19 @@ public class getByUserIDViewModel extends getByUserIDBaseViewModel implements ge
 
             @Override
             public void onSuccess(getByUserIDResponseModel item, String message) {
-                Log.i("otpR","rr");
-                if(item.getMessage()!=null) {
+                Log.i("otpR", "rr");
+                if (item.getMessage() != null) {
                     Log.i("otpRecevied", item.getMessage());
                     getInspectionReportResponseInterface.generateGETBYID(item);
                 }
 
             }
+
             @Override
             public void onFailure(ErrorBody errorBody, int statusCode) {
-                if(errorBody.ErrorMessage!=null) {
-                    Log.i("error" ,errorBody.ErrorMessage);
-                    getInspectionReportResponseInterface.onFailure(errorBody,statusCode);
+                if (errorBody.ErrorMessage != null) {
+                    Log.i("error", errorBody.ErrorMessage);
+                    getInspectionReportResponseInterface.onFailure(errorBody, statusCode);
                 }
             }
         });

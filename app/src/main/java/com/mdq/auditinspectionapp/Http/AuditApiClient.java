@@ -40,7 +40,7 @@ public class AuditApiClient {
             retrofit = new Retrofit.Builder()
                     .baseUrl(apiClass.BASE_URL)
                     .addConverterFactory(JacksonConverterFactory.create())
-                    .client(getUnsafeOkHttpClient().build())
+                    .client(defaultHttpClient)
                     .build();
         }
         return retrofit.create(ApiInterface.class);

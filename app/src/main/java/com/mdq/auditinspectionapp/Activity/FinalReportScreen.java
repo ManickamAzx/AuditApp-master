@@ -74,8 +74,6 @@ public class FinalReportScreen extends AppCompatActivity implements GetInspectio
         orderType = intent.getStringExtra("orderType");
         from = intent.getStringExtra("from");
         to = intent.getStringExtra("to");
-//        vendor = intent.getStringExtra("vendor");
-//        customer = intent.getStringExtra("customer");
         Seasonname = intent.getStringExtra("Seasonname");
         piNo = intent.getStringExtra("piNo");
         SourceName = intent.getStringExtra("SourceName");
@@ -86,26 +84,21 @@ public class FinalReportScreen extends AppCompatActivity implements GetInspectio
         if (who.equals("production")) {
             getProductionReportViewModel.setAuth("Bearer " + getPreferenceManager().getPrefToken());
             getProductionReportViewModel.setBrand(BRAND);
-//            getProductionReportViewModel.setCustomer(customer);
             getProductionReportViewModel.setInvoiceNo(piNo);
             getProductionReportViewModel.setOrderStatus(OrderStatus);
             getProductionReportViewModel.setOrderType(orderType);
-//            getProductionReportViewModel.setVendor(vendor);
             getProductionReportViewModel.setSeasonName(Seasonname);
             getProductionReportViewModel.setFrom(from);
             getProductionReportViewModel.setTo(to);
             getProductionReportViewModel.setDbname(getPreferenceManager().getPrefDbname());
-
             getProductionReportViewModel.getProductionReportCall();
 
         } else if (who.equals("inspection")) {
             getInspectionViewModel.setAuth("Bearer " + getPreferenceManager().getPrefToken());
             getInspectionViewModel.setBrand(BRAND);
-//            getInspectionViewModel.setCustomer(customer);
             getInspectionViewModel.setInvoiceNo(piNo);
             getInspectionViewModel.setOrderStatus(OrderStatus);
             getInspectionViewModel.setOrderType(orderType);
-//            getInspectionViewModel.setVendor(vendor);
             getInspectionViewModel.setSeasonName(Seasonname);
             getInspectionViewModel.setFrom(from);
             getInspectionViewModel.setTo(to);
@@ -246,7 +239,7 @@ public class FinalReportScreen extends AppCompatActivity implements GetInspectio
         DownloadManager.Request request = new DownloadManager.Request(Uri.parse(url));
         request.setDescription(filename + "/ " + date);
 
-        String nnme = filename + "_" + date+".pdf";
+        String nnme = filename + "_" + date + ".pdf";
         Log.i("sanjai", filename + "/" + date);
         request.setTitle(filename + "/" + date);
         request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS,
@@ -255,9 +248,10 @@ public class FinalReportScreen extends AppCompatActivity implements GetInspectio
             request.allowScanningByMediaScanner();
             request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
         }
-            String uurl =filename.replace(".pdf", "");
-            uurl = uurl+"-"+date+".pdf";
-            request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, uurl);
+
+        String uurl = filename.replace(".pdf", "");
+        uurl = uurl + "-" + date + ".pdf";
+        request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, uurl);
 
         DownloadManager manager = (DownloadManager) getSystemService(Context.DOWNLOAD_SERVICE);
         manager.enqueue(request);
@@ -296,7 +290,6 @@ public class FinalReportScreen extends AppCompatActivity implements GetInspectio
                 }
             }
         };
-
         registerReceiver(downloadReceiver, filter);
 
     }
